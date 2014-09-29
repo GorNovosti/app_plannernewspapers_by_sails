@@ -1,4 +1,4 @@
-# app_palannernewspapers
+# app_plannernewspapers_by_sails
 
 a [Sails](http://sailsjs.org) application
 
