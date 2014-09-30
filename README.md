@@ -4,7 +4,11 @@ a [Sails](http://sailsjs.org) application
 
 > установка поддержки mongoDB 
  
-    >npm install sails-mongo
+    >npm install sails-mongo --save
+
+> установка поддержки MySQL
+
+    >npm install sails-mysql --save
 
 ####Источники
 
