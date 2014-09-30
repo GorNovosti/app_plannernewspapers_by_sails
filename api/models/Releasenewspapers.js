@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
       name:{
           type:"string"
-      },
+      }
+      ,
       pages:{
           collection: 'pagesnewspapers',
           via:'newspaper'
