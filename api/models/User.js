@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    connection: "localMysqlServer",
+    connection:  "localMysqlServer",//"localPostgresqlServer",//
     attributes: {
         name: {
             type: "String"

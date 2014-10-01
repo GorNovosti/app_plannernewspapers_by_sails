@@ -10,6 +10,9 @@ a [Sails](http://sailsjs.org) application
 
     >npm install sails-mysql --save
 
+> установка поддержки PostgresSQL
+
+    >npm install sails-postgresql --save
 ####Источники
 
 - [Счет на оплату. Рабочее приложение на sails.js, ractive.js, Backbone.js](http://habrahabr.ru/post/221171/)

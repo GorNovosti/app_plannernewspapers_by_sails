@@ -85,7 +85,16 @@ module.exports.connections = {
 //    password: 'YOUR_POSTGRES_PASSWORD',
 //    database: 'YOUR_POSTGRES_DB'
 //  }
-
+    localPostgresqlServer: {
+        adapter: 'sails-postgresql',
+        host: 'localhost',
+        user: 'sails',
+        password: 'usbw',
+        database: 'sails_db_plannernewspapers',
+        port: 5432,
+        pool: false,
+        ssl: false
+    }
 
     /***************************************************************************
      *                                                                          *
