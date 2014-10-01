@@ -4,7 +4,7 @@
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
-
+// var bcrypt = require('bcrypt');//TODO: test to work in this place. see in http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/ 
 module.exports = {
     connection: "localMysqlServer", //"localPostgresqlServer",//
     attributes: {
@@ -38,7 +38,7 @@ module.exports = {
 //                    return next(err);
 //
 //                attrs.password = hash;
-                next();
+                next();//TODO: test next(null, attrs);
 //            });
 //        });
     }

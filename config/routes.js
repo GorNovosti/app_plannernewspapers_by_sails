@@ -41,7 +41,15 @@ module.exports.routes = {
     '/about': {
         controller: 'aboutController',
         action: "index"
-    },    
+    },
+    '/login': {
+        controller: "AuthController",
+        action: "login"
+    },
+    '/logout': {
+        controller: "AuthController",
+        action: "logout"
+    }
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *
