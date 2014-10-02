@@ -8,7 +8,7 @@
 module.exports = {
     index: function (req, res) {
         res.view(null, {
-            title: 'О Нас'
+            title: 'О приложении'
         });
     }
 };
