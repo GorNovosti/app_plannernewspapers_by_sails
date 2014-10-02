@@ -82,7 +82,26 @@ module.exports = {
                 title: "Список пользователей"
             });
         });
-    },
+    },   
+    /***
+     * Edit User Information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    edit: function (req, res, next) {
+        User.findOne(req.param('id'), function foundUser(err, user) {
+            if ((err) || (!user))
+                return next(err);
+            res.view({
+                user: user,
+                title: "Редактирование пользователь - " + user.name
+            });
+
+        });
+
+    }, 
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
         console.log(req.body);
