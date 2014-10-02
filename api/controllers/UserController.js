@@ -59,13 +59,29 @@ module.exports = {
             if ((err) || (!user))
                 return next(err);
             res.view({
-                user: user
-            ,
+                user: user,
                 title: "Пользователь - " + user.name
             });
 
-        })
+        });
 
+    },
+    /**
+     * Show list of users
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    index: function (req,res,next) {
+        User.find(function fioundUser(err,users){
+            if (err) return next(err);
+            //pass the array down to the /views/index.ejs page
+            res.view({
+                users:users,
+                title: "Список пользователей"
+            });
+        });
     },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
