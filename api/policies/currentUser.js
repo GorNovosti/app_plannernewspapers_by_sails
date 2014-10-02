@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
     // User is allowed, proceed to controller
     if (req.session.user) {
         req.body.user = req.session.user;
-        return next();
+        return next(); 
     }
 
     // User is not allowed

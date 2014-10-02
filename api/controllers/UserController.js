@@ -13,12 +13,19 @@ module.exports = {
      * @returns {undefined}
      */
     'new': function (req, res) {
-        res.locals.flash = _.clone(req.session.flash);
+       // res.locals.flash = _.clone(req.session.flash);
         res.view(null, {
             title: "Регистрация пользователя"
         });
-        req.session.flash = {};
+        //req.session.flash = {};
     },
+    /**
+     * Create new User 
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined} 
+     */
     create: function (req, res, next) {
         //Create User with params send from the sing-up form --> user/new.ejs 
         User.create(req.params.all(), function userCreated(err, user) {
