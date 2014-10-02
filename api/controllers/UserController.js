@@ -101,7 +101,22 @@ module.exports = {
 
         });
 
-    }, 
+    },
+    /***
+     * Update user information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    update: function(req,res,next){
+        User.update(req.param('id'),req.params.all(),function userUpdate(err){
+            if (err){
+                return res.redirect('/user/edit/'+req.param('id'));
+            }
+            res.redirect('/user/show/'+req.param('id'));
+        });
+    },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
         console.log(req.body);
