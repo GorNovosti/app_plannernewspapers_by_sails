@@ -6,6 +6,29 @@
  */
 
 module.exports = {
+    /**
+     * Add New User Form
+     * @param {type} req
+     * @param {type} res
+     * @returns {undefined}
+     */
+    'new': function (req, res) {
+        res.view(null, {
+            title: "Регистрация пользователя"
+        });
+    },
+    create: function (req, res, next) {
+        //Create User with params send from the sing-up form --> user/new.ejs 
+        User.create(req.params.all(), function userCreated(err, user) {
+            //  get error
+            if (err)
+                return next(err);
+            // success creating the user 
+            // redirect to the action
+            res.json(user);
+        });
+
+    },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
         console.log(req.body);

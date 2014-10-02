@@ -7,6 +7,7 @@
 // var bcrypt = require('bcrypt');//TODO: test to work in this place. see in http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/ 
 module.exports = {
     connection: 'someMongodbServer', // "localMysqlServer", //"localPostgresqlServer",//
+    shema: true,
     attributes: {
         name: {
             type: "string",
@@ -28,8 +29,17 @@ module.exports = {
         },
         encryptedPassword: {
             type: "string"
+        },
+        // clear model data 
+        toJSON: function () {
+            var obj = this.toObject();
+            delete obj.password;
+            delete obj.confirmation;
+            delete obj.encryptedPassword;
+            delete obj._csrf;
+            return obj;
         }
-    }, 
+    },
     beforeCreate: function (attrs, next) {
         console.log(attrs);
 //        var bcrypt = require('bcrypt');
