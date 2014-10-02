@@ -58,12 +58,13 @@
             </li>
             <li><a href="/list">My List</a></li>
           </ul>
-        </div>
-    <form method="POST" action="/user/login" class="form">
-        <input name="email" value="demo@demo.com">
-        <input name="password" value="demo123456"> 
-    <button type="submit">Авторизация</button>
-    </form>
+ 
+        <form method="POST" action="/user/login" class="form form-inline pull-right">
+            <input name="email" value="demo@demo.com" class="form-control">
+            <input name="password" value="demo123456" class="form-control"> 
+        <button type="submit" class="btn btn-success">Авторизоваться</button>
+        </form>
+     </div>
       </div>
     </div> 
     <div class="container">
