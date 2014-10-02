@@ -13,7 +13,7 @@ module.exports = {
      * @returns {undefined}
      */
     'new': function (req, res) {
-       // res.locals.flash = _.clone(req.session.flash);
+        // res.locals.flash = _.clone(req.session.flash);
         res.view(null, {
             title: "Регистрация пользователя"
         });
@@ -41,9 +41,30 @@ module.exports = {
             }
             // success creating the user 
             // redirect to the action
-            res.json(user);
-            req.session.flash = {};
+            res.redirect('user/show/' + user.id);
+            //TODO: delete --> res.json(user);
+            //TODO: delete - no need anymore --> req.session.flash = {};
         });
+
+    },
+    /**
+     * Show user info
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    show: function (req, res, next) {
+        User.findOne(req.param('id'), function foundUser(err, user) {
+            if ((err) || (!user))
+                return next(err);
+            res.view({
+                user: user
+            ,
+                title: "Пользователь - " + user.name
+            });
+
+        })
 
     },
     login: function (req, res) {
