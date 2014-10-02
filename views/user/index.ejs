@@ -1,0 +1,36 @@
+<!-- views/user/index -->
+<div class="container">
+    <h3>Пользователи </h3>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Должность </th>
+            <th>E-Mail</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <% _.each(users, function(user) { %>
+        <tr data-id="<%= user.id %>" data-model="user">
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.title %></td>
+            <td><%= user.email %></td>
+            <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Просмотреть</a></td>
+            <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Редактировать</a></td>
+            <td>
+                <!--                <a href="/user/destroy/<%= user.id %>" class="btn btn-sm btn-danger">Удалить</a>-->
+                <form method="POST" action="/user/destroy/<%= user.id %>">
+                    <input type="hidden" name="_method" value="delete" />
+                    
+                    <input type="submit" class="btn btn-sm btn-danger" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+
+        <% }) %>
+    </table>
+</div>
+<!-- //views/user/index -->

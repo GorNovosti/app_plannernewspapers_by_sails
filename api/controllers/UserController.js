@@ -6,6 +6,138 @@
  */
 
 module.exports = {
+    /**
+     * Add New User Form
+     * @param {type} req
+     * @param {type} res
+     * @returns {undefined}
+     */
+    'new': function (req, res) {
+        // res.locals.flash = _.clone(req.session.flash);
+        res.view(null, {
+            title: "Регистрация пользователя"
+        });
+        //req.session.flash = {};
+    },
+    /**
+     * Create new User 
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined} 
+     */
+    create: function (req, res, next) {
+        //Create User with params send from the sing-up form --> user/new.ejs 
+        User.create(req.params.all(), function userCreated(err, user) {
+            //  get error
+            if (err) {
+                //NOTE: no need see return next(err);
+                console.log(err);
+                // if error redirect back to form sing-up page
+                req.session.flash = {
+                    err: err
+                };
+                return res.redirect('/user/new');
+            }
+            // success creating the user 
+            // redirect to the action
+            res.redirect('user/show/' + user.id);
+            //TODO: delete --> res.json(user);
+            //TODO: delete - no need anymore --> req.session.flash = {};
+        });
+
+    },
+    /**
+     * Show user info
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    show: function (req, res, next) {
+        User.findOne(req.param('id'), function foundUser(err, user) {
+            if ((err) || (!user))
+                return next(err);
+            res.view({
+                user: user,
+                title: "Пользователь - " + user.name
+            });
+
+        });
+
+    },
+    /**
+     * Show list of users
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    index: function (req, res, next) {
+        User.find(function fioundUser(err, users) {
+            if (err)
+                return next(err);
+            //pass the array down to the /views/index.ejs page
+            res.view({
+                users: users,
+                title: "Список пользователей"
+            });
+        });
+    },
+    /***
+     * Edit User Information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    edit: function (req, res, next) {
+        User.findOne(req.param('id'), function foundUser(err, user) {
+            if ((err) || (!user))
+                return next(err);
+            res.view({
+                user: user,
+                title: "Редактирование пользователь - " + user.name
+            });
+
+        });
+
+    },
+    /***
+     * Update user information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    update: function (req, res, next) {
+        User.update(req.param('id'), req.params.all(), function userUpdate(err) {
+            if (err) {
+                return res.redirect('/user/edit/' + req.param('id'));
+            }
+            res.redirect('/user/show/' + req.param('id'));
+        });
+    },
+    /***
+     * Delete User information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    destroy: function (req, res, next) {
+        User.findOne(req.param('id', function (err, user) {
+            if (err)
+                return next(err);
+            if (!user)
+                return next('Пользователь не найден');
+            User.destroy(req.param('id'), function userDestroyed(err) {
+                if (err)
+                    return next(err);
+            });
+            res.redirect('/user');
+        }));
+    },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
         console.log(req.body);
