@@ -6,16 +6,18 @@
  */
 // var bcrypt = require('bcrypt');//TODO: test to work in this place. see in http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/ 
 module.exports = {
-    connection: "localMysqlServer", //"localPostgresqlServer",//
+    connection: 'someMongodbServer', // "localMysqlServer", //"localPostgresqlServer",//
     attributes: {
         name: {
-            type: "String"
+            type: "string",
+            required: true
         },
         login: {
-            type: "String"
+            type: "string"
         },
         email: {
             type: 'string',
+            email: true,
             unique: true,
             required: true
         },
@@ -23,10 +25,13 @@ module.exports = {
             type: 'string',
             required: true,
             minLength: 6
+        },
+        encryptedPassword: {
+            type: "string"
         }
-    },
+    }, 
     beforeCreate: function (attrs, next) {
-          console.log(attrs);  
+        console.log(attrs);
 //        var bcrypt = require('bcrypt');
 //
 //        bcrypt.genSalt(10, function (err, salt) {
@@ -38,7 +43,7 @@ module.exports = {
 //                    return next(err);
 //
 //                attrs.password = hash;
-                next();//TODO: test next(null, attrs);
+        next();//TODO: test next(null, attrs);
 //            });
 //        });
     }
