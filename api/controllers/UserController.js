@@ -73,16 +73,17 @@ module.exports = {
      * @param {type} next
      * @returns {undefined}
      */
-    index: function (req,res,next) {
-        User.find(function fioundUser(err,users){
-            if (err) return next(err);
+    index: function (req, res, next) {
+        User.find(function fioundUser(err, users) {
+            if (err)
+                return next(err);
             //pass the array down to the /views/index.ejs page
             res.view({
-                users:users,
+                users: users,
                 title: "Список пользователей"
             });
         });
-    },   
+    },
     /***
      * Edit User Information
      * @param {type} req
@@ -109,13 +110,33 @@ module.exports = {
      * @param {type} next
      * @returns {undefined}
      */
-    update: function(req,res,next){
-        User.update(req.param('id'),req.params.all(),function userUpdate(err){
-            if (err){
-                return res.redirect('/user/edit/'+req.param('id'));
+    update: function (req, res, next) {
+        User.update(req.param('id'), req.params.all(), function userUpdate(err) {
+            if (err) {
+                return res.redirect('/user/edit/' + req.param('id'));
             }
-            res.redirect('/user/show/'+req.param('id'));
+            res.redirect('/user/show/' + req.param('id'));
         });
+    },
+    /***
+     * Delete User information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    destroy: function (req, res, next) {
+        User.findOne(req.param('id', function (err, user) {
+            if (err)
+                return next(err);
+            if (!user)
+                return next('Пользователь не найден');
+            User.destroy(req.param('id'), function userDestroyed(err) {
+                if (err)
+                    return next(err);
+            });
+            res.redirect('/user');
+        }));
     },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
