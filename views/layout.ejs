@@ -50,22 +50,31 @@
                     <ul class="nav navbar-nav">
                         <li class="<% if (title === 'Главная') { %>active<% } %>">
                             <%- link_to('Главная', '/') %> 
+                        </li>      
+                        <% if(session.authenticated){ %>    
+                        <li class="<% if (title === 'Список выпусков(номеров) газет') { %>active<% } %>">
+                            <%- link_to('Выпуски(номера) газет', '/newspapers') %>  
+                        </li>
+                        <li class="<% if (title === 'Список пользователей') { %>active<% } %>">
+                            <%- link_to('Пользователи', '/user') %>  
+                        </li> 
+                        <%}%>
                         <li class="<% if (title === 'О приложении') { %>active<% } %>">
                             <%- link_to('О приложении', '/about') %>  
                         </li>
-                        <li class="<% if (title === 'Пользователи') { %>active<% } %>">
-                            <%- link_to('Пользователи', '/user') %>  
-                        </li>
+
                     </ul> 
                     <% if(!session.authenticated){ %>    
-                    <form method="POST" action="/session/create" class="form form-inline pull-right">
+                    <form method="POST" action="/session/create" class="navbar-form navbar-right form-inline">
                         <input name="email" value="demo@demo.com" class="form-control">
                         <input type="password" name="password" value="demo123456" class="form-control"> 
                         <input type="hidden" name="_csrf" value="<%= _csrf %>" />
                         <button type="submit" class="btn btn-success">Авторизоваться</button>
                     </form>
                     <%}else{ %>
-                    <a href='/session/destroy' class="btn btn-default  pull-right">Выход</a>  
+                    <div class="navbar-right">
+                        <a href='/session/destroy' class="btn btn-default  pull-right">Выход</a>  
+                    </div>
                     <%} %>
                 </div>
             </div>
@@ -108,7 +117,7 @@
         -->
 
         <!--TEMPLATES-->
-
+        
         <!--TEMPLATES END-->
 
 
