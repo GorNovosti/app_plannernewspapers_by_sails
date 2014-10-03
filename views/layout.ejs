@@ -48,12 +48,12 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
+            <li class="<% if (title === 'Главная') { %>active<% } %>">
                <%- link_to('Главная', '/') %> 
-            <li>
+            <li class="<% if (title === 'О приложении') { %>active<% } %>">
                <%- link_to('О приложении', '/about') %>  
             </li>
-            <li>
+            <li class="<% if (title === 'Пользователи') { %>active<% } %>">
                 <%- link_to('Пользователи', '/user') %>  
             </li>
           </ul>
