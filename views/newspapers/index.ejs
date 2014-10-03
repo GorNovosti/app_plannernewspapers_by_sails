@@ -1,0 +1,28 @@
+<!-- views/newspapers/index --> 
+<div class="container">
+    <h3>Выпуски(номера) газет</h3>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th> 
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr> 
+        <% _.each(newspapers, function(item) { %>
+        <tr data-id="<%= item.id %>" data-model="user">
+            <td><%= item.id %></td>
+            <td><%= item.name %></td> 
+            <td><a href="/newspapers/show/<%= item.id %>" class="btn btn-sm btn-primary">Просмотреть</a></td>
+            <td><a href="/newspapers/edit/<%= item.id %>" class="btn btn-sm btn-warning">Редактировать</a></td>
+            <td> 
+                <form method="POST" action="/newspapers/destroy/<%= item.id %>">
+                    <input type="hidden" name="_method" value="delete" /> 
+                    <input type="submit" class="btn btn-sm btn-danger" value="Удалить"/>
+                </form>
+            </td>
+        </tr> 
+        <% }) %>
+    </table>
+</div>
+<!-- //views/newspapers/index -->
