@@ -13,11 +13,11 @@ module.exports = {
      * @returns {undefined}
      */
     'new': function (req, res) {
-        var oldDate = new Date();
-        var newDateObj = new Date(oldDate.getTime() + 60000);
-        req.session.cookie.expires = newDateObj;
-        req.session.authenticated = true;
-        console.log(req.session);
+//        var oldDate = new Date();
+//        var newDateObj = new Date(oldDate.getTime() + 60000);
+//        req.session.cookie.expires = newDateObj;
+//        req.session.authenticated = true;
+//        console.log(req.session);
         res.view(null, {
             title: "Авторизоваться"
         });
