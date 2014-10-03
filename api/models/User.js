@@ -41,6 +41,10 @@ module.exports = {
         }
     },
     beforeCreate: function (attrs, next) {
+        //This  checks to make sure the password and password confirmation match before creating record
+        if (!atts.password || attr.password != attrs.confirmation) {
+            return next({err: ["Пароль и подтверждение пароля не совпадают!"]});
+        }
         console.log(attrs);
 //        var bcrypt = require('bcrypt');
 //
@@ -50,12 +54,14 @@ module.exports = {
 //
 //            bcrypt.hash(attrs.password, salt, function (err, hash) {
 //                if (err)
-//                    return next(err);
-//
+//                    return next(err); 
 //                attrs.password = hash;
-        next();//TODO: test next(null, attrs);
+//                attrs.encryptedPassword = hash;
+        //        next();//TODO: test next(null, attrs);
 //            });
 //        });
+
+        next();//TODO: test next(null, attrs);
     }
 
 };
