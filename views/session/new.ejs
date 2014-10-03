@@ -1,0 +1,17 @@
+<!-- view/session/new.ejs-->
+<form action="/session/create" method="POST" class="form-signin">
+    <h2 class="form-signin-heading">Вход в систему...</h2> 
+    <% if(flash && flash.err) { %>
+    <ul class="alert alert-danger">
+        <% Object.keys(flash.err).forEach(function(error) { %>
+        <li class="list-group-item"><%= JSON.stringify(flash.err[error]) %></li>
+        <% }) %>
+    </ul>
+    <% } %> 
+    <input type="text" class="form-control" placeholder="E-mail" name="email"> 
+    <input type="text" class="form-control" placeholder="пароль" name="password"> 
+    <br/> 
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Войти"/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
+<!-- view/session/new.ejs-->
