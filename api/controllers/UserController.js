@@ -125,18 +125,18 @@ module.exports = {
      * @param {type} next
      * @returns {undefined}
      */
-    destroy: function (req, res, next) {
-        User.findOne(req.param('id', function (err, user) {
+    destroy: function (req, res, next) { 
+        User.findOne(req.param('id'), function (err, user) { 
             if (err)
                 return next(err);
             if (!user)
-                return next('Пользователь не найден');
+                return next('Пользователь не найден'); 
             User.destroy(req.param('id'), function userDestroyed(err) {
                 if (err)
                     return next(err);
             });
             res.redirect('/user');
-        }));
+        });
     },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
