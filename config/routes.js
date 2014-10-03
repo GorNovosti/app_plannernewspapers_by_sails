@@ -50,6 +50,10 @@ module.exports.routes = {
     '/logout': {
         controller: "AuthController",
         action: "logout"
+    },
+    '/newspapers': {
+        controller: "NewspapersController",
+        action: "index"
     }
     /***************************************************************************
      *                                                                          *
