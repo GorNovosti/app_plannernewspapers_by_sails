@@ -43,12 +43,17 @@ module.exports = {
             // Log usr in 
             req.session.authenticated = true;
             req.session.User = user;
-            // redirect to the action
-            res.redirect('user/show/' + user.id);
+            // Change status to online
+            user.online = true;
+            user.save(function (err, user) {
+                if (err)
+                    return next(err);
+                // redirect to the action
+                res.redirect('user/show/' + user.id);
+            });
             //TODO: delete --> res.json(user);
             //TODO: delete - no need anymore --> req.session.flash = {};
         });
-
     },
     /**
      * Show user info
@@ -58,10 +63,11 @@ module.exports = {
      * @returns {undefined}
      */
     show: function (req, res, next) {
+        console.log('-0', req.param('id'));
         User.findOne(req.param('id'), function foundUser(err, user) {
             if ((err) || (!user))
                 return next(err);
-            res.view({
+            res.view(null, {
                 user: user,
                 title: "Пользователь - " + user.name
             });
@@ -77,11 +83,11 @@ module.exports = {
      * @returns {undefined}
      */
     index: function (req, res, next) {
-        User.find(function fioundUser(err, users) {
+        User.find(function foundUser(err, users) {
             if (err)
                 return next(err);
             //pass the array down to the /views/index.ejs page
-            res.view({
+            res.view(null, {
                 users: users,
                 title: "Список пользователей"
             });
@@ -114,26 +120,41 @@ module.exports = {
      * @returns {undefined}
      */
     update: function (req, res, next) {
-        User.update(req.param('id'), req.params.all(), function userUpdate(err) {
+        var param = req.params.all();
+
+        var objData = {
+            name: param["name"],
+            title: param["title"],
+            email: param["email"],
+            admin: param["admin"],
+            password: param["password"]
+        };
+
+        if (req.session.User.admin) {
+            delete objData["admin"];
+        } else {
+
+        }
+        User.update(req.param('id'), objData, function userUpdate(err) {
             if (err) {
                 return res.redirect('/user/edit/' + req.param('id'));
             }
             res.redirect('/user/show/' + req.param('id'));
         });
     },
-    /***
+    /*** 
      * Delete User information
      * @param {type} req
      * @param {type} res
      * @param {type} next
      * @returns {undefined}
      */
-    destroy: function (req, res, next) { 
-        User.findOne(req.param('id'), function (err, user) { 
+    destroy: function (req, res, next) {
+        User.findOne(req.param('id'), function (err, user) {
             if (err)
                 return next(err);
             if (!user)
-                return next('Пользователь не найден'); 
+                return next('Пользователь не найден');
             User.destroy(req.param('id'), function userDestroyed(err) {
                 if (err)
                     return next(err);

@@ -6,6 +6,14 @@
  */
 
 module.exports = {
+    /**
+     * 
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    
     index: function (req, res,next) {
         Newspapers.find(function(err, newspapers) {
             if (err)
@@ -17,6 +25,7 @@ module.exports = {
             });
         });
     },
+    
     add: function (req, res) {
         res.view(null, {
             title: "Добавление выпуск(номер) газеты"
