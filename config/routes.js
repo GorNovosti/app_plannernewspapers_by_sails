@@ -51,6 +51,10 @@ module.exports.routes = {
         controller: "AuthController",
         action: "logout"
     },
+    '/session': {
+        controller: "SessionController",
+        action: "new"
+    },
     '/newspapers': {
         controller: "NewspapersController",
         action: "index"
