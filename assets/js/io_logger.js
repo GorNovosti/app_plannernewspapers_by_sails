@@ -25,8 +25,18 @@
             //////////////////////////////////////////////////////
 
         });
+        socket.on('/user/subscribe');
+        socket.on('user', function messageReceived(message) {
 
+            ///////////////////////////////////////////////////////////
+            // Replace the following with your own custom logic
+            // to run when a new message arrives from the Sails.js
+            // server.
+            ///////////////////////////////////////////////////////////
+            log('USER :: ', message);
+            //////////////////////////////////////////////////////
 
+        });//Subscribe to the user model classroom and instance room 
         ///////////////////////////////////////////////////////////
         // Here's where you'll want to add any custom logic for
         // when the browser establishes its socket connection to 

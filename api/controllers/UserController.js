@@ -33,6 +33,7 @@ module.exports = {
             if (err) {
                 //NOTE: no need see return next(err);
                 console.log(err);
+
                 // if error redirect back to form sing-up page
                 req.session.flash = {
                     err: err
@@ -45,6 +46,8 @@ module.exports = {
             req.session.User = user;
             // Change status to online
             user.online = true;
+            // Let other subscribed sockets know that the user was created.
+            User.publishCreate(user);
             user.save(function (err, user) {
                 if (err)
                     return next(err);
@@ -121,7 +124,7 @@ module.exports = {
      */
     update: function (req, res, next) {
         var param = req.params.all();
-
+        console.log(param);
         var objData = {
             name: param["name"],
             title: param["title"],
@@ -135,7 +138,7 @@ module.exports = {
         } else {
 
         }
-        User.update(req.param('id'), objData, function userUpdate(err) {
+        User.update(req.param('id'), req.params.all(), function userUpdate(err) {
             if (err) {
                 return res.redirect('/user/edit/' + req.param('id'));
             }
@@ -161,6 +164,23 @@ module.exports = {
             });
             res.redirect('/user');
         });
+    },
+    /**
+     * 
+     * 
+     * @returns {undefined}
+     */
+    subscribe: function (req, res, next) {
+        //http://www.youtube.com/watch?v=enyZYgjXRqQ
+        User.find(function (err, users) {
+            console.log(users);
+            if (err)
+                return next(err);
+            User.subscribe(req.socket);
+            User.subscribe(req.socket, users);
+            res.json(200);
+        }
+        );
     },
     login: function (req, res) {
         //var bcrypt = require('bcrypt');
@@ -208,5 +228,6 @@ module.exports = {
         req.session.user = null;
         res.send("Successfully logged out");
     }
+
 };
 
