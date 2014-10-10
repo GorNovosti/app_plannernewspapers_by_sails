@@ -13,22 +13,29 @@ module.exports = {
      * @param {type} next
      * @returns {undefined}
      */
-    
-    index: function (req, res,next) {
-        Newspapers.find(function(err, newspapers) {
+
+    index: function (req, res, next) {
+        Newspapers.find(function (err, newspapers) {
             if (err)
                 return next(err);
             //pass the array down to the /views/index.ejs page
             res.view({
+                page_name: 'newspapers',
                 newspapers: newspapers,
                 title: "Список выпусков(номеров) газет"
             });
         });
     },
-    
     add: function (req, res) {
         res.view(null, {
             title: "Добавление выпуск(номер) газеты"
+        });
+    },
+    'create': function (req, res) {
+        Newspapers.find(function () {
+            res.view(null, {
+                title: "Добавление выпуск(номер) газеты"
+            });
         });
     }
 };

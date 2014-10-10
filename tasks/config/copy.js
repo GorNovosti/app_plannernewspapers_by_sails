@@ -20,10 +20,18 @@ module.exports = function(grunt) {
 			files: [{
 				expand: true,
 				cwd: './assets',
-				src: ['**/*.!(coffee|less)'],
+				src: ['**/*.!(coffee2|less)'],
 				dest: '.tmp/public'
 			}]
 		},
+		spi_dev: {
+			files: [{
+				expand: true,
+				cwd: './assets/spi',
+				src: ['**/*'],
+				dest: '.tmp/public/spi'
+			}]
+		},                
 		build: {
 			files: [{
 				expand: true,
