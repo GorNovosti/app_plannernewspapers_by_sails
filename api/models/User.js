@@ -42,7 +42,7 @@ module.exports = {
     },
     beforeCreate: function (attrs, next) {
         //This  checks to make sure the password and password confirmation match before creating record
-        if (!atts.password || attr.password != attrs.confirmation) {
+        if (!attrs.password || attrs.password != attrs.confirmation) {
             return next({err: ["Пароль и подтверждение пароля не совпадают!"]});
         }
         console.log(attrs);

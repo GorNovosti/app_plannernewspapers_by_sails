@@ -40,6 +40,9 @@ module.exports = {
                 return res.redirect('/user/new');
             }
             // success creating the user 
+            //TODO: login User after cretate
+            req.session.authenticated = true;
+            req.session.User = user;
             // redirect to the action
             res.redirect('user/show/' + user.id);
             //TODO: delete --> res.json(user);
