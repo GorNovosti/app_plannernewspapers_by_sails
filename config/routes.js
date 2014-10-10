@@ -34,10 +34,10 @@ module.exports.routes = {
 //  '/': {
 //    view: 'homepage'
 //  }
-//    '/': {
-//        controller: 'spiController',
-//        action: "index"
-//    },
+    '/': {
+        controller: 'SpiController',
+        action: "index"
+    },
     '/about': {
         controller: 'aboutController',
         action: "index"
@@ -68,5 +68,7 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-    ,'get /newspapers/*':'SpiController.index'
+    , 'get /newspapers/*': 'SpiController.index'
+    , 'get /test':'SpiController.develop'
+    , 'get /test/:id':'SpiController.develop'
 };

@@ -24,6 +24,14 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
+		spi_dev: {
+			files: [{
+				expand: true,
+				cwd: './assets/spi',
+				src: ['**/*'],
+				dest: '.tmp/public/spi'
+			}]
+		},                
 		build: {
 			files: [{
 				expand: true,

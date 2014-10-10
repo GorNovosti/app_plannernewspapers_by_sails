@@ -15,7 +15,7 @@
                 //function could be called before the page is loaded.
                 //This callback is optional.
                 //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
-                config.baseUrl = 'src_client';//'/src/';
+                config.baseUrl = 'spi';//'/src/';
                 window.require.config(config);// update global require config
                 window.require.config({
                     locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
@@ -25,7 +25,7 @@
         </script>  
         <script>
             var require = {
-                deps: ['require', 'src_client/config-require.js'],
+                deps: ['require', 'spi/config-require.js'],
                 callback: function (require, config) {
                     spi_cb(require, config);
                 }

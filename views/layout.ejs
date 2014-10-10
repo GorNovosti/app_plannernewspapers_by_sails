@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div> 
-        <div class="container">
+        <div class="container" ui-view>
             <div class="row featurette">
                 <div class="col-md-12">
                     <!--              <h2 class="featurette-heading"><%- title %></h2>-->
@@ -156,18 +156,18 @@
                 //function could be called before the page is loaded.
                 //This callback is optional.
                 //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
-                config.baseUrl = 'spa/' + page_name;//'/src/';
+                config.baseUrl = 'spi/' + page_name;//'/src/';
                 window.require.config(config);// update global require config
-//                window.require.config({
-//                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
-//                });
+                window.require.config({
+                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+                });
                 require(['spi']);// load app(spi) 
                 
             };
         </script>  
         <script>
-            var require = {
-                deps: ['require', '/spa/config-require.js'],
+            var require = { 
+                deps: ['require', '/spi/config-require.js'],
                 callback: function (require, config) {
                     spi_cb(require, config);
                 }
