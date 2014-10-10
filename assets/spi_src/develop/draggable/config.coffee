@@ -1,21 +1,16 @@
 ###
-Module dependencies
+Module configuration
 ###
-define ['angular'
+define [
     'cs!./namespace'
-    'cs!./states'
-    'angular-ui-router'
-    'angular-ui-router.stateHalper'
-], (angular
-    namespace
-    states
-)->
-    ## create instance angularjs module
-    module = angular.module(namespace, ['ui.router','ui.router.stateHelper'])
-    module.config [ 'stateHelperProvider',(stateHelperProvider)->
-
-        stateHelperProvider.setNestedState(states)
-        #        statespace.name,
+    'cs!./module'
+    #'cs!./statespace' ## Configuration for ui-route state
+], (namespace, module, statespace)->
+    module.config ['$stateProvider', ($stateProvider)->
+        ###
+        Main configuration $stateProvider
+        #        ###
+        #        $stateProvider.state statespace.name,
         #            url: statespace.url
         #            views:
         #                "main@": ##TODO: do control name ui-view for display template content
@@ -26,10 +21,3 @@ define ['angular'
         #            data:
         #                pageTitle: statespace.pageTitle  ## Name for set title of page
     ]
-    module.run [->
-        console.log 'run for module', namespace
-        states.resolve = []
-        #console.warn 'states', states
-    ]
-
-    return module

@@ -29,9 +29,14 @@ module.exports = function (grunt) {
             // Assets to watch:
             files: ['assets/spi_src/app/**/*'],
             // When assets are changed:
-            tasks: ['clean:spi_dev','requirejs:app','copy:spi_dev']
+            tasks: ['clean:spi_dev', 'requirejs:app', 'copy:spi_dev']
+        },
+        spi_develop: {
+            // Assets to watch:
+            files: ['assets/spi_src/develop/**/*'],
+            // When assets are changed:
+            tasks: ['clean:spi_dev', 'requirejs:develop', 'copy:spi_dev']
         }
-        
     });
     grunt.loadNpmTasks('grunt-contrib-watch');
 };

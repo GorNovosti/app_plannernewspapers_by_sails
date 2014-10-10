@@ -3,15 +3,18 @@ Module dependencies
 ###
 define ['angular'
     'cs!./namespace'
-    'cs!./states'
+    'cs!./states' # self state info
+    'cs!./draggable/index'
     'angular-ui-router'
     'angular-ui-router.stateHalper'
 ], (angular
     namespace
     states
+    draggableModuleName
 )->
     ## create instance angularjs module
-    module = angular.module(namespace, ['ui.router','ui.router.stateHelper'])
+    console.log draggableModuleName
+    module = angular.module(namespace, ['ui.router','ui.router.stateHelper',draggableModuleName])
     module.config [ 'stateHelperProvider',(stateHelperProvider)->
 
         stateHelperProvider.setNestedState(states)

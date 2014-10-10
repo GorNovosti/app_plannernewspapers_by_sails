@@ -154,7 +154,7 @@ Module dependencies
  */
 
 (function() {
-  define('cs!module',['angular', 'cs!./namespace', 'cs!states', 'angular-ui-router', 'angular-ui-router.stateHalper'], function(angular, namespace, states) {
+  define('cs!module',['angular', 'cs!./namespace', 'cs!./states', 'angular-ui-router', 'angular-ui-router.stateHalper'], function(angular, namespace, states) {
     var module;
     module = angular.module(namespace, ['ui.router', 'ui.router.stateHelper']);
     module.config([

@@ -156,7 +156,7 @@
                 //function could be called before the page is loaded.
                 //This callback is optional.
                 //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
-                config.baseUrl = 'spi/' + page_name;//'/src/';
+                config.baseUrl = '/spi/' + page_name;//'/src/';
                 window.require.config(config);// update global require config
                 window.require.config({
                     locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)

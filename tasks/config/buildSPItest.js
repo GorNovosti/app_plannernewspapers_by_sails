@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         build: 'assets/spi'//.tmp/public
 
     });
-    
+
     grunt.config.set('requirejs', {
         app: {
             options: {
@@ -44,40 +44,31 @@ module.exports = function (grunt) {
                 },
                 exclude: ['angular', 'coffee-script'],
                 stubModules: ['text', 'tpl', 'cs'],
-                
-                findNestedDependencies: true,
-//                dir: 'assets/www-build',
-//                
-//                modules: [{
-//                        name: "./config-require"
-//                    }]
+                findNestedDependencies: true
             }
-        }//,
-//        newspapers: {
-//            options: {
-//                //appDir: '/src_client',
-//                mainConfigFile: './assets/src_client/config-require-build.js',
-//                baseUrl: "assets/src_client/newspapers",
-//                out: "assets/spi/newspapers/spi.js",
-//                optimize: 'none', //'uglify2',
-//                // name: "spi",
-//                include: [
-//                    '../config-require-build',
-//                    'index'
-//                ],
-//                CoffeeScript: {
-//                    bare: false
-//                },
-//                exclude: ['angular', 'coffee-script'],
-//                stubModules: ['text', 'tpl'],
-//                findNestedDependencies: true,
-////                dir: 'assets/www-build',
-////                
-////                modules: [{
-////                        name: "./config-require"
-////                    }]
-//            }
-//        }
+        },
+        develop: {
+            options: {
+                //appDir: '/src_client',
+                mainConfigFile: '<%= dirConfigSPI.dev %>/config-require-build.js',
+                findNestedDependencies: true,
+                baseUrl: "<%= dirConfigSPI.dev %>/develop",
+                out: "<%= dirConfigSPI.build %>/develop/spi.js",
+                optimize: 'none', //'uglify2',
+                //useStrict: true,
+                name: "spi",
+                include: [ 
+                    //'spi'
+                    'cs!./states',
+                    'cs!./draggable/index'
+                ],
+                CoffeeScript: {
+                    bare: true
+                },
+                exclude: ['angular', 'coffee-script'],
+                stubModules: ['text', 'tpl', 'cs']
+            }
+        }
     });
     grunt.loadNpmTasks("grunt-requirejs");
 };
