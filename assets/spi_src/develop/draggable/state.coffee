@@ -18,7 +18,7 @@ define [
                   console.log _event
             $scope.blockTemplates = [
                 id:1
-                name:"Статья"
+                name:"Статья "
             ,
                 id:2
                 name: "Реклама"
