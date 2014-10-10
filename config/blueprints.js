@@ -69,7 +69,7 @@ module.exports.blueprints = {
   ***************************************************************************/
 
   // rest: true,
-
+  rest: true,
   /***************************************************************************
   *                                                                          *
   * Shortcut routes are simple helpers to provide access to a                *
@@ -97,7 +97,7 @@ module.exports.blueprints = {
   ***************************************************************************/
 
   // prefix: '',
-
+   prefix: '/api/v1',
   /***************************************************************************
   *                                                                          *
   * Whether to pluralize controller names in blueprint routes.               *

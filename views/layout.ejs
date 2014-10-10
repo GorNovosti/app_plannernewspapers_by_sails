@@ -50,27 +50,41 @@
                     <ul class="nav navbar-nav">
                         <li class="<% if (title === 'Главная') { %>active<% } %>">
                             <%- link_to('Главная', '/') %> 
+                        </li>       
+                        <% if (session.authenticated) { %>
+                        <li class="active"><a href="/user/show/<%= session.User.id %>"><%= session.User.name %> </a> </li>
+                        <% } %>
+                        <% if(session.authenticated){ %>    
+                        <li class="<% if (title === 'Список выпусков(номеров) газет') { %>active<% } %>">
+                            <%- link_to('Выпуски(номера) газет', '/newspapers') %>  
+                        </li>
+                        <%}%>
+                        <% if(session.authenticated && session.User.admin){ %>     
+                        <li class="<% if (title === 'Список пользователей') { %>active<% } %>">
+                            <%- link_to('Пользователи', '/user') %>  
+                        </li> 
+                        <%}%>
                         <li class="<% if (title === 'О приложении') { %>active<% } %>">
                             <%- link_to('О приложении', '/about') %>  
                         </li>
-                        <li class="<% if (title === 'Пользователи') { %>active<% } %>">
-                            <%- link_to('Пользователи', '/user') %>  
-                        </li>
+
                     </ul> 
                     <% if(!session.authenticated){ %>    
-                    <form method="POST" action="/session/create" class="form form-inline pull-right">
+                    <form method="POST" action="/session/create" class="navbar-form navbar-right form-inline">
                         <input name="email" value="demo@demo.com" class="form-control">
                         <input type="password" name="password" value="demo123456" class="form-control"> 
                         <input type="hidden" name="_csrf" value="<%= _csrf %>" />
                         <button type="submit" class="btn btn-success">Авторизоваться</button>
                     </form>
                     <%}else{ %>
-                    <a href='/session/destroy' class="btn btn-default  pull-right">Выход</a>  
+                    <div class="navbar-right">
+                        <a href='/session/destroy' class="btn btn-default  pull-right">Выход</a>  
+                    </div>
                     <%} %>
                 </div>
             </div>
         </div> 
-        <div class="container">
+        <div class="container" ui-view>
             <div class="row featurette">
                 <div class="col-md-12">
                     <!--              <h2 class="featurette-heading"><%- title %></h2>-->
@@ -134,10 +148,38 @@
               + Use a different preprocessor, like TypeScript
     
         -->
+        <script>
+            var page_name = '<%- page_name %>';
+            var spi_cb = function (require, config) {
+                //This function will be called when all the dependencies
+                //listed above in deps are loaded. Note that this
+                //function could be called before the page is loaded.
+                //This callback is optional.
+                //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
+                config.baseUrl = '/spi/' + page_name;//'/src/';
+                window.require.config(config);// update global require config
+                window.require.config({
+                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+                });
+                require(['spi']);// load app(spi) 
+                
+            };
+        </script>  
+        <script>
+            var require = { 
+                deps: ['require', '/spi/config-require.js'],
+                callback: function (require, config) {
+                    spi_cb(require, config);
+                }
+            };
 
-        <!--SCRIPTS-->
-        <script src="/js/dependencies/sails.io.js"></script>
-        <script src="/js/io_logger.js"></script>
-        <!--SCRIPTS END-->
+        </script>    
+        <!--SC-RIPTS-->
+        <!--<script src="/js/dependencies/sails.io.js"></script>-->
+
+        <!--<script src="/js/io_logger.js"></script>-->
+        <!--SC-RIPTS END-->
+        <script src="/js/dependencies/require.js"></script>
+
     </body>
 </html>

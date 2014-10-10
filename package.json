@@ -40,5 +40,8 @@
     "url": "git://github.com/anonymous node/sails user/app_palannernewspapers.git"
   },
   "author": "anonymous node/sails user",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "grunt-requirejs": "^0.4.2"
+  }
 }

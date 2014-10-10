@@ -3,7 +3,7 @@
     <h3>Пользователи </h3>
     <table class="table">
         <tr>
-            <th>ID</th>
+            <th>в сети</th>
             <th>Имя</th>
             <th>Должность </th>
             <th>E-Mail</th>
@@ -14,7 +14,7 @@
 
         <% _.each(users, function(user) { %>
         <tr data-id="<%= user.id %>" data-model="user">
-            <td><%= user.id %></td>
+            <td><%= user.online %> </td>
             <td><%= user.name %></td>
             <td><%= user.title %></td>
             <td><%= user.email %></td>

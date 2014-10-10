@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing sessions
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
+/*example https://github.com/irlnathan/activityoverlord/blob/master/api/controllers/SessionController.js */
 //var bcrypt = require('bcrypt');
 module.exports = {
     /***
@@ -22,6 +23,13 @@ module.exports = {
             title: "Авторизоваться"
         });
     },
+    /**
+     * 
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
     create: function (req, res, next) {
         // Check requered params 
         if (!req.param('email') || !req.param('password')) {
@@ -33,7 +41,7 @@ module.exports = {
             res.redirect('/session/new');
             return;
         }
-        User.findOneByEmail(req.param('email')).exec(function (err, user) {
+        User.findOneByEmail(req.param('email')).exec(function foundUser(err, user) {
             if (!err)
                 next(err);
             if (!user) {
@@ -70,15 +78,71 @@ module.exports = {
             }
             req.session.authenticated = true;
             req.session.User = user;
+            // Change status to online
+            user.online = true;
+            user.save(function (err, user) {
+                if (err)
+                    return next(err);
+                // Inform other sockets (e.g. connected sockets that are subscribed) that this user is now logged in
+                User.publishUpdate(user.id, {
+                    loggedIn: true,
+                    id: user.id,
+                    name: user.name,
+                    action: ' has logged in.'
+                });
+////TODO: fix error redirect  
+////                // If the user is also an admin redirect to the user list (e.g. /views/user/index.ejs)
+////                // This is used in conjunction with config/policies.js file
+////                if (req.session.User.admin) {
+////                    res.redirect('/user');
+////                    return;
+////                }
+//
+//                //Redirect to their profile page (e.g. /views/user/show.ejs) 
+//                res.redirect('/user/show/' + _user.id);
+                return;
+            });
             res.redirect('/user/show/' + user.id);
         });
         return;
     },
     destroy: function (req, res, next) {
-        //Wipe out the session (log out)
-        req.session.destroy();
-        //Redirect
-        res.redirect('/session/new')
+        //https://github.com/irlnathan/activityoverlord/blob/master/api/controllers/SessionController.js
+        User.findOne(req.session.User.id, function foundUser(err, user) {
+
+            var userId = req.session.User.id;
+
+            if (user) {
+                // The user is "logging out" (e.g. destroying the session) so change the online attribute to false.
+                User.update(userId, {
+                    online: false
+                }, function (err) {
+                    if (err)
+                        return next(err);
+
+                    // Inform other sockets (e.g. connected sockets that are subscribed) that the session for this user has ended.
+                    User.publishUpdate(userId, {
+                        loggedIn: false,
+                        id: userId,
+                        name: user.name,
+                        action: ' has logged out.'
+                    });
+
+                    // Wipe out the session (log out)
+                    req.session.destroy();
+
+                    // Redirect the browser to the sign-in screen
+                    res.redirect('/session/new');
+                });
+            } else {
+
+                // Wipe out the session (log out)
+                req.session.destroy();
+
+                // Redirect the browser to the sign-in screen
+                res.redirect('/session/new');
+            }
+        });
 
     }
 };
