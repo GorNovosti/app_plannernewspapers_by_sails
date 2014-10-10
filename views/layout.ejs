@@ -148,10 +148,38 @@
               + Use a different preprocessor, like TypeScript
     
         -->
+        <script>
+            var page_name = '<%- page_name %>';
+            var spi_cb = function (require, config) {
+                //This function will be called when all the dependencies
+                //listed above in deps are loaded. Note that this
+                //function could be called before the page is loaded.
+                //This callback is optional.
+                //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
+                config.baseUrl = 'spa/' + page_name;//'/src/';
+                window.require.config(config);// update global require config
+//                window.require.config({
+//                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+//                });
+                require(['spi']);// load app(spi) 
+                
+            };
+        </script>  
+        <script>
+            var require = {
+                deps: ['require', '/spa/config-require.js'],
+                callback: function (require, config) {
+                    spi_cb(require, config);
+                }
+            };
 
-        <!--SCRIPTS-->
-        <script src="/js/dependencies/sails.io.js"></script>
-        <script src="/js/io_logger.js"></script>
-        <!--SCRIPTS END-->
+        </script>    
+        <!--SC-RIPTS-->
+        <!--<script src="/js/dependencies/sails.io.js"></script>-->
+
+        <!--<script src="/js/io_logger.js"></script>-->
+        <!--SC-RIPTS END-->
+        <script src="/js/dependencies/require.js"></script>
+
     </body>
 </html>

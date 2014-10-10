@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+         <script>
+            var page_name = 'app';//'<%- page_name %>';
+            var spi_cb = function (require, config) {
+                //This function will be called when all the dependencies
+                //listed above in deps are loaded. Note that this
+                //function could be called before the page is loaded.
+                //This callback is optional.
+                //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
+                config.baseUrl = 'src_client';//'/src/';
+                window.require.config(config);// update global require config
+                window.require.config({
+                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+                });
+                require(['page/'+page_name]);// load app(spi) 
+            };
+        </script>  
+        <script>
+            var require = {
+                deps: ['require', 'src_client/config-require.js'],
+                callback: function (require, config) {
+                    spi_cb(require, config);
+                }
+            };
+        </script>    
+        <!--SCRIPTS-->
+        
+        <script src="js/dependencies/require.js"></script> 
+        <!--SCRIPTS END-->
+    </body>
+</html>
