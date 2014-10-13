@@ -2,6 +2,7 @@ define [
     'angular'
     'cs!./common/index'
     'cs!./home/index'
+    'cs!./about/index'
     'cs!./newspapers/index'
     'cs!./releases/index'
     'cs!./users/index'
@@ -11,6 +12,7 @@ define [
 ],(
     angular
     commonModule
+    moduleAbout
     moduleHome
     module
     releasesModule
@@ -22,6 +24,7 @@ define [
         'ngResource'
         'ngSanitize'
         commonModule
+        moduleAbout
         module
         moduleHome
         releasesModule
