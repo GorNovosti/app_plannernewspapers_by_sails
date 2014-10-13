@@ -47,7 +47,7 @@ module.exports.cors = {
      ***************************************************************************/
 
     // origin: '*',
-
+    origin: '*',
     /***************************************************************************
      *                                                                          *
      * Allow cookies to be shared for CORS requests?                            *
@@ -55,7 +55,7 @@ module.exports.cors = {
      ***************************************************************************/
 
     // credentials: true,
-
+    credentials: true,
     /***************************************************************************
      *                                                                          *
      * Which methods should be allowed for CORS requests? This is only used in  *
@@ -64,7 +64,7 @@ module.exports.cors = {
      ***************************************************************************/
 
     // methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
-
+    methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
     /***************************************************************************
      *                                                                          *
      * Which headers should be allowed for CORS requests? This is only used in  *
@@ -73,5 +73,5 @@ module.exports.cors = {
      ***************************************************************************/
 
     // headers: 'content-type'
-
+    headers: 'content-type'
 };
