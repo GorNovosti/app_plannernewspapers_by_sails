@@ -18,14 +18,13 @@ define [
             url: statespace.url
             ## views:
             ##   "main@": ##TODO: do control name ui-view for display template content
-            templateUrl: "templates/#{namespace.replace /\.+/g, "/"}/relevanousers.tpl.html"
+            templateUrl: "templates/#{namespace.replace /\.+/g, "/"}/users.tpl.html"
             controller: 'ManageUsersController'
             resolve:
                 APIService: ['ManageUsersService' , (_APIService)->
                     return _APIService
-
                 ]
             data:
                 pageTitle: statespace.pageTitle
-                accessForRoles: ['admin', 'dataAnalyst']##4866
+                accessForRoles: ['admin', 'dataAnalyst'] 
     ]

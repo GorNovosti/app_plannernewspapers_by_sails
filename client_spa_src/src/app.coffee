@@ -4,6 +4,7 @@ define [
     'cs!./home/index'
     'cs!./about/index'
     'cs!./newspapers/index'
+    'cs!./pageedit/index' # редактор страницы(полосы)
     'cs!./releases/index'
     'cs!./users/index'
     'angular-bootstrap'
@@ -15,6 +16,7 @@ define [
     moduleAbout
     moduleHome
     module
+    modulePageedit
     releasesModule
     usersModule
 )->
@@ -29,6 +31,7 @@ define [
         moduleHome
         releasesModule
         usersModule
+        modulePageedit
     ])
     .config(['$urlRouterProvider',($urlRouterProvider)->
         $urlRouterProvider.otherwise("/");

@@ -1,26 +1,26 @@
 <!-- release/release_form_modal.tpl -->
 <!-- Modal -->
 <div class="modal-content">
-    <div class="modal-header"> 
+    <div class="modal-header">
         <h4 ng-if="!currEntity.id">Новый релиз выпуска(номера)</h4>
         <h4 ng-if="currEntity.userId">Релиз  <strong>{{currEntity.name}}</strong></h4>
     </div>
     <form name="EditForm" class="form-horizontal" role="form" ng-submit="onSave(entity)" loading-container="isBusy" novalidate>
-        <div class="modal-body"> 
+        <div class="modal-body">
             <div class="form-group">
                 <label class="control-label col-sm-4" for="attribute_name">
                     Наименование
-                </label> 
+                </label>
                 <div class="col-sm-8">
                     <input class="form-control" ng-model="entity.name" id="attribute_name" type="text"
                            required>
-                </div> 
+                </div>
             </div>
 
             <!--            <div class="form-group">
                             <label class="control-label col-sm-4" for="sample_data">
                                 Шаблон выпуска
-                            </label> 
+                            </label>
                             <div class="col-sm-8">
                                 <select ng-options="role for role in tempalteNewsPapersList" class="form-control" ng-model="editEntity.idTplCreate" id="sample_data"   required>
                                     <option value="">Укажите шаблон...</option>
@@ -28,9 +28,9 @@
                             </div>
                         </div>-->
         </div>
-        <div class="modal-footer"> 
-            <button type="submit" class="btn btn-primary btn_save" ng-disabled="EditForm.$invalid">Submit</button>
-            <button type="button" class="btn btn-default btn_cancel" ng-click="onCancel()">Cancel</button>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn_save" ng-disabled="EditForm.$invalid">{{"DIALOGS_SAVE" | translate}}</button>
+            <button type="button" class="btn btn-default btn_cancel" ng-click="onCancel()">{{"DIALOGS_CANCEL" | translate}}</button>
         </div>
     </form>
 </div>

@@ -1,0 +1,24 @@
+<!-- template "about.tpl.html"-->
+<section class="container">
+    <h3>
+        Редактор полосы(сраницы)
+    </h3>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+             <a ng-repeat="item in listBlockinfoTpl" draggable-blockinfo date-value="{{item}}"  class="btn btn-default">{{item.name}}</a>
+<!--            <a draggable-blockinfo date-value="" href="#" class="btn btn-default">1</a>
+            <a draggable-blockinfo href="#" class="btn btn-default">2</a>
+            <a draggable-blockinfo href="#" class="btn btn-default">3</a>
+            <a draggable-blockinfo href="#" class="btn btn-default">4</a>-->
+        </div>
+    </div>
+    <style>
+    .dropblok.over {
+        border: 2px dashed #000;
+    }
+</style>
+    <section class="col-sm-12 dropblok" drop-blockinfo data-pageId="1" drop="handleDrop()">
+        <div>Содержание </div>
+    </section>
+</section>
+<!-- //template "about.tpl.html"-->

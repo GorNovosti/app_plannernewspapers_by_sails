@@ -15,7 +15,7 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                 page: 1
                 count: 10
                 sorting:
-                    userName: 'asc'  # special settings for this table
+                    name: 'asc'  # special settings for this table
             ,
                 total: 0, # length of data
                 getData: ($defer, params)->
@@ -37,7 +37,7 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                 $scope: $scope.$new()
             ###* confirm delete (used service) ###
             $scope.onDeleteUser = (item)->
-                delDlg = DialogService.deleteDialog "Delete User","Are you sure you want to delete selected <strong>#{item.userName}</strong>?"
+                delDlg = DialogService.deleteDialog "Удаление пользователя","Вы действительно желаете удалить пользователя <strong>#{item.name}</strong>?"
                 delDlg.result.then(
                     ##confirn delete entity
                     (res)->
