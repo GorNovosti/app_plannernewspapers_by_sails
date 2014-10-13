@@ -6,7 +6,7 @@
         -khtml-user-select: none;
         -webkit-user-select: none;
         user-select: none;
-        Required to make elements draggable in old WebKit
+        /*        //Required to make elements draggable in old WebKit*/
         -khtml-user-drag: element;
         -webkit-user-drag: element;
     }
@@ -55,15 +55,29 @@
         border: 2px dashed #000;
     }
 </style>
+
+<style>
+    /*Style for panel caching drop blockinfo data*/
+    .panel_caching{
+        background-color: #fea;
+    }
+    .panel_caching.over{
+        border: 2px dashed #000;
+    }
+</style>
 <section>
     <h1 class="text text-center">Dragg</h1>
     <hr>
     <div id="columns">
+        <!-- draggable elements -->
         <div ng-repeat="item in blockTemplates" class="column" draggable="true"><header>{{item.name}}</header></div>
+        <!-- //draggable elements -->
         <!--        <div class="column" draggable="true"><header>Статья</header></div>
                 <div class="column" draggable="true"><header>Реклама</header></div>
                 <div class="column" draggable="true"><header>Врезка</header></div>-->
     </div>
-
+    <div class="col-sm-12 panel_caching" caching-drop-infoblock dropzone="move string:text/html">
+        <span >test</span>
+    </div>
 </section>
 <!-- //template "draggable.tpl.html"-->

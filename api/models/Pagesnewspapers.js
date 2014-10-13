@@ -8,13 +8,14 @@
 module.exports = {
     connection: 'someMongodbServer',
     attributes: {
-        name:{
-            type:"String"
+        name: {
+            type: "String"
         },
-         newspaper:{
-             required:true,
-             model:'releasenewspapers'
-         }   
+//        newspaper: {
+//            required: true,
+//            model: 'releasenewspapers'
+//        }
+        
     }
 };
 

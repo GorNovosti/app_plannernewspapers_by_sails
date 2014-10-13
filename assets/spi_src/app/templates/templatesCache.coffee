@@ -4,7 +4,8 @@ Cache content of template(s) with current name space
 define [
     'cs!./../module'
     'cs!./../namespace'
-    'text!./about.tpl.html' ##TODO: must change default template on module name template
+    'text!./about.tpl.html'
+
 ], (
     module
     namespace

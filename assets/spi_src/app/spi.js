@@ -5,7 +5,7 @@ define(['domReady!', 'angular', 'cs!./namespace', /*'sails.io',*/'cs!./index'], 
 
     var app = angular.module('spi' + namespace, [spi]);
     app.config(['$locationProvider', function ($locationProvider) {
-            $locationProvider.html5Mode(true);
+            $locationProvider.html5Mode(false);
         }
     ]);
     app.run([function(){

@@ -68,7 +68,7 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-    , 'post users': {
+    , 'post /api/v1/users': {
         controller: 'UsersController',
         action: 'create'
     },

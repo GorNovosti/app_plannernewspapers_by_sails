@@ -8,9 +8,9 @@ define [
 ], (module
     namespace
     tplIndex)->
-    console.debug tplIndex,module
+     
     module.run ['$templateCache', ($templateCache)->
-        $templateCache.put "templates/#{namespace.replace /\.+/g, "/"}/draggable.tpl.html", tplIndex  
+        $templateCache.put "templates/#{namespace.replace /\.+/g, "/"}/draggable.tpl.html", tplIndex
         ##NOTE: name "index.tpl.html" must be in the $stateProvider.state
         return
     ]

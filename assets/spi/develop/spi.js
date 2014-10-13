@@ -293,25 +293,84 @@ define('cs!states',['cs!./draggable/state'], function(children_state) {
 Module dependencies
  */
 define('cs!draggable/module',['angular', 'cs!./namespace'], function(angular, namespace) {
+  var _handleDragEnter, _handleDragLeave, _handleDragOver;
+  _handleDragEnter = function(e) {
+    this.classList.add('over');
+    return false;
+  };
+  _handleDragOver = function(e) {
+    e.dataTransfer.dropEffect = 'move';
+    if (!!e.preventDefault) {
+      e.preventDefault();
+    }
+    return false;
+  };
+  _handleDragLeave = function(e) {
+    this.classList.remove('over');
+    return false;
+  };
   return angular.module(namespace, []).directive('draggable', [
     function() {
+      var _handleDragEnd, _handleDragStart, _handleDrop;
+      _handleDragStart = function(e) {
+        var dragSrcEl;
+        this.style.opacity = '0.4';
+        e.dataTransfer.effectAllowed = 'move';
+        dragSrcEl = this;
+        e.dataTransfer.setData('text', 'dragSrcEl.textContent');
+        this.classList.add('over');
+        return false;
+      };
+      _handleDragEnd = function(e) {
+        console.log(e, 'dragend');
+        this.style.opacity = '0.9';
+        this.classList.remove('over');
+        return false;
+      };
+      _handleDrop = function(e) {
+        console.info('drop', e.dataTransfer.getData('text/html'));
+        console.info(e.dataTransfer.getData('text/html'));
+        if (!!e.stopPropagation) {
+          e.stopPropagation();
+        }
+        return false;
+      };
       return {
         restrict: 'A',
         link: function(scope, element) {
           var el;
           el = element[0];
           el.draggable = true;
-          el.addEventListener('dragstart', function(e) {
-            this.style.opacity = '0.4';
-            e.dataTransfer.effectAllowed = 'move';
-            return console.log(e.dataTransfer.effectAllowed = 'move', false);
-          });
-          return;
-          el.addEventListener('dragend', function(e) {
-            this.style.opacity = '1';
-            e.dataTransfer.effectAllowed = 'move';
-            return console.log(e.dataTransfer.effectAllowed = 'move', false);
-          });
+          el.addEventListener('dragstart', _handleDragStart, false);
+          el.addEventListener('dragenter', _handleDragEnter, false);
+          el.addEventListener('dragover', _handleDragOver, false);
+          el.addEventListener('dragleave', _handleDragLeave, false);
+          el.addEventListener('dragend', _handleDragEnd, false);
+          el.addEventListener('drop', _handleDrop, false);
+        }
+      };
+    }
+  ]).directive('cachingDropInfoblock', [
+    function() {
+      var _handleDropBlockinfo;
+      _handleDropBlockinfo = function(e) {
+        alert('is drop');
+        if (!!e.stopPropagation) {
+          e.stopPropagation();
+        }
+        console.info(e.dataTransfer.getData('text'));
+        return false;
+      };
+      return {
+        rescrict: 'A',
+        link: function(scope, element, attrs) {
+          var el;
+          console.log('link caching drop blocinfo');
+          el = element[0];
+          el.addEventListener('dragenter', _handleDragEnter, false);
+          el.addEventListener('dragover', _handleDragOver, false);
+          el.addEventListener('dragleave', _handleDragLeave, false);
+          el.addEventListener('drop', _handleDropBlockinfo, false);
         }
       };
     }
@@ -337,7 +396,7 @@ define('cs!draggable/config',['cs!./namespace', 'cs!./module'], function(namespa
 });
 
 
-define('text!draggable/templates/draggable.tpl.html',[],function () { return '<!-- template "draggable.tpl.html"-->\r\n<style>\r\n    /* Prevent the text contents of draggable elements from being selectable. */\r\n    [draggable] {\r\n        -moz-user-select: none;\r\n        -khtml-user-select: none;\r\n        -webkit-user-select: none;\r\n        user-select: none;\r\n        Required to make elements draggable in old WebKit\r\n        -khtml-user-drag: element;\r\n        -webkit-user-drag: element;\r\n    }\r\n    .column {\r\n        height: 150px;\r\n        width: 150px;\r\n        float: left;\r\n        border: 2px solid #666666;\r\n        background-color: #ccc;\r\n        margin-right: 5px;\r\n        -webkit-border-radius: 10px;\r\n        -ms-border-radius: 10px;\r\n        -moz-border-radius: 10px;\r\n        border-radius: 10px;\r\n        -webkit-box-shadow: inset 0 0 3px #000;\r\n        -ms-box-shadow: inset 0 0 3px #000;\r\n        box-shadow: inset 0 0 3px #000;\r\n        text-align: center;\r\n        cursor: move;\r\n    }\r\n    .column header {\r\n        color: #fff;\r\n        text-shadow: #000 0 1px;\r\n        box-shadow: 5px;\r\n        padding: 5px;\r\n        background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        background: -webkit-gradient(linear, left top, right top,\r\n            color-stop(0, rgb(0,0,0)),\r\n            color-stop(0.50, rgb(79,79,79)),\r\n            color-stop(1, rgb(21,21,21)));\r\n        background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        border-bottom: 1px solid #ddd;\r\n        -webkit-border-top-left-radius: 10px;\r\n        -moz-border-radius-topleft: 10px;\r\n        -ms-border-radius-topleft: 10px;\r\n        border-top-left-radius: 10px;\r\n        -webkit-border-top-right-radius: 10px;\r\n        -ms-border-top-right-radius: 10px;\r\n        -moz-border-radius-topright: 10px;\r\n        border-top-right-radius: 10px;\r\n    }\r\n</style>\r\n<style>\r\n    .column.over {\r\n        border: 2px dashed #000;\r\n    }\r\n</style>\r\n<section>\r\n    <h1 class="text text-center">Dragg</h1>\r\n    <hr>\r\n    <div id="columns">\r\n        <div ng-repeat="item in blockTemplates" class="column" draggable="true"><header>{{item.name}}</header></div>\r\n        <!--        <div class="column" draggable="true"><header>Статья</header></div>\r\n                <div class="column" draggable="true"><header>Реклама</header></div>\r\n                <div class="column" draggable="true"><header>Врезка</header></div>-->\r\n    </div>\r\n\r\n</section>\r\n<!-- //template "draggable.tpl.html"-->';});
+define('text!draggable/templates/draggable.tpl.html',[],function () { return '<!-- template "draggable.tpl.html"-->\r\n<style>\r\n    /* Prevent the text contents of draggable elements from being selectable. */\r\n    [draggable] {\r\n        -moz-user-select: none;\r\n        -khtml-user-select: none;\r\n        -webkit-user-select: none;\r\n        user-select: none;\r\n        /*        //Required to make elements draggable in old WebKit*/\r\n        -khtml-user-drag: element;\r\n        -webkit-user-drag: element;\r\n    }\r\n    .column {\r\n        height: 150px;\r\n        width: 150px;\r\n        float: left;\r\n        border: 2px solid #666666;\r\n        background-color: #ccc;\r\n        margin-right: 5px;\r\n        -webkit-border-radius: 10px;\r\n        -ms-border-radius: 10px;\r\n        -moz-border-radius: 10px;\r\n        border-radius: 10px;\r\n        -webkit-box-shadow: inset 0 0 3px #000;\r\n        -ms-box-shadow: inset 0 0 3px #000;\r\n        box-shadow: inset 0 0 3px #000;\r\n        text-align: center;\r\n        cursor: move;\r\n    }\r\n    .column header {\r\n        color: #fff;\r\n        text-shadow: #000 0 1px;\r\n        box-shadow: 5px;\r\n        padding: 5px;\r\n        background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        background: -webkit-gradient(linear, left top, right top,\r\n            color-stop(0, rgb(0,0,0)),\r\n            color-stop(0.50, rgb(79,79,79)),\r\n            color-stop(1, rgb(21,21,21)));\r\n        background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));\r\n        border-bottom: 1px solid #ddd;\r\n        -webkit-border-top-left-radius: 10px;\r\n        -moz-border-radius-topleft: 10px;\r\n        -ms-border-radius-topleft: 10px;\r\n        border-top-left-radius: 10px;\r\n        -webkit-border-top-right-radius: 10px;\r\n        -ms-border-top-right-radius: 10px;\r\n        -moz-border-radius-topright: 10px;\r\n        border-top-right-radius: 10px;\r\n    }\r\n</style>\r\n<style>\r\n    .column.over {\r\n        border: 2px dashed #000;\r\n    }\r\n</style>\r\n\r\n<style>\r\n    /*Style for panel caching drop blockinfo data*/\r\n    .panel_caching{\r\n        background-color: #fea;\r\n    }\r\n    .panel_caching.over{\r\n        border: 2px dashed #000;\r\n    }\r\n</style>\r\n<section>\r\n    <h1 class="text text-center">Dragg</h1>\r\n    <hr>\r\n    <div id="columns">\r\n        <!-- draggable elements -->\r\n        <div ng-repeat="item in blockTemplates" class="column" draggable="true"><header>{{item.name}}</header></div>\r\n        <!-- //draggable elements -->\r\n        <!--        <div class="column" draggable="true"><header>Статья</header></div>\r\n                <div class="column" draggable="true"><header>Реклама</header></div>\r\n                <div class="column" draggable="true"><header>Врезка</header></div>-->\r\n    </div>\r\n    <div class="col-sm-12 panel_caching" caching-drop-infoblock dropzone="move string:text/html">\r\n        <span >test</span>\r\n    </div>\r\n</section>\r\n<!-- //template "draggable.tpl.html"-->';});
 
 
 // Generated by CoffeeScript 1.7.1
@@ -346,7 +405,6 @@ define('text!draggable/templates/draggable.tpl.html',[],function () { return '<!
 Cache content of template(s) with current name space
  */
 define('cs!draggable/templates/templatesCache',['cs!./../module', 'cs!./../namespace', 'text!./draggable.tpl.html'], function(module, namespace, tplIndex) {
-  console.debug(tplIndex, module);
   return module.run([
     '$templateCache', function($templateCache) {
       $templateCache.put("templates/" + (namespace.replace(/\.+/g, "/")) + "/draggable.tpl.html", tplIndex);

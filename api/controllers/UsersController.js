@@ -24,21 +24,31 @@ module.exports = {
 
     },
     index: function (req, res) {
-        var page = req.param("page", null);
-        var limit = req.param("limit", null);
+        var page = req.param("page", 1);
+        var limit = req.param("limit", 10);
         if (page && limit)
         {
-            Users.find().paginate({page: page, limit: limit})
-                    .exec(function (error, data) {
-                        return res.json(data);
-                    });
-        }
-        else {
-            Users.find().exec(function (error, data) {
-                return res.json(data);
+            Users.count().exec(function (error, count) {
+                if (error) {
+                    res.header('X-Prism-Total-Items-Count', count);//"Access-Control-Allow-Origin:*"); 
+
+//            return res.json({
+//                count: count,
+//            });
+//        });
+                    Users.find().paginate({page: page, limit: limit})
+                            .exec(function (error, data) { 
+                                return res.json(data);
+                            });
+                }
+//        else {
+//            Users.find().exec(function (error, data) {
+//                return res.json(data);
+//            });
+//        }
             });
         }
-        //   return res.json([]);
+        return res.json([]);
     },
     update: function (req, res) {
         console.log('Users update', req.params.all());

@@ -22,14 +22,14 @@ module.exports = {
             unique: true,
             required: true
         },
-        password: {
-            type: 'string',
-            required: true,
-            minLength: 6
-        },
-        encryptedPassword: {
-            type: "string"
-        },
+    //        password: {
+    //            type: 'string',
+    //            required: true,
+    //            minLength: 6
+    //        },
+    //        encryptedPassword: {
+    //            type: "string"
+    //        },
         // clear model data 
         toJSON: function () {
             var obj = this.toObject();
