@@ -72,6 +72,6 @@ module.exports.cors = {
      *                                                                          *
      ***************************************************************************/
 
-    // headers: 'content-type'
-    headers: 'content-type'
+    //headers: 'content-type'
+    headers: ['content-type','X-Prism-Total-Items-Count']
 };

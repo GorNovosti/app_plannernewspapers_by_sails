@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo APP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="http://bootswatch.com/journal/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Планировщик</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="home" href="#">Главная </a></li>
+                    <li ui-sref-active="active"><a ui-sref="releases" href="#">Выпуски газет</a></li>
+                    <li ui-sref-active="active"><a ui-sref="users" href="#">Пользователи</a></li>
+                    <!--                    <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#/">Главная</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li class="dropdown-header">Dropdown header</li>
+                                                <li><a href="#">Separated link</a></li>
+                                                <li><a href="#">One more separated link</a></li>
+                                            </ul>
+                                        </li>-->
+                </ul>
+                <!--                <form class="navbar-form navbar-left">
+                                    <input type="text" class="form-control col-lg-8" placeholder="Search">
+                                </form>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <!--<li><a ui-sref="home" href="#">Вход/регистрация</a></li>-->
+                    <!--                    <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Профиль <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#/">Основные данные </a></li>
+                                                                            <li><a href="#">Another action</a></li>
+                                                                            <li><a href="#">Something else here</a></li>
+                                                                            <li class="divider"></li>
+                                                                            <li><a href="#">Separated link</a></li>
+                                            </ul>
+                                        </li>-->
+                </ul>
+            </div>
+        </div>
+        <div ui-view>Init application</div>
+        <script>
+            // var page_name = '<%- page_name %>';
+            var spi_cb = function (require, config) {
+                //This function will be called when all the dependencies
+                //listed above in deps are loaded. Note that this
+                //function could be called before the page is loaded.
+                //This callback is optional.
+                //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
+                config.baseUrl = '/src';//'/src/';
+                window.require.config(config);// update global require config
+                window.require.config({
+                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+                });
+                require(['bootstrap']);// load app(spi)
+
+            };
+        </script>
+        <script>
+            var require = {
+                deps: ['require', 'config-require.js'],
+                callback: function (require, config) {
+                    spi_cb(require, config);
+                }
+            };
+
+        </script>
+        <script src="vendors/requirejs/require.js" datamain="main" type="text/javascript"></script>
+    </body>
+</html>

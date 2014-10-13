@@ -31,13 +31,11 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
+ 
     '/': {
-        view: 'homepage'
+        controller: 'SpiController',
+        action: "index"
     },
-//    '/': {
-//        controller: 'SpiController',
-//        action: "index"
-//    },
     '/about': {
         controller: 'aboutController',
         action: "index"
@@ -68,14 +66,7 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-    , 'post users': {
-        controller: 'UsersController',
-        action: 'create'
-    },
-    'put users': {
-        controller: 'UsersController',
-        action: 'update',
-    }
-    //'get users': 'UsersController.index'
-    //, 'get users/:id?': 'UsersController.find'
+   // , 'get /newspapers/*': 'SpiController.index'
+   // , 'get /test':'SpiController.develop'
+  //  , 'get /test/:id':'SpiController.develop'
 };

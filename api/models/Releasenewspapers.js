@@ -11,11 +11,11 @@ module.exports = {
       name:{
           type:"string"
       }
-      ,
-      pages:{
-          collection: 'pagesnewspapers',
-          via:'newspaper'
-      }
+//      ,
+//      pages:{
+//          collection: 'pagesnewspapers',
+//          via:'newspaper'
+//      }
   }
 };
 

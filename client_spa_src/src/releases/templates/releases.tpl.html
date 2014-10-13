@@ -1,0 +1,19 @@
+<!-- template "realeses.tpl.html"-->
+<section class="container-fuid">
+    <h3>Релизы газет</h3>
+    <div class="col-sm-2 affix">
+        <h4>Списко релизов </h4>
+        
+        <ul class="list-group">
+            <li class="list-group-item"><input type="button" class="btn btn-xs btn-primary" value="Добавить" ng-click="onCreate()"></li>
+            <li ng-repeat="item in listReleases" class="list-group-item">
+                <span class="badge"><a href="item.id">{{item.pages.length}}</a></span>
+                {{item.name}}<button type="button" class="btn btn-xs btn-default" ng-click="onEdit(item)"> <i class="icon icon-edit ">Править</i></button>
+            </li> 
+        </ul>
+    </div> 
+
+</section>    <pre>
+{{listReleases}}
+    </pre>
+<!-- //template "realeses.tpl.html"-->

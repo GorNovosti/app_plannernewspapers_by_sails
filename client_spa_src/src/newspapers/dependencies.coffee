@@ -1,0 +1,2 @@
+define ['cs!./controllers'],()->
+    return  []

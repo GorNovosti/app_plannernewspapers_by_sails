@@ -51,3 +51,4 @@
 - [[How To] Implement Passport.js Authentication with Sails.js](http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/)
 - [Creating An Application With Sails.js, Angular.js and Require.js Part 1 – Your first server-side view](http://modernweb.com/2014/07/29/create-an-app-sails-angular-require-pt-1/?utm_content=buffer399e6&utm_medium=social&utm_source=plus.google.com&utm_campaign=buffer)
 - [http://stephensugden.com/middleware_guide/](http://stephensugden.com/middleware_guide/)
+- [http://stackoverflow.com/questions/22535850/accessing-a-models-attributes-from-an-associated-model-in-sails-js](http://stackoverflow.com/questions/22535850/accessing-a-models-attributes-from-an-associated-model-in-sails-js)

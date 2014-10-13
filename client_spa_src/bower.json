@@ -1,0 +1,33 @@
+{
+  "name": "spa_src",
+  "version": "0.0.0",
+  "authors": [
+    "Nikolay Gerzhan <nikolay.gerzhan@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.15",
+    "domReady": "~2.0.1",
+    "require-cs": "~0.5.0",
+    "angular": "~1.2.26",
+    "angular-sails": "~1.0.4",
+    "angular-ui-router": "~0.2.11",
+    "socket.io": "~1.1.0",
+    "angular-ui-router.stateHelper": "~1.1.0",
+    "requirejs-text": "~2.0.12",
+    "angular-ui": "~0.4.0",
+    "angular-bootstrap": "~0.11.2",
+    "angular-resource": "~1.2.26",
+    "ng-table": "~0.3.3",
+    "angularjs-toaster": "~0.4.8",
+    "angular-animate": "~1.2.26",
+    "angular-dialog-service": "~5.2.1",
+    "angular-sanitize": "~1.2.26",
+    "angular-translate": "~2.4.1",
+    "lodash": "~2.4.1"
+  }
+}
