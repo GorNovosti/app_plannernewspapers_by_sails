@@ -7,6 +7,7 @@ define [
     'cs!./pageedit/index' # редактор страницы(полосы)
     'cs!./releases/index'
     'cs!./users/index'
+    'cs!./referencies/index' #
     'cs!./common/security/index'
     'angular-bootstrap'
     'angular-resource'
@@ -20,6 +21,7 @@ define [
     modulePageedit
     releasesModule
     usersModule
+    referenciesModule
     securityModule
 )->
     return angular.module( 'newspapersApp', [
@@ -34,6 +36,7 @@ define [
         releasesModule
         usersModule
         modulePageedit
+        referenciesModule
         securityModule
     ])
     .config(['$urlRouterProvider',($urlRouterProvider)->

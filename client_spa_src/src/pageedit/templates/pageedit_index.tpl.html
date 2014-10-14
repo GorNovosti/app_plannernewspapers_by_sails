@@ -5,7 +5,7 @@
     </h3>
     <div class="btn-toolbar">
         <div class="btn-group">
-             <a ng-repeat="item in listBlockinfoTpl" draggable-blockinfo date-value="{{item}}"  class="btn btn-default">{{item.name}}</a>
+             <a ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-default">{{item.name}}</a>
 <!--            <a draggable-blockinfo date-value="" href="#" class="btn btn-default">1</a>
             <a draggable-blockinfo href="#" class="btn btn-default">2</a>
             <a draggable-blockinfo href="#" class="btn btn-default">3</a>
@@ -19,6 +19,10 @@
 </style>
     <section class="col-sm-12 dropblok" drop-blockinfo data-pageId="1" drop="handleDrop()">
         <div>Содержание </div>
+        <ul class="list-group">
+            <li ng-repeat="item in editPage.infoblocks"> {{item.name}}</li>
+        </ul>
     </section>
+<button draggable-position class="btn btn-success">Test</button>
 </section>
 <!-- //template "about.tpl.html"-->

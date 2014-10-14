@@ -4,6 +4,7 @@
         <title ng-bind="pageTitle"> Planner</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="styles/browserref.css" rel="stylesheet" type="text/css"/>
         <link href="styles/angular-csp.css" rel="stylesheet" type="text/css"/>
         <link href="styles/toaster.css" rel="stylesheet" />
         <link href="styles/ng-table.css" rel="stylesheet" type="text/css"/>
@@ -27,6 +28,18 @@
                 <li ui-sref-active="active"><a ui-sref="releases" href="#">Выпуски газет</a></li>
                 <li ui-sref-active="active"><a ui-sref="users" href="#">Пользователи</a></li>
                 <li ui-sref-active="active"><a ui-sref="pageedit" href="#">Редактор страницы</a></li>
+                <li class="dropdown"  ui-sref-active="active" >
+                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown">Справочники <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ><a ui-sref="referencies.typeblockinfo" href="#">Типы информационных блоков</a></li>
+                        <li ><a ui-sref="referencies.blockinfo" href="#/">Шаблоны информационных блоков</a></li>
+
+                        <!--
+                        <li><a href="#">Something else here</a></li>-->
+                        <!--                        <li class="divider"></li>
+                                                <li><a href="#">Separated link</a></li>-->
+                    </ul>
+                </li>
                 <li ui-sref-active="active"><a ui-sref="about" href="#">О приложении</a></li>
                 <!--                    <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -41,9 +54,11 @@
                                         </ul>
                                     </li>-->
             </ul>
+
             <!--                <form class="navbar-form navbar-left">
                                 <input type="text" class="form-control col-lg-8" placeholder="Search">
                             </form>-->
+
             <ul class="nav navbar-nav navbar-right ng-cloak">
                 <li ng-if="!isAuthenticated()" ui-sref-active="active"><a ui-sref="security" href="#">Вход</a></li>
                 <!--                    <li class="dropdown">
@@ -59,7 +74,7 @@
                 <li ng-if="isAuthenticated()">
                     <button type="button" class="btn btn-default" ng-click="onSignOut()" ng-show="isAuthenticated()">Выход</button>
                 </li>
- 
+
             </ul>
         </div>
     </div>

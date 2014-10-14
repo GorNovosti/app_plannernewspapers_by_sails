@@ -4,12 +4,16 @@ define ['cs!./../config','cs!./directives'],(config,module)->
 
         return {
             restrict: 'A'
+            scope:
+                value: '=value'
             link:(scope,element)->
                         ## DragStart
                 _handleDragStart = (e)->
                     @.style.opacity = '0.4'
                     e.dataTransfer.effectAllowed = 'copy'
-                    e.dataTransfer.setData 'json/blockinfo', {id:1,name:"test"}
+                    console.log 'scope data = ',scope.value
+                    _data =  scope.value# {id:1,name:"test"}
+                    e.dataTransfer.setData 'json/blockinfo', angular.toJson _data
                     @.classList.add('over');
                     return false
 
