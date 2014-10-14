@@ -47,6 +47,9 @@ module.exports = {
         admin: {
             type: "boolean",
             defaultsTo: false
+        },
+        role: {
+            model: "roles"
         }
     },
     beforeValidate: function(attrs, next){

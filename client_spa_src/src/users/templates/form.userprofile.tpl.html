@@ -2,8 +2,8 @@
 <!-- Modal -->
 <div class="modal-content">
     <div class="modal-header">
-        <h4 ng-if="!currEntity.userId">Новый пользователь</h4>
-        <h4 ng-if="currEntity.userId">Пользователь <strong>{{currEntity.userName}}</strong></h4>
+        <h4 ng-if="!currEntity.id">Новый пользователь</h4>
+        <h4 ng-if="currEntity.id">Пользователь <strong>{{currEntity.name}}</strong></h4>
     </div>
     <form name="EditForm" class="form-horizontal" role="form" ng-submit="onSave(editEntity)" loading-container="isBusy" novalidate>
         <div class="modal-body">
@@ -31,15 +31,15 @@
                 </label>
 
                 <div class="col-sm-8">
-                    <select ng-options="role.id as role.name for role in userRolesList" class="form-control" ng-model="editEntity.role" id="sample_data"   required>
-                        <option value="">Select...</option>
+                    <select ng-options="role.id as role.name for role in userRolesList" class="form-control" ng-model="editEntity.role.id" id="sample_data"   required>
+                        <option value="">Выбрать...</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn_save" ng-disabled="EditForm.$invalid">Submit</button>
-            <button type="button" class="btn btn-default btn_cancel" ng-click="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary btn_save" ng-disabled="EditForm.$invalid">{{"DIALOGS_SAVE" | translate}}</button>
+            <button type="button" class="btn btn-default btn_cancel" ng-click="onCancel()">{{"DIALOGS_CANCEL" | translate}}</button>
         </div>
     </form>
 </div>

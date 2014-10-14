@@ -26,5 +26,5 @@ define [
                 ]
             data:
                 pageTitle: statespace.pageTitle
-                accessForRoles: ['admin', 'dataAnalyst'] 
+                #accessForRoles: ['admin', 'dataAnalyst']
     ]

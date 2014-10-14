@@ -89,24 +89,24 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                                 $scope.editEntity = entity
                                 $scope.editEntity.canEdit = true
                             ###* set new password for user ###
-                            $scope.onSetNewPassword = (params=null)->
-                                $scope.isBusy = true
-                                delDlg = DialogService.confirm "Set new password","Are you sure you want to generate new password for <strong>#{$scope.currEntity.userName}</strong>?"
-                                delDlg.result.then(
-                                    (result)->
-                                        console.log params
-                                        $scope.editEntity.$updatePassword().then(
-                                            (result)->
-                                                $scope.isBusy = false
-                                                NotificationService.success 'Success', "A new password is generated and sent by email <strong>#{result.userName}</strong>"
-                                            (error)->
-                                                if  error.data?.message? and error.status != 500
-                                                    NotificationService.error 'Error', error.data.message
-                                                $scope.isBusy = false
-                                        )
-                                    (error)->
-                                        $scope.isBusy = false
-                                )
+                            #                            $scope.onSetNewPassword = (params=null)->
+                            #                                $scope.isBusy = true
+                            #                                delDlg = DialogService.confirm "Set new password","Are you sure you want to generate new password for <strong>#{$scope.currEntity.userName}</strong>?"
+                            #                                delDlg.result.then(
+                            #                                    (result)->
+                            #                                        console.log params
+                            #                                        $scope.editEntity.$updatePassword().then(
+                            #                                            (result)->
+                            #                                                $scope.isBusy = false
+                            #                                                NotificationService.success 'Success', "A new password is generated and sent by email <strong>#{result.userName}</strong>"
+                            #                                            (error)->
+                            #                                                if  error.data?.message? and error.status != 500
+                            #                                                    NotificationService.error 'Error', error.data.message
+                            #                                                $scope.isBusy = false
+                            #                                        )
+                            #                                    (error)->
+                            #                                        $scope.isBusy = false
+                            #                                )
 
                             ###* on save in server-side ###
                             $scope.onSave = ->

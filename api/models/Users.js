@@ -33,6 +33,7 @@ module.exports = {
         // clear model data 
         toJSON: function () {
             var obj = this.toObject();
+            obj.roleId = this.role.id;
             delete obj.password;
             delete obj.confirmation;
             delete obj.encryptedPassword;

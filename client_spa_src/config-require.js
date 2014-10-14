@@ -32,7 +32,8 @@ define({
         'angular-translate': '../../vendors/angular-translate/angular-translate',
         'angular-sanitize': '../../vendors/angular-sanitize/angular-sanitize',
         'dialogs-translation': '../../vendors/angular-dialog-service/dist/dialogs-default-translations.min',
-        'lodash': '../../vendors/lodash/dist/lodash'
+        'lodash': '../../vendors/lodash/dist/lodash',
+        'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage'
     },
     shim: {
         'angular': {
@@ -88,6 +89,9 @@ define({
         'dialogs-translation': {
             deps: ['angular', 'angular-translate']
         },
+        'angular-local-storage': {
+            deps: ['angular']
+        }
     }
     //,deps:['sails.io']
 });

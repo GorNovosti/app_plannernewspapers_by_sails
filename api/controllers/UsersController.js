@@ -56,13 +56,15 @@ module.exports = {
     },
     update: function (req, res) {
         console.log('Users update', req.params.all());
+        var param =   req.params.all();
+        
         Users.update(req.param('id'), req.params.all(), function (err, data) {
             if (err) {
                 res.status(500);
                 res.json(err);
                 return;
             }
-            Users.find().populate('role').exec(function (_error, data) {
+            Users.find({id:req.param('id')}).limit(1).populate('role').exec(function (_error, data) {
                 res.json(data[0]);
             });
         });

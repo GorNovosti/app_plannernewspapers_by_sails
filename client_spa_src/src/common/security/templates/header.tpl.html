@@ -1,0 +1,83 @@
+<!-- header.tpl.html -->
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div collapse="$parent.navCollapsed" class="collapse navbar-collapse navbar-collapse" ng-controller="HeaderController"> 
+    <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+        <li ng-show="!currentUser">
+            <form autocomplete="on" ng-submit="onSignIn(credentials)" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input ng-model="credentials.email" type="email" class="form-control input-sm" placeholder="Email"/>
+                </div>
+                <div class="form-group">
+                    <input ng-model="credentials.password" type="password" class="form-control input-sm"
+                           placeholder="Password"/>
+                </div>
+                <button ng-disabled="!credentials.email && !credentials.password" type="submit"
+                        class="btn btn-default btn-sm"><span class="glyphicon glyphicon-lock"></span>Sign In
+                </button>
+            </form>
+        </li>
+
+        <li class="dropdown" ng-show="currentUser">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>
+                {{currentUser.userName}}<b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#" ng-click="$event.preventDefault();onSignOut('/login')"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>
+            </ul>
+        </li>
+
+<!--        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>
+                Fast SignIn<b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('dataCapturer1@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>dataCapturer1@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('dataCapturer2@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>dataCapturer2@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('webResearcher1@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>webResearcher1@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('webResearcher2@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>webResearcher2@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('dataManager1@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>dataManager1@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('dataAnalyst1@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>dataAnalyst1@relevano.com
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="$event.preventDefault();signIn('admin1@relevano.com', 'qwerty')">
+                        <span class="glyphicon glyphicon-lock"></span>admin1@relevano.com
+                    </a>
+                </li>
+
+            </ul>
+        </li>-->
+    </ul>
+
+</div><!-- /.navbar-collapse -->
+<!-- //header.tpl.html -->   

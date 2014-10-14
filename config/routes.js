@@ -75,7 +75,8 @@ module.exports.routes = {
     'put users': {
         controller: 'UsersController',
         action: 'update',
-    }
+    },
+    
     //'get users': 'UsersController.index'
-    //, 'get users/:id?': 'UsersController.find'
+    'post /api/v1/auth/signin': 'UserController.login'
 };
