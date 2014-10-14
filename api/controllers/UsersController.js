@@ -10,7 +10,7 @@ module.exports = {
         Users.count().exec(function (error, count) {
             //res.header("Access-Control-Allow-Origin:*");
             return res.json({
-                count: count,
+                count: count
             });
         });
     },
@@ -29,16 +29,19 @@ module.exports = {
         if (page && limit)
         {
             Users.count().exec(function (error, count) {
-                if (error) {
-                    res.header('X-Prism-Total-Items-Count', count);//"Access-Control-Allow-Origin:*"); 
+                if (!error) {
+                    //res.header('X-Prism-Total-Items-Count', count);//"Access-Control-Allow-Origin:*"); 
 
 //            return res.json({
 //                count: count,
 //            });
 //        });
-                    Users.find().paginate({page: page, limit: limit})
-                            .exec(function (error, data) { 
-                                return res.json(data);
+                    Users.find().populate('role').paginate({page: page, limit: limit})
+                            .exec(function (_error, data) {
+                                console.log(count, data);
+                                res.setHeader('X-Prism-Total-Items-Count', count);//"Access-Control-Allow-Origin:*"); 
+                                res.json(data);
+                                return;
                             });
                 }
 //        else {
@@ -47,19 +50,21 @@ module.exports = {
 //            });
 //        }
             });
+        } else {
+            return res.json([]);
         }
-        return res.json([]);
     },
     update: function (req, res) {
         console.log('Users update', req.params.all());
         Users.update(req.param('id'), req.params.all(), function (err, data) {
-            console.log('Users is update', err, data);
             if (err) {
-                res.json({"err": err});
+                res.status(500);
+                res.json(err);
                 return;
-
             }
-            res.json(data);
+            Users.find().populate('role').exec(function (_error, data) {
+                res.json(data[0]);
+            });
         });
 
     },

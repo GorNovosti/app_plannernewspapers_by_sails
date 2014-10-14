@@ -39,7 +39,7 @@ module.exports = {
             delete obj._csrf;
             return obj;
         },
-        owner: {
+        role: {
             model: "roles"
         }
     }

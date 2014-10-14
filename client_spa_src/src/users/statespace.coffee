@@ -6,5 +6,5 @@ define [], ()->
     return {
         name: "#{_default_statespace_name}"
         url: "/#{_default_statespace_name}"
-        pageTitle: "Users Management"
+        pageTitle: "Управление пользователями"
     }

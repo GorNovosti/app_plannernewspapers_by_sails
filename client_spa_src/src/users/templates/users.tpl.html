@@ -39,7 +39,7 @@
                             <tr ng-repeat="item in $data">
                                 <td data-title="'Имя'" sortable="'name'">{{item.name}}</td>
                                 <td data-title="'Email'" sortable="'email'">{{item.email}}</td>
-                                <td data-title="'Роль(должность)'" sortable="'role'" >{{item.role}}</td>
+                                <td data-title="'Роль(должность)'" sortable="'role'" >{{item.role.name}}</td>
                                 <td data-title="'Действия'">
                                     <button class="btn btn-xs btn-warning" ng-click="onEditUser(item)">Изменить</button>
                                     <button class="btn btn-xs btn-danger" ng-click="onDeleteUser(item)">Удалить</button>

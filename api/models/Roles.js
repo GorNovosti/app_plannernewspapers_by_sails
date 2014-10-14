@@ -12,7 +12,7 @@ module.exports = {
         },
         users:{
             collection: 'users',
-            via: 'owner'
+            via: 'role'
         }
     }
 };
