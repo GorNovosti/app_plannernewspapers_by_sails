@@ -13,7 +13,7 @@ define({
         'cs': './../../vendors/require-cs/cs',
         'coffee-script': '../../vendors/coffeescript/extras/coffee-script',
         'text': '../../vendors/requirejs-text/text',
-        'angular': '../../vendors/angular/angular',
+        'angular': '../../vendors/angular/angular',//"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min",
         'angular-animate': '../../vendors/angular-animate/angular-animate',
         //'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular',
         'angular-resource': '../../vendors/angular-resource/angular-resource',

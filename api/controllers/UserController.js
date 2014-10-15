@@ -78,6 +78,16 @@ module.exports = {
         });
 
     },
+    find: function (req, res, next) {
+        console.log('-finde', req.param('id'));
+        User.findOne(req.param('id'), function foundUser(err, user) {
+            if ((err) || (!user))
+                return next(err);
+            res.json(user);
+
+        });
+
+    },
     /**
      * Show list of users
      * @param {type} req

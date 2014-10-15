@@ -21,16 +21,29 @@ define ['cs!./../config','cs!./directives'],(config,module)->
             restrict: 'A'
             scope:
                 drop: '&'#parent
-            link:(scope,element)->
+                drop2: '&'#parent
+            controller: [ '$scope',($scope)->
+                $scope.onDrop = (data)->
+                    console.log 'controller on drop',data
+                    $scope.$apply ->
+                        $scope.drop2()(data)
+                    return
+
+            ]
+            link:(scope,element,attr)->
                 el = element[0]
-                el.draggable = true
+                el.draggable = false
                 _handleDropBlockinfo = (e)->
                     e.stopPropagation() if !!e.stopPropagation
                     _data =  e.dataTransfer.getData('json/blockinfo')
                     console.log  'json/blockinfo',  _data
                     @.classList.remove('over');
                     # call the drop passed drop function
-                    scope.$apply('drop('+_data+')');
+                    #scope.$apply('drop('+ {blockinfo:angular.toJson _data}+')');
+                    scope.onDrop( JSON.parse _data)
+##                    scope.$apply ->
+##                        console.log 'isss', angular.toJson _data
+##                        scope.drop({'test':2})
                     return false
 
                 el.addEventListener 'dragenter', _handleDragEnter, false
@@ -38,12 +51,12 @@ define ['cs!./../config','cs!./directives'],(config,module)->
                 el.addEventListener 'dragleave', _handleDragLeave, false
                 el.addEventListener 'drop', _handleDropBlockinfo, false
 
-                element.on '$destroy', ->
-                    console.log 'is destroy'
-                    el.addEventListener 'dragenter', _handleDragEnter
-                    el.addEventListener 'dragover' , _handleDragOver
-                    el.addEventListener 'dragleave', _handleDragLeave
-                    el.addEventListener 'drop', _handleDropBlockinfo 
+#                element.on '$destroy', ->
+#                    console.log 'is destroy'
+#                    el.addEventListener 'dragenter', _handleDragEnter
+#                    el.addEventListener 'dragover' , _handleDragOver
+#                    el.addEventListener 'dragleave', _handleDragLeave
+#                    el.addEventListener 'drop', _handleDropBlockinfo
         }
 
     ]

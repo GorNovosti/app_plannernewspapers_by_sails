@@ -13,15 +13,19 @@ define [],()->
                     id:1
                     name: "Шаблон Блок 'статья'"
                     type: 'acticle'
+                    x:10
+                    y:10
                 ,
                     id:2
                     name: "Шаблон Блок 'вставка'"
                     type: 'comment'
+                    x:30
+                    y:30
                 ]
                 $scope.handleDrop = (data=null)->
-                    $scope.editPage.infoblocks.push  {name:"test"}
+                    $scope.editPage.infoblocks.push  data#{name:"test"}
                     console.log data
-                    return 
+                    return
             ]
         ]
     }

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg"> 
+    <g ng-repeat="node in model"
+       ng-mousedown="nodeMouseDown($event, node)"
+       ng-attr-transform="translate({{node.x()}}, {{node.y()}})"
+       >{{($scope.$isSelect == node.id)}}
+        <rect  ng-click="setSelect(node)" ng-attr-x="{{10 * $index}}"  ng-attr-y="{{10 * $index}}" width="20" height="20" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" ></rect>
+    </g>
+</svg>
