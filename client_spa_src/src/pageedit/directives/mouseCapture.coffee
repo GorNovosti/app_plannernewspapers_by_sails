@@ -20,7 +20,7 @@ define ['cs!./directives'],(module)->
         _mouseUp = (evt)->
             console.log 'mouseUp'
             if mouseCaptureConfig?.mouseUp?
-                mouseCaptureConfig.miuseUp(evt)
+                mouseCaptureConfig.mouseUp(evt)
                 $rootScope.$digest()
             return
         return {
@@ -34,18 +34,24 @@ define ['cs!./directives'],(module)->
             acquire: (evt,config)->
                 ## Release any prior mouse capture.
                 ## Испольнить все основные события связыанный с событием
+                console.log '@.release',@.release
                 @.release()
                 mouseCaptureConfig = config
-
-                $element.mousemove(_mouseMove)
-                $element.mouseup(_mouseUp)
+                ##fix no jQuery
+                #$element.mousemove(_mouseMove)
+                #$element.mouseup(_mouseUp)
+                $element.bind 'mousemove',_mouseMove
+                $element.bind 'mouseup', _mouseUp
                 return
             release: ->
+                console.log 'release '
                 if mouseCaptureConfig?
+                    console.log mouseCaptureConfig
                     if mouseCaptureConfig?.released?
                         #Let the client know that their 'mouse capture' has been released.
                         mouseCaptureConfig.released()
                     mouseCaptureConfig = null
+                console.warn mouseCaptureConfig, $element
                 $element.unbind "mousemove", _mouseMove
                 $element.unbind "mouseup", _mouseUp
                 return
@@ -54,8 +60,11 @@ define ['cs!./directives'],(module)->
 
     module.controller "#{module.name.replace /\.+/g, "_"}Controller", [
         "$scope"
+        "$element"
+        "$attrs"
         "#{module.name.replace /\.+/g, "_"}Factory"
-        ($scope, factory)->
+        ($scope, $element,$attrs,mouseCapture)->
+            mouseCapture.registerElement($element);
             constructor: ->
                 console.log "init #{module.name.replace /\.+/g, "_"}Controller"
     ]
@@ -70,8 +79,10 @@ define ['cs!./directives'],(module)->
     ]
     ###
     ========================
+    Help for draggin
+    ========================
     ###
-    module.factory "dragging", ($rootScope, mouseCapture) ->
+    module.factory "dragging",['$rootScope',"#{module.name.replace /\.+/g, "_"}Factory", ($rootScope, mouseCapture) ->
         #
         # Threshold for dragging.
         # When the mouse moves by at least this amount dragging starts.
@@ -82,7 +93,7 @@ define ['cs!./directives'],(module)->
         # Called by users of the service to register a mousedown event and start dragging.
         # Acquires the 'mouse capture' until the mouseup event.
         #
-        startDrag: (evt, config) ->
+        startDrag: (evt, config)->
             dragging = false
             x = evt.pageX
             y = evt.pageY
@@ -91,6 +102,7 @@ define ['cs!./directives'],(module)->
             # Handler for mousemove events while the mouse is 'captured'.
             #
             mouseMove = (evt) ->
+                console.log dragging
                 unless dragging
                     if evt.pageX - x > threshold or evt.pageY - y > threshold
                         dragging = true
@@ -139,3 +151,4 @@ define ['cs!./directives'],(module)->
             evt.stopPropagation()
             evt.preventDefault()
             return
+        ]

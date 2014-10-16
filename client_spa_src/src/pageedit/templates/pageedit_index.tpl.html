@@ -18,7 +18,7 @@
         <section class="col-sm-4 dropblok" drop-blockinfo  drop2="handleDrop" drop="handleDrop(blockinfo)">
             <div>Содержание </div>
             <ul class="list-group">
-                <li ng-repeat="item in editPage.infoblocks"> {{item.name}}</li>
+                <li ng-repeat="item in editPage.infoblocks"> {{item.name}} x: <input type="number" ng-model="item.x"/> y: <input type="number" ng-model="item.y"/> </li>
             </ul>
             {{editPage.infoblocks| json}}
         </section>

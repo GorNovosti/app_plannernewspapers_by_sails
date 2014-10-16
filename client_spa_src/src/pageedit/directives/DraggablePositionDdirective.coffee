@@ -1,5 +1,6 @@
 ###**
 https://github.com/ahmednuaman/angularjs-drag-directive/blob/master/drag-directive.coffee
+https://gist.github.com/siongui/4969457 - alternatives
 ###
 define ['cs!./../config','cs!./directives'],(config,module)->
     class InteractionHelper
@@ -12,8 +13,9 @@ define ['cs!./../config','cs!./directives'],(config,module)->
                 pageY: event.pageY
 
     DragPositionDirective = ($document) ->
-
+        restrict: 'A'
         link: ($scope, $element, $attrs) ->
+            $element.css({position: 'absolute'});
             endTypes = 'touchend touchcancel mouseup mouseleave'
             moveTypes = 'touchmove mousemove'
             startTypes = 'touchstart mousedown'
@@ -28,16 +30,17 @@ define ['cs!./../config','cs!./directives'],(config,module)->
 
             $element.bind startTypes, (event) ->
                 event.preventDefault()
-
+                startX = $element.prop('offsetLeft');
+                startY = $element.prop('offsetTop');
                 elementStartX = parseInt $element.css 'left'
                 elementStartY = parseInt $element.css 'top'
                 interactionStart = InteractionHelper.normalisePoints event
 
                 if isNaN elementStartX
-                    elementStartX = 0
+                    elementStartX = startX || 0
 
                 if isNaN elementStartY
-                    elementStartY = 0
+                    elementStartY = startY || 0
 
                 $document.bind moveTypes, (event) ->
                     event.preventDefault()
