@@ -71,12 +71,22 @@ module.exports.routes = {
     , 'post /api/v1/users': {
         controller: 'UsersController',
         action: 'create'
+    }
+    , 'post /api/v1/auth/signup': {
+        controller: 'UsersController',
+        action: 'signup'
     },
     'put users': {
         controller: 'UsersController',
         action: 'update',
     },
-    
     //'get users': 'UsersController.index'
     'post /api/v1/auth/signin': 'UserController.login'
+
+    , 'POST /api/v1/typesblockinfo': 'TypesblockinfoController.create'
+
+    , 'GET /api/v1/blockinfo?': 'BlockinfoController.index'
+    , 'POST /api/v1/blockinfo': 'BlockinfoController.create'
+    , 'GET /api/v1/releasenewspapers?': 'ReleasenewspapersController.index'
+    , 'POST /api/v1/releasenewspapers': 'ReleasenewspapersController.create'
 };

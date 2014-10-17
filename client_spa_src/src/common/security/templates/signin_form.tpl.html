@@ -1,11 +1,22 @@
 <form class="form well-lg" name="loginForm" ng-controller="LoginController"
       ng-submit="onSignIn(credentials)" novalidate>
-    <label for="username">Username:</label>
-    <input type="text" id="username"
+    <label for="email">Email:</label>
+    <input type="text" id="email"
            ng-model="credentials.email">
-    <label for="password">Password:</label>
+    <label for="password">Пароль:</label>
     <input type="password" id="password"
            ng-model="credentials.password">
     <button type="submit" class="btn btn-success">Войти</button>  
-    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> 
+<!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
+</form>
+<form class="form well-lg" name="loginForm" ng-controller="LoginController"
+      ng-submit="onSignUp(credentials)" novalidate>
+    <label for="email">Email:</label>
+    <input type="text" id="email"
+           ng-model="credentials.email">
+    <label for="password">Пароль:</label>
+    <input type="password" id="password"
+           ng-model="credentials.password">
+    <button type="submit" class="btn btn-success">Зарегистрироваться</button>  
+<!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
 </form>

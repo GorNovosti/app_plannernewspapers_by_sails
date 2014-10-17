@@ -1,5 +1,6 @@
 define [
     'cs!./module'
+
     'cs!./templates/templatesCache'
 ],(module)->
 

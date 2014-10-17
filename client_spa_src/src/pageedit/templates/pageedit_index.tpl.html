@@ -1,34 +1,52 @@
-<!-- template "about.tpl.html"-->
-<section class="container"> 
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            <a ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-default">{{item.name}}</a>
-            <!--            <a draggable-blockinfo date-value="" href="#" class="btn btn-default">1</a>
-                        <a draggable-blockinfo href="#" class="btn btn-default">2</a>
-                        <a draggable-blockinfo href="#" class="btn btn-default">3</a>
-                        <a draggable-blockinfo href="#" class="btn btn-default">4</a>-->
-        </div>
-    </div>
+<!-- template "pageedit_index.tpl.html"-->
+<section class="container-fuid"> 
     <style>
         .dropblok.over {
             border: 2px dashed #000;
         }
     </style>
-    <div class="row">
-        <section class="col-sm-4 dropblok" drop-blockinfo  drop2="handleDrop" drop="handleDrop(blockinfo)">
-            <div>Содержание </div>
-            <ul class="list-group">
-                <li ng-repeat="item in editPage.infoblocks"> {{item.name}} x: <input type="number" ng-model="item.x"/> y: <input type="number" ng-model="item.y"/> </li>
-            </ul>
-            {{editPage.infoblocks| json}}
-        </section>
-        <div class="col-sm-4">
-            <viewer-page-newspaper mouse-capture ng-model="editPage.infoblocks">test_error
-            
-            </viewer-page-newspaper>
-        </div>
-        
+    <div class="col-sm-4">
+        <ul class="btn-group">
+            <li> <button  type="button" ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-primary">{{item.name}}</button> </li>
+        </ul>
     </div>
-    <button draggable-position class="btn btn-success">Test</button>
+ 
+<!-- panel newspaper information-->
+<!--    <div class="row"> 
+        <p class="col-sm-12">
+            {{editPage.pagesCount}}{{pagesCountList()}}
+        </p>
+    </div>-->
+<!-- panel newspaper information-->
+<div class="row">
+    <section class="col-sm-4 dropblok" drop-blockinfo  dop-param="editPage.id" drop="handleDrop">
+        <div>Содержание </div> 
+        <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        <ul class="list-group" drop-blockinfo  dop-param="editPage.id" drop="handleDrop">
+            <!--<ul class="dropblok" drop-blockinfo dop-param="page" drop="handleDrop" ng-repeat="page in pagesCountList()">Страница №{{page}}-->
+            <li class="list-group-item col-sm-12" ng-repeat="item in editPage.infoblocks| filter: {page:page}"> 
+                <div class="col-sm-4">  {{item.name}}</div>
+                <div class="col-sm-8">        x: <input type="number" ng-model="item.x" class="form-control"/>
+                    y: <input type="number" ng-model="item.y" class="form-control"/> </div>                     
+            </li>
+            <!--</ul>-->
+
+        </ul> 
+    </section>
+    <div class="col-sm-4">
+        <viewer-page-newspaper mouse-capture ng-model="editPage.infoblocks" style="border: 3px solid;"> 
+
+        </viewer-page-newspaper>
+    </div> 
+</div>
+<!--    <button draggable-position class="btn btn-success">Test</button>-->
+<!-- panel newspaper information-->
+<!--    <div class="row"> 
+        <p class="col-sm-12">
+            {{editPage| json}}
+        </p>
+    </div>-->
+<!-- panel newspaper information-->
+
 </section>
-<!-- //template "about.tpl.html"-->
+<!-- //template "pageedit_index.tpl.html"-->

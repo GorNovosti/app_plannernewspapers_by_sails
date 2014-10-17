@@ -23,6 +23,16 @@ define [
                 password: 'demo123456'
                 rememberMe: true
             ###
+            call AuthService function. 
+            ###
+            $scope.onSignUp = (data)->
+                AuthService.signup(data).then(
+                        (result)->
+                            console.log result
+                            $state.go "home"
+                    )
+                return
+            ###
             call AuthService function. No control send data
             ###
             $scope.onSignIn = (data)->
@@ -42,6 +52,8 @@ define [
                             $location.path '/login'
                 )
                 return
+
+
             ###* change current Role ###
             $scope.onSetCurrentRole = (_role)->
                 AuthService.setUserRole(_role).then(

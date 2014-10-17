@@ -21,12 +21,12 @@ define ['cs!./../config','cs!./directives'],(config,module)->
             restrict: 'A'
             scope:
                 drop: '&'#parent
-                drop2: '&'#parent
+                dopParam: '='
             controller: [ '$scope',($scope)->
                 $scope.onDrop = (data)->
-                    console.log 'controller on drop',data
+                    console.log 'controller on drop',data,$scope.dopParam
                     $scope.$apply ->
-                        $scope.drop2()(data)
+                        $scope.drop()(data,$scope.dopParam)
                     return
 
             ]
@@ -40,7 +40,7 @@ define ['cs!./../config','cs!./directives'],(config,module)->
                     @.classList.remove('over');
                     # call the drop passed drop function
                     #scope.$apply('drop('+ {blockinfo:angular.toJson _data}+')');
-                    scope.onDrop( JSON.parse _data)
+                    scope.onDrop(JSON.parse _data)
 ##                    scope.$apply ->
 ##                        console.log 'isss', angular.toJson _data
 ##                        scope.drop({'test':2})

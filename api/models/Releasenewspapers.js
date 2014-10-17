@@ -7,12 +7,14 @@
 
 module.exports = {
   connection: 'someMongodbServer',
+  
   attributes: {
       name:{
           type:"string"
       },
-      pagecount:{
-          
+      pagesCount:{
+          type:"integer",
+          defaultsTo: 1
       }
 //      ,
 //      pages:{

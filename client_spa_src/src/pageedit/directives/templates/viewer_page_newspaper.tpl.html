@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      ng-mousedown="mouseDown($event)"
-     ng-mousemove="mouseMove($event)"  > 
+     ng-mousemove="mouseMove($event)"
+     viewBox="0 0 297 420"> 
     <deps>
         <linearGradient 
             spreadMethod="pad" 
@@ -33,13 +34,13 @@
                ng-attr-height="{{node.height||(node.height=20)}}" 
                style="stroke-width:3;stroke:rgb(0,0,0)"
                fill="url(#nodeBackgroundGradient)"></rect>
-        <text
+<!--        <text
             ng-attr-x="{{node.width / 2}}"
             y="25"
             text-anchor="middle"
             alignment-baseline="middle"
             >
             {{node.name}}
-        </text>
+        </text>-->
     </g>
 </svg>

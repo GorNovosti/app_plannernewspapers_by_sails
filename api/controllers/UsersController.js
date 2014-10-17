@@ -56,15 +56,15 @@ module.exports = {
     },
     update: function (req, res) {
         console.log('Users update', req.params.all());
-        var param =   req.params.all();
-        
+        var param = req.params.all();
+
         Users.update(req.param('id'), req.params.all(), function (err, data) {
             if (err) {
                 res.status(500);
                 res.json(err);
                 return;
             }
-            Users.find({id:req.param('id')}).limit(1).populate('role').exec(function (_error, data) {
+            Users.find({id: req.param('id')}).limit(1).populate('role').exec(function (_error, data) {
                 res.json(data[0]);
             });
         });
@@ -82,6 +82,37 @@ module.exports = {
 
         });
         //res.json({"res":"oKKKK"});
+    },
+    /**
+     * 
+     * @param {type} req
+     * @param {type} res
+     * @returns {undefined}
+     * пример http://code.tutsplus.com/tutorials/working-with-data-in-sailsjs--net-31525
+     */
+    signup: function (req, res) {
+        var email = req.param("email");
+        var password = req.param("password");
+
+        Users.findByEmail(email).exec(function (err, usr) {
+            if (err) {
+                res.send(500, {error: "DB Error"});
+            } else if (usr.length>0) { 
+                res.send(400, {error: "Email already Taken"});
+            } else {
+                var hasher = require("password-hash");
+                password = hasher.generate(password);
+
+                Users.create({email: email, password: password, role: null}).exec(function (error, user) {
+                    if (error) {
+                        res.send(500, error);//{error: "DB Error"});
+                    } else {
+                        req.session.user = user;
+                        res.send(user);
+                    }
+                });
+            }
+        });
     }
 };
 

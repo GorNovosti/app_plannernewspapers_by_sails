@@ -16,10 +16,16 @@ define ['cs!./../config','cs!./directives'],(config,module)->
                     e.dataTransfer.setData 'json/blockinfo', angular.toJson _data
                     @.classList.add('over');
                     return false
+                _handleDragEnd = (e)->
+                    @.style.opacity = '1'
+                    @.classList.remove('over');
+                    return false
 
                 el = element[0]
                 el.draggable = true
                 el.addEventListener 'dragstart', _handleDragStart, false
+                el.addEventListener 'dragend', _handleDragEnd, false
+
         }
 
     ]

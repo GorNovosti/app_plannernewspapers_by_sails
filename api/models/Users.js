@@ -10,8 +10,8 @@ module.exports = {
     schema: true,
     attributes: {
         name: {
-            type: "string",
-            required: true
+            type: "string"
+                    //required: true
         },
         login: {
             type: "string"
@@ -22,18 +22,21 @@ module.exports = {
             unique: true,
             required: true
         },
-    //        password: {
-    //            type: 'string',
-    //            required: true,
-    //            minLength: 6
-    //        },
-    //        encryptedPassword: {
-    //            type: "string"
-    //        },
+        //        password: {
+        //            type: 'string',
+        //            required: true,
+        //            minLength: 6
+        //        },
+        //        encryptedPassword: {
+        //            type: "string"
+        //        },
         // clear model data 
         toJSON: function () {
             var obj = this.toObject();
-            obj.roleId = this.role.id;
+            if (!!this.role)
+                obj.roleId = this.role.id;
+            else
+                obj.roleId = null;
             delete obj.password;
             delete obj.confirmation;
             delete obj.encryptedPassword;

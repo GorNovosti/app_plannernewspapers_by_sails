@@ -1,22 +1,9 @@
-<!-- blockinfo_list.tpl.html --> 
+<!-- release_list.tpl.html --> 
 <div class="col-sm-12 no-padding" loading-container="isBusy || tableParams.settings().$loading">
     <div class="col-sm-12">
-        <!--            <h3 class="text text-left task-title col-sm-12">
-                       Шаблоны информационных блоков
-                                        <button
-                                                                      ng-click="onOpenInstruction()"
-                                                                      type="button"
-                                                                      class="btn btn-info pull-right">
-                                            Instruction
-                                        </button>
-                    </h3>-->
-
-        <!--            <hr/>
-                    <div class="pusher-15"></div>-->
-
         <div class="col-sm-12 no-padding">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a>Шаблоны информационных блоков</a></li>
+                <li class="active"><a>Выпуски(номера) газет</a></li>
             </ul>
         </div>
 
@@ -38,6 +25,7 @@
                         <tr ng-repeat="item in $data">
                             <td data-title="'Имя'" sortable="'name'">{{item.name}}</td>
                             <td data-title="'Описание'" sortable="'email'">{{item.description}}</td> 
+                            <td data-title="'Кол-во страниц(полос)'" sortable="'pagesCount'">{{item.pagesCount}}</td> 
                             <td data-title="'Действия'">
                                 <button class="btn btn-xs btn-success" ng-click="onEditUser(item)">Изменить</button>
                                 <button class="btn btn-xs btn-danger" ng-click="onDeleteUser(item)">Удалить</button>
@@ -49,4 +37,4 @@
         </div>
     </div>
 </div>
-<!-- -->
+<!-- //release_list.tpl.html-->

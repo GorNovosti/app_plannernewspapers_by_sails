@@ -7,7 +7,13 @@ define ['cs!./../module', 'angular', 'cs!./SessionService'], (module, angular)->
                     $rootScope.isAuthenticated = @.isAuthenticated
                     $rootScope.onSignOut = @.signout
                     return
-
+                signup: (credentials)->
+                    $http.post(baseUrl + '/auth/signup', credentials)
+                    .then(
+                        (result)->
+                            SessionService.save result.data
+                            return result.data
+                    )
                 signin: (credentials)->
                     $http.post(baseUrl + '/auth/signin', credentials)
                     .then(

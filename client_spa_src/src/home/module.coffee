@@ -12,8 +12,8 @@ define [
     _module.run([->
         console.info "run #{config.namespace}"
     ])
-    _module.config [ 'stateHelperProvider',(stateHelperProvider)->
-
+    _module.config [ 'stateHelperProvider','$urlRouterProvider',(stateHelperProvider,$urlRouterProvider)->
+        $urlRouterProvider.when '/','/home'
         if !!config.states
            angular.forEach config.states, (_state)->
                 stateHelperProvider.setNestedState(_state)

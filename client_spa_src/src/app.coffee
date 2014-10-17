@@ -40,8 +40,7 @@ define [
         securityModule
     ])
     .config(['$urlRouterProvider',($urlRouterProvider)->
-        $urlRouterProvider.otherwise("/");
-        #$routerProvider.when '/','/home'
+        $urlRouterProvider.otherwise("/"); 
     ])
     .run(['$rootScope',($rootScope)->
         ## App stata
@@ -62,10 +61,12 @@ define [
 
                     return response || $q.when(response)
                 responseError: (rejection)->
-                    if (rejection.status == 500)
+                    if (rejection.status == 500 ||rejection.status == 400 )
                         console.log("Response Error 500", rejection)
                         if rejection.data?.summary?
                             NotificationService.error("Server error", rejection.data.summary)
+                        if rejection.data?.error?
+                            NotificationService.error("Server error", rejection.data.error)
                     return $q.reject(rejection)
         ])
     ]

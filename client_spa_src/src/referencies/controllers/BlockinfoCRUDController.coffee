@@ -1,13 +1,15 @@
-###* ManageUsersController ###
-define ['cs!./../module','cs!./../namespace'],(module,namespace)->
-    module.controller 'ManageUsersController',[
+define ['cs!./controllers','cs!./../config'],(module,config)->
+
+    module.controller 'BlockinfoCRUDController',  [
         '$scope'
         '$filter'
         '$modal'
         'APIService'
         'DialogService'
         'ngTableParams'
-        ($scope, $filter,$modal,APIService,DialogService, ngTableParams)->
+        'tplForm'
+        ($scope, $filter,$modal,APIService,DialogService, ngTableParams,tplForm)->
+            console.log tplForm
             ###
             Create ngTableParams
             ###
@@ -19,7 +21,6 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
             ,
                 total: 0, # length of data
                 getData: ($defer, params)->
-                    console.log params.orderBy()
                     paramSend =
                         sort: params.orderBy().join()
                         limit: params.count()
@@ -38,7 +39,7 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                 $scope: $scope.$new()
             ###* confirm delete (used service) ###
             $scope.onDeleteUser = (item)->
-                delDlg = DialogService.deleteDialog "Удаление пользователя","Вы действительно желаете удалить пользователя <strong>#{item.name}</strong>?"
+                delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить запись с именем <strong>#{item.name}</strong>?"
                 delDlg.result.then(
                     ##confirn delete entity
                     (res)->
@@ -54,15 +55,13 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                 )
             ###* Add new User or Edit them in modal window###
             $scope.onEditUser = $scope.onAddUser = (item = null)->
-                console.log item
+                console.log 'start ', item
                 $modal.open(
                     windowClass: 'addModal'
-                    templateUrl: "templates/#{namespace.replace /\.+/g, "/"}/form.userprofile.tpl.html"
+                    templateUrl: "templates/#{config.namespace.replace /\.+/g, "/"}/form.#{tplForm}.tpl.html"
                     resolve:
                         entity: ->
-                            return new APIService.getUser(item)
-                        userRolesList:->
-                            return APIService.getRolesList()
+                            return item #new APIService.get(item)
                         isNew: ->
                             if item?
                                 return false
@@ -73,41 +72,21 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                         "$scope"
                         "$modalInstance"
                         "entity"
-                        "userRolesList"
                         "isNew"
                         "NotificationService"
-                        ($scope, $modalInstance, entity,userRolesList,isNew,NotificationService)->
+                        ($scope, $modalInstance, entity,isNew,NotificationService)->
                             $scope.isNew = isNew
                             $scope.isBusy = false
                             console.log 'entity',isNew,entity
-                            $scope.userRolesList = userRolesList
 
                             if isNew
                                 $scope.currEntity = null
-                                $scope.editEntity = entity
+                                $scope.editEntity = new APIService(entity)
                             else
-                                $scope.currEntity = _.clone entity
-                                $scope.editEntity = entity
+                                $scope.currEntity =  entity #_.clone entity
+                                $scope.editEntity =  new APIService(entity)# _.clone entity #entity
                                 $scope.editEntity.canEdit = true
-                            ###* set new password for user ###
-                            #                            $scope.onSetNewPassword = (params=null)->
-                            #                                $scope.isBusy = true
-                            #                                delDlg = DialogService.confirm "Set new password","Are you sure you want to generate new password for <strong>#{$scope.currEntity.userName}</strong>?"
-                            #                                delDlg.result.then(
-                            #                                    (result)->
-                            #                                        console.log params
-                            #                                        $scope.editEntity.$updatePassword().then(
-                            #                                            (result)->
-                            #                                                $scope.isBusy = false
-                            #                                                NotificationService.success 'Success', "A new password is generated and sent by email <strong>#{result.userName}</strong>"
-                            #                                            (error)->
-                            #                                                if  error.data?.message? and error.status != 500
-                            #                                                    NotificationService.error 'Error', error.data.message
-                            #                                                $scope.isBusy = false
-                            #                                        )
-                            #                                    (error)->
-                            #                                        $scope.isBusy = false
-                            #                                )
+
 
                             ###* on save in server-side ###
                             $scope.onSave = ->
@@ -128,6 +107,7 @@ define ['cs!./../module','cs!./../namespace'],(module,namespace)->
                                         (result)->
                                             $scope.isBusy = false
                                             console.log result
+                                            entity = result
                                             $modalInstance.close(entity)
                                         (error)->
 

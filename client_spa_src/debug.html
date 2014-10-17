@@ -11,7 +11,10 @@
         <link href="http://bootswatch.com/journal/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     </head>
-    <body>    <!-- Notifications -->
+    <body
+        mouse-capture
+        ng-keydown="keyDown($event)"
+        ng-keyup="keyUp($event)">    <!-- Notifications -->
     <toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
     <div class="navbar navbar-default">
         <div class="navbar-header">
@@ -25,7 +28,7 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav ng-cloak" ng-show="isAuthenticated()">
                 <li ui-sref-active="active"><a ui-sref="home" href="#">Главная </a></li>
-                <li ui-sref-active="active"><a ui-sref="releases" href="#">Выпуски газет</a></li>
+                <li ui-sref-active="active"><a ui-sref="referencies.releases" href="#">Выпуски газет</a></li>
                 <li ui-sref-active="active"><a ui-sref="users" href="#">Пользователи</a></li>
                 <li ui-sref-active="active"><a ui-sref="pageedit" href="#">Редактор страницы</a></li>
                 <li class="dropdown"  ui-sref-active="active" >

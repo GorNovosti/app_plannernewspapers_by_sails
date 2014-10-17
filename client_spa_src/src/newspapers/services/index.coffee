@@ -1,5 +1,5 @@
 define [
     'cs!./controllers'
-    'cs!./BlockinfoCRUDController'
+    'cs!./NewspapersListController'
 ],(module)->
     return module["name"]

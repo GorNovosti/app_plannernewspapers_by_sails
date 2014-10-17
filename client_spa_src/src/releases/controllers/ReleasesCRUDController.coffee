@@ -32,8 +32,10 @@ define ['cs!./controllers','cs!./../config'],(module,config)->
                                      $scope.isBusy = true
                                      console.log $scope.release
                                      console.log _entity
+
+                                     _.extend $scope.release, {name:_entity.name,pagesCount:_entity.pagesCount}
+
                                      _method = if $scope.release.id then '$update' else '$save'
-                                     $scope.release.name = _entity.name
                                      $scope.release[_method]().then(
                                         (data)->
                                             console.log data
