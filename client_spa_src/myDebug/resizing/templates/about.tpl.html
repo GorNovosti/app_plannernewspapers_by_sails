@@ -1,0 +1,45 @@
+<!-- template "about.tpl.html"-->
+<section class="container"> 
+    <div class="col-sm-6"> 
+        <viewer-page-newspaper mouse-capture ng-model="listBlockinfoTpl" step="step" style="border: 3px solid;"> </viewer-page-newspaper>
+    </div>
+    <div class="col-sm-6">
+        <div  ng-init="step = 8">
+            <input type="number" ng-model="step">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient 
+                            spreadMethod="pad" 
+                            y2="0" 
+                            x2="0" 
+                            y1="1" 
+                            x1="0" 
+                            id="nodeBackgroundGradient"
+                            >
+                            <stop 
+                                offset="0" 
+                                stop-opacity="0.99609" 
+                                stop-color="#56aaff"
+                                />
+                            <stop 
+                                offset="0.63934" 
+                                stop-opacity="0.99219" 
+                                stop-color="#d0d0e5"
+                                />
+                        </linearGradient>
+                        <pattern id="smallGrid" ng-attr-width="{{step}}"  ng-attr-height="{{step}}" width="8" height="8" patternUnits="userSpaceOnUse">
+                            <path ng-attr-d="M {{step}} 0 L 0 0 0 {{step}}" d="M 8 0 L 0 0 0 8"fill="none" stroke="gray" stroke-width="0.5"/>
+                        </pattern>
+                        <pattern id="grid"  ng-attr-width="{{step * 10}}"  ng-attr-height="{{step * 10}}"  width="80" height="80" patternUnits="userSpaceOnUse">
+                            <rect ng-attr-width="{{step * 10}}"  ng-attr-height="{{step * 10}}"  width="80" height="80" fill="url(#smallGrid)"/>
+                            <path ng-attr-d="M {{step * 10}} 0 L 0 0 0 {{step * 10}}"  d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                </svg>
+        </div>
+    </div>
+ 
+</section>
+<!-- //template "about.tpl.html"-->

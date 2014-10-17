@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>ResizeTest</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="vendors/angularjs/angular-csp.css" rel="stylesheet" type="text/css"/>
+        <link href="styles/toaster.css" rel="stylesheet" />
+        <link href="styles/ng-table.css" rel="stylesheet" type="text/css"/>
+        <link href="http://bootswatch.com/journal/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <h1>Resize SVG</h1>
+        <div ui-view style="padding: 0">
+            <div class="container-fluid" style="padding: 15px" ui-view="main">
+                <div id="loading" class="col-lg-4 col-md-5 alert alert-warning"> Пожалуйства подождите. Идет загрузка... </div>
+            </div>
+
+        </div>
+
+        <!--        <script src="vendors/angularjs/angular.js" type="text/javascript"></script>
+                <script>
+                    var app = angular.module('mySVGresize', []);
+                    app.controller('MainController', function ($scope) {
+                        $scope.blockinfo = [
+                            {id: 1, name: 'test1', x},
+                            {},
+                            {}
+        
+                        ];
+                    });
+                </script>-->
+        <script>
+            // var page_name = '<%- page_name %>';
+            var spi_cb = function (require, config) {
+                //This function will be called when all the dependencies
+                //listed above in deps are loaded. Note that this
+                //function could be called before the page is loaded.
+                //This callback is optional.
+                //config.urlArgs = 'bust=v0.0.0.1';//+Math.random(); // установка версии для кэшеривания
+                config.baseUrl = '/myDebug';//'/src/';
+                window.require.config(config);// update global require config
+                window.require.config({
+                    locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
+                });
+                require(['bootstrap']);// load app(spi)
+
+            };
+        </script>
+        <script>
+            var require = {
+                deps: ['require', 'config-require.js'],
+                callback: function (require, config) {
+                    spi_cb(require, config);
+                }
+            };
+
+        </script>
+        <script src="vendors/requirejs/require.js" datamain="main" type="text/javascript"></script>
+    </body>
+</html>
