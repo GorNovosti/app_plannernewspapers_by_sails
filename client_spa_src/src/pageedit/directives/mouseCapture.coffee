@@ -11,14 +11,14 @@ define ['cs!./directives'],(module)->
         mouseCaptureConfig = null
         ## Handler for mousemove events while the mouse is 'captured'.
         _mouseMove = (evt)->
-            console.log 'mouseUp'
+            #console.log 'mouseUp'
             if mouseCaptureConfig?.mouseMove?
                 mouseCaptureConfig.mouseMove(evt)
                 $rootScope.$digest()
             return
         ## Handler for mouseup event while the mouse is 'captured'.
         _mouseUp = (evt)->
-            console.log 'mouseUp'
+            #console.log 'mouseUp'
             if mouseCaptureConfig?.mouseUp?
                 mouseCaptureConfig.mouseUp(evt)
                 $rootScope.$digest()
@@ -33,8 +33,7 @@ define ['cs!./directives'],(module)->
             ## Привязка событий "захват мыши". После привязки к элементу событий mousemove и mouseup выполняется вызов вункций обратного вызова
             acquire: (evt,config)->
                 ## Release any prior mouse capture.
-                ## Испольнить все основные события связыанный с событием
-                console.log '@.release',@.release
+                ## Испольнить все основные события связыанный с событием  
                 @.release()
                 mouseCaptureConfig = config
                 ##fix no jQuery
@@ -44,14 +43,14 @@ define ['cs!./directives'],(module)->
                 $element.bind 'mouseup', _mouseUp
                 return
             release: ->
-                console.log 'release '
+
                 if mouseCaptureConfig?
-                    console.log mouseCaptureConfig
+                    #console.log mouseCaptureConfig
                     if mouseCaptureConfig?.released?
                         #Let the client know that their 'mouse capture' has been released.
                         mouseCaptureConfig.released()
                     mouseCaptureConfig = null
-                console.warn mouseCaptureConfig, $element
+                #console.warn mouseCaptureConfig, $element
                 $element.unbind "mousemove", _mouseMove
                 $element.unbind "mouseup", _mouseUp
                 return
@@ -102,7 +101,7 @@ define ['cs!./directives'],(module)->
             # Handler for mousemove events while the mouse is 'captured'.
             #
             mouseMove = (evt) ->
-                console.log dragging
+                #console.log dragging
                 unless dragging
                     if evt.pageX - x > threshold or evt.pageY - y > threshold
                         dragging = true

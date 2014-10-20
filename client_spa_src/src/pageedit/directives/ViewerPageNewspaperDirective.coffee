@@ -10,6 +10,7 @@ define [
 )->
     module.controller 'ViewerPageNewspaperController',['$scope', 'dragging', '$element', ($scope, dragging, $element)->
         controller = @
+
         ## Reference to the document and jQuery, can be overridden for testting.
 	#@.document4 = document4
 	# Wrap jQuery so it can easily be  mocked for testing.
@@ -32,6 +33,11 @@ define [
             point.y = y
             return point.matrixTransform(matrix.inverse())
 
+        #        $scope.onEditNode = (evt,node)->
+        #            console.log 'onEditNode',evt,node
+        #            $scope.$apply ->
+        #                        $scope.onDblClick()(evt,node)
+        #            #evt.preventDefault() if !!evt
         ##Called on mouse down in the chart
         $scope.mouseDown = (evt)->
             console.log 'mouseDown',evt
@@ -73,13 +79,12 @@ define [
                     #				delete $scope.dragSelectionRect;
                     #
         #
-        # Handle mousedown on a node.
+        # Handle mousedown on a blockinfo.
         #
-        $scope.nodeMouseDown = (evt, node) ->
+        $scope.blockinfoMouseDown = (evt, node)->
             console.warn 'fix chart = $scope.chart'
             #chart = $scope.chart
             lastMouseCoords = undefined
-            console.log evt,node
             dragging.startDrag evt,
                 # Node dragging has commenced.
                 dragStarted: (x, y) ->
@@ -93,6 +98,7 @@ define [
                     #                        #chart.deselectAll()
                     #
                     #                        node.select()
+                    #node.$isSelect = true
 
                     return
 
@@ -101,8 +107,16 @@ define [
                 # Dragging selected nodes... update their x,y coordinates.
                 #
                 dragging: (x, y) ->
-                    console.info x,y
+                    #console.info x,y
                     curCoords = controller.translateCoordinates(x, y)
+                    ## grid points
+                    step = $scope.step || 10 ## step for grid
+                    curCoords.x = Math.round(curCoords.x/step)*step
+                    curCoords.y = Math.round(curCoords.y/step)*step
+
+                    lastMouseCoords.x = Math.round(lastMouseCoords.x/step)*step
+                    lastMouseCoords.y = Math.round(lastMouseCoords.y/step)*step
+                    ## -- grid points
                     deltaX = curCoords.x - lastMouseCoords.x
                     deltaY = curCoords.y - lastMouseCoords.y
                     console.warn 'fix  chart.updateSelectedNodesLocation deltaX, deltaY'
@@ -116,10 +130,27 @@ define [
                 #
                 # The node wasn't dragged... it was clicked.
                 #
-                clicked: ->
-                    console.log 'fix chart.handleNodeClicked node, evt.ctrlKey'
+                clicked: (evt)->
+                    console.warn 'fix chart.handleNodeClicked node, evt.ctrlKey',evt,node
                     #chart.handleNodeClicked node, evt.ctrlKey
+                    node.$isSelect = true
+                    console.log evt,node
+                    #            startPoint = controller.translateCoordinates(x, y);
+                    #            $scope.dragSelectionStartPoint = startPoint;
+                    $scope.dragResizingRect =
+                        x: node.x
+                        y: node.y
+                        width: node.width|| 30
+                        height: node.height || 30
+                    $scope.dragResizing = true
                     return
+
+                dragEnded: ->
+                    step =$scope.step || 10 ## step for grid
+                    node.x = Math.floor(node.x/step)*step
+                    node.y = Math.floor(node.y/step)*step
+                    return
+
             return
 
         #$scope.$isSelect = null
@@ -131,13 +162,16 @@ define [
 
     module.directive 'viewerPageNewspaper', [ ->
         return {
-            require: '^ngModel'
-            restrict: 'E'
-            replace: true
-            scope:
-                model: "=ngModel"
-            templateUrl:  "templates/#{module.name.replace /\.+/g, "/"}/viewer_page_newspaper.tpl.html"
+            #require: '^ngModel'
+            restrict: 'A'
+            replace: false
+            scope:  false
+                #model: "=ngModel"
+                #onDblClick: '=onDblClickBlockinfo'
+            #templateUrl:  "templates/#{module.name.replace /\.+/g, "/"}/viewer_page_newspaper.tpl.html"
             controller: 'ViewerPageNewspaperController'
+            link:(scope,element,attrs)->
+                console.log element[0]
         }
 
 

@@ -4,49 +4,178 @@
         .dropblok.over {
             border: 2px dashed #000;
         }
+        .draggable-blockinfo{
+            cursor: move;
+        }
+        /*
+Drag selection rectangle.
+        */
+        .drag-selection-rect {
+            stroke: blue;
+            stroke-width: 2;
+            fill: transparent;
+        }
     </style>
     <div class="col-sm-4">
-        <ul class="btn-group">
-            <li> <button  type="button" ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-primary">{{item.name}}</button> </li>
+        <!--        <ul class="btn-group">
+                    <li> <button  type="button" ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-primary">{{item.name}}</button> </li>
+                </ul>-->
+        <div class="col-sm-12 btn-group">
+            Шаблоны блоков   <button ng-click="onAddBlockinfo()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Добавить</button>
+        </div>
+        <ul class="col-sm-12 list-group ">
+            <li class="col-sm-12 list-group-item" ng-repeat="item in listBlockinfoTpl track by item.id"> 
+                <div class="btn-group  col-sm-3">
+                    <button  type="button"  class="btn btn-success col-sm-6" ng-click="onEditTplBlockinfo(item)">
+                        <i class="fa fa-pencil  pull-left"></i> 
+                    </button>  
+                    <button  type="button" class="btn btn-danger  col-sm-6 " ng-click="onDeleteTplBlockinfo(item)">
+                        <i class="fa fa-trash  pull-left"></i> 
+                    </button> 
+                </div>    
+                <div class="btn-group col-sm-9">
+                    <button  type="button"  ng-style="{ backgroundColor: item.fillColor }"
+                             draggable-blockinfo data-value="item" class="btn btn-primary draggable-blockinfo form-control ">
+                        <i class="fa fa-arrows  pull-right"></i>
+                        {{item.name}} 
+                    </button>  
+                </div>
+            </li>
         </ul>
     </div>
  
-<!-- panel newspaper information-->
-<!--    <div class="row"> 
-        <p class="col-sm-12">
-            {{editPage.pagesCount}}{{pagesCountList()}}
-        </p>
-    </div>-->
-<!-- panel newspaper information-->
-<div class="row">
-    <section class="col-sm-4 dropblok" drop-blockinfo  dop-param="editPage.id" drop="handleDrop">
-        <div>Содержание </div> 
-        <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-        <ul class="list-group" drop-blockinfo  dop-param="editPage.id" drop="handleDrop">
-            <!--<ul class="dropblok" drop-blockinfo dop-param="page" drop="handleDrop" ng-repeat="page in pagesCountList()">Страница №{{page}}-->
-            <li class="list-group-item col-sm-12" ng-repeat="item in editPage.infoblocks| filter: {page:page}"> 
-                <div class="col-sm-4">  {{item.name}}</div>
-                <div class="col-sm-8">        x: <input type="number" ng-model="item.x" class="form-control"/>
-                    y: <input type="number" ng-model="item.y" class="form-control"/> </div>                     
-            </li>
-            <!--</ul>-->
+    <div class="row" mouse-capture>
 
-        </ul> 
-    </section>
-    <div class="col-sm-4">
-        <viewer-page-newspaper mouse-capture ng-model="editPage.infoblocks" style="border: 3px solid;"> 
 
-        </viewer-page-newspaper>
-    </div> 
-</div>
-<!--    <button draggable-position class="btn btn-success">Test</button>-->
-<!-- panel newspaper information-->
-<!--    <div class="row"> 
+        <div class="col-sm-4" ng-init="step = 10"> 
+            <pagination boundary-links="true" 
+                        total-items="totalItems" 
+                        ng-model="currEditPage" 
+                        items-per-page="1"
+                        max-size="5"
+                        class="pagination-sm" 
+                        previous-text="&lsaquo;" 
+                        next-text="&rsaquo;"
+                        first-text="&laquo;" 
+                        last-text="&raquo;">
+
+            </pagination>
+            <!--            <viewer-page-newspaper mouse-capture ng-model="editNewspaper.blockInfo" style="border: 3px solid;"> 
+            
+                        </viewer-page-newspaper>-->
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+
+
+                 viewer-page-newspaper
+                 ng-model="editNewspaper.blockInfo"
+                 style="border: 3px solid;"
+                 ng-mousedown="mouseDown($event)"
+                 ng-mousemove="mouseMove($event)" 
+                 viewBox="0 0 297 420"> 
+                <defs>
+                    <linearGradient 
+                        spreadMethod="pad" 
+                        y2="0" 
+                        x2="0" 
+                        y1="1" 
+                        x1="0" 
+                        id="nodeBackgroundGradient"
+                        >
+                        <stop 
+                            offset="0" 
+                            stop-opacity="0.99609" 
+                            stop-color="#56aaff"
+                            />
+                        <stop 
+                            offset="0.63934" 
+                            stop-opacity="0.99219" 
+                            stop-color="#d0d0e5"
+                            />
+                    </linearGradient>
+                    <pattern id="smallGrid" ng-attr-width="{{step}}"  ng-attr-height="{{step}}" width="8" height="8" patternUnits="userSpaceOnUse">
+                        <path ng-attr-d="M {{step}} 0 L 0 0 0 {{step}}" d="M 8 0 L 0 0 0 8"fill="none" stroke="gray" stroke-width="0.5"/>
+                    </pattern>
+                    <pattern id="grid"  ng-attr-width="{{step * 10}}"  ng-attr-height="{{step * 10}}"  width="80" height="80" patternUnits="userSpaceOnUse">
+                        <rect ng-attr-width="{{step * 10}}"  ng-attr-height="{{step * 10}}"  width="80" height="80" fill="url(#smallGrid)"/>
+                        <path ng-attr-d="M {{step * 10}} 0 L 0 0 0 {{step * 10}}"  d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1"/>
+                    </pattern>
+
+
+                </defs>
+
+                <rect width="100%" height="100%" fill="url(#grid)" drop-blockinfo  dop-param="currEditPage" drop="handleDropBlockInfo"/>
+                <g ng-repeat="node in editNewspaper.blockInfo"
+                   ng-mousedown="blockinfoMouseDown($event, node)"
+                   ng-attr-transform="translate({{node.x}}, {{node.y}})"
+                   > 
+                    <rect  ng-click="setSelect(node)"
+                           ng-attr-x="0"
+                           ng-attr-y="0" 
+                           ng-attr-width="{{node.width||(node.width = 25)}}" 
+                           ng-attr-height="{{node.height||(node.height=20)}}" 
+                           style="stroke-width:1;stroke:rgb(0,0,0)"
+                           ng-attr-fill="{{node.fillColor}}"
+                           fill="url(#nodeBackgroundGradient)"
+                           tooltip="{{node.name}}({{node.width}}x{{node.height}})"
+                           tooltip-append-to-body="true" 
+                           ng-dblclick="onEditBlockinfo(node)"
+                           ></rect>
+                                        <text 
+                                            ng-attr-x="{{node.width / 2}}"
+                                            ng-attr-y="{{node.height / 2}}"
+                                            x="0"
+                                            y="0"
+                                            text-anchor="middle"
+                                            alignment-baseline="middle"
+                                            >
+                                            {{node.name}}
+                                        </text> 
+
+                </g>
+                <rect
+                    ng-if="dragSelecting"
+                    class="drag-selection-rect"
+                    ng-attr-x="{{dragSelectionRect.x}}"
+                    ng-attr-y="{{dragSelectionRect.y}}"
+                    ng-attr-width="{{dragSelectionRect.width}}"
+                    ng-attr-height="{{dragSelectionRect.height}}"
+                    >
+                </rect>
+
+                <g ng-if="dragResizing">
+                    <rect
+                        ng-if="dragResizing"
+                        class="drag-selection-rect"
+                        ng-attr-x="{{dragResizingRect.x}}"
+                        ng-attr-y="{{dragResizingRect.y}}"
+                        ng-attr-width="{{dragResizingRect.width}}"
+                        ng-attr-height="{{dragResizingRect.height}}"
+                        >
+
+                </g>
+            </svg>   
+        </div> 
+        <section class="col-sm-2 dropblok" drop-blockinfo  dop-param="currEditPage" drop="handleDropBlockInfo">
+            <div>Содержание </div> 
+
+            <ul class="list-group">
+                  <li class="list-group-item col-sm-12" ng-repeat="item in editNewspaper.blockInfo| filter: {page:page}"> 
+                    <div class="col-sm-4">  {{item.name}}</div> 
+                </li>
+
+
+            </ul> 
+        </section>
+    </div>
+    <!--    <button draggable-position class="btn btn-success">Test</button>-->
+    <!-- panel newspaper information-->
+    <div class="row"> 
         <p class="col-sm-12">
-            {{editPage| json}}
+            {{editNewspaper| json}}
         </p>
-    </div>-->
-<!-- panel newspaper information-->
+    </div>
+    <!-- panel newspaper information-->
 
 </section>
 <!-- //template "pageedit_index.tpl.html"-->

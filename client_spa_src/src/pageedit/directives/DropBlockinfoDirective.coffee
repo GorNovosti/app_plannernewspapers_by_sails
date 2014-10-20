@@ -51,12 +51,12 @@ define ['cs!./../config','cs!./directives'],(config,module)->
                 el.addEventListener 'dragleave', _handleDragLeave, false
                 el.addEventListener 'drop', _handleDropBlockinfo, false
 
-#                element.on '$destroy', ->
-#                    console.log 'is destroy'
-#                    el.addEventListener 'dragenter', _handleDragEnter
-#                    el.addEventListener 'dragover' , _handleDragOver
-#                    el.addEventListener 'dragleave', _handleDragLeave
-#                    el.addEventListener 'drop', _handleDropBlockinfo
+                element.on '$destroy', ->
+                    console.log 'is destroy'
+                    el.addEventListener 'dragenter', _handleDragEnter
+                    el.addEventListener 'dragover' , _handleDragOver
+                    el.addEventListener 'dragleave', _handleDragLeave
+                    el.addEventListener 'drop', _handleDropBlockinfo
         }
 
     ]

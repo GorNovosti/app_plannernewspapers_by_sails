@@ -4,13 +4,14 @@ define [
     'cs!./directives/index'
     'angular-ui-router'
     'angular-ui-router.stateHalper'
+    'angular-bootstrap-colorpicker'
 ],(
     angular
     config
     directivesModule
 
 )->
-    _module = angular.module( config.namespace ,['ui.router','ui.router.stateHelper',directivesModule])
+    _module = angular.module( config.namespace ,['ui.router','ui.router.stateHelper','ui.bootstrap',directivesModule,'colorpicker.module'])
     _module.run([->
         console.info "run #{config.namespace}"
     ])
