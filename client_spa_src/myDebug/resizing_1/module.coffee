@@ -1,6 +1,7 @@
 define [
     'angular'
     'cs!./config'
+    'cs!./directives/index'
     'angular-ui-router'
     'angular-ui-router.stateHalper'
 ],(
@@ -8,7 +9,7 @@ define [
     config
     module
 )->
-    _module = angular.module( config.namespace ,['ui.router','ui.router.stateHelper'])
+    _module = angular.module( config.namespace ,['ui.router','ui.router.stateHelper',module])
     _module.run([->
         console.info "run #{config.namespace}"
     ])

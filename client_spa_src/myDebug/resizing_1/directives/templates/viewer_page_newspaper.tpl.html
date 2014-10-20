@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     ng-mousedown="mouseDown($event)"
+     ng-mousemove="mouseMove($event)"
+     viewBox="0 0 297 420">  
+    <deps>
+        <!-- //grid part 1-->
+        <linearGradient 
+            spreadMethod="pad" 
+            y2="0" 
+            x2="0" 
+            y1="1" 
+            x1="0" 
+            id="nodeBackgroundGradient"
+            >
+            <stop 
+                offset="0" 
+                stop-opacity="0.99609" 
+                stop-color="#56aaff"
+                />
+            <stop 
+                offset="0.63934" 
+                stop-opacity="0.99219" 
+                stop-color="#d0d0e5"
+                />
+        </linearGradient>
+    </deps>
+   <!--<rect width="100%" height="100%" fill="url(#grid)" />-->
+    <g ng-repeat="node in model"
+       ng-mousedown="nodeMouseDown($event, node)"
+       ng-attr-transform="translate({{node.x}}, {{node.y}})"
+       > 
+       
+        <rect  ng-click="setSelect(node)"
+               ng-attr-x="{{x}}"
+               ng-attr-y="{{y}}" 
+               ng-attr-width="{{node.width||(node.width = 25)}}" 
+               ng-attr-height="{{node.height||(node.height=20)}}" 
+               style="stroke-width:1;stroke:rgb(0,0,0)"
+               fill="url(#nodeBackgroundGradient)"></rect>
+        <circle ng-attr-cx="{{x}}"
+               ng-attr-cy="{{y}}"  cx="100%" cy="100%" r="8" stroke="#000" stroke-width="1" fill="#070" opacity="1" 
+                                class="bottomRightActionTrigger" ng-mousedown="nodeMouseDownResize($event, node)" />
+        <!--        <text
+                    ng-attr-x="{{node.width / 2}}"
+                    y="25"
+                    text-anchor="middle"
+                    alignment-baseline="middle"
+                    >
+                    {{node.name}}
+                </text>-->
+    </g>
+</svg>

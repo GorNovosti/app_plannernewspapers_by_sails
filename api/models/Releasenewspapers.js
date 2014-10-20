@@ -1,26 +1,34 @@
 /**
-* Releasenewspapers.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * Releasenewspapers.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 module.exports = {
-  connection: 'someMongodbServer',
-  
-  attributes: {
-      name:{
-          type:"string"
-      },
-      pagesCount:{
-          type:"integer",
-          defaultsTo: 1
-      }
+    connection: 'someMongodbServer',
+    schema: false,
+    attributes: {
+        name: {
+            type: "string"
+        },
+        pagesCount: {
+            type: "integer",
+            defaultsTo: 1
+        },
+        blockInfo: {
+            type: "json",
+            defaultsTo: "[]"
+        },
+        fillColor: {
+            type: "string",
+            defaultsTo: "#f2f2f2"
+        }
 //      ,
 //      pages:{
 //          collection: 'pagesnewspapers',
 //          via:'newspaper'
 //      }
-  }
+    }
 };
 

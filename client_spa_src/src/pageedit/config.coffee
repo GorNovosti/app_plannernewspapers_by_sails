@@ -147,6 +147,7 @@ define [],()->
                            item.$delete().then(
                                (result)->
                                    $scope.isBusy = false
+                                   _reloadList()
                                    #$scope.tableParams.reload()
                                    #$modalInstance.close(null)
                                (error)->

@@ -33,7 +33,8 @@ define({
         'angular-sanitize': '../../vendors/angular-sanitize/angular-sanitize',
         'dialogs-translation': '../../vendors/angular-dialog-service/dist/dialogs-default-translations.min',
         'lodash': '../../vendors/lodash/dist/lodash',
-        'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage'
+        'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage',
+        'angular-bootstrap-colorpicker': '../../vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module',
     },
     shim: {
         'angular': {
@@ -91,7 +92,10 @@ define({
         },
         'angular-local-storage': {
             deps: ['angular']
-        }
+        },
+        'angular-bootstrap-colorpicker':{
+             deps: ['angular']
+         }
     }
     //,deps:['sails.io']
 });

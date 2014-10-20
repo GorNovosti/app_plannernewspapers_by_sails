@@ -3,4 +3,8 @@ define ['cs!./services'],(module)->
         return $resource "#{baseUrl}/blockinfo/:id", {"id":"@id"},
             update:
                 method: 'PUT'
+            get:
+                isArray: false
+            query:
+                isArray: true
     ]

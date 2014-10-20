@@ -3,4 +3,8 @@ define ['cs!./services'],(module)->
         return $resource "#{baseUrl}/releasenewspapers/:id", {"id":"@id"},
             update:
                 method: 'PUT'
+            query:
+                isArray: true
+            get:
+                isArray: false
     ]
