@@ -17,7 +17,7 @@ define [],()->
                         return false
                 ]
                 BlockinfoTemplatesService:[ "BlockinfoTemplatesService",(BlockinfoTemplatesService)->
-                        return BlockinfoTemplatesService
+                    return BlockinfoTemplatesService
                 ]
             controller:['$scope','$modal','BlockinfoService','editNewspaper', 'BlockinfoTemplatesService','DialogService',($scope,$modal,BlockinfoService,editNewspaper,BlockinfoTemplatesService,DialogService)->
                 $scope.currEditPage = 1
@@ -36,7 +36,6 @@ define [],()->
                 Load list of templates blockinfo
                 ###
                 _reloadList = ->
-                    #$scope.totalItems = editNewspaper.pagesCount
                     BlockinfoTemplatesService.query(
                         (data)->
                             $scope.listBlockinfoTpl.length =0
@@ -51,10 +50,14 @@ define [],()->
                 add BlockInfo
                 ###
                 $scope.handleDropBlockInfo = (data=null,page)->
-                    console.log data,page
+                    data.id = null
                     data.$createdAt = (new Date()).toISOString()
                     data.page = page
-                    $scope.editNewspaper.blockInfo.push  data#{name:"test"}
+                    data.newspaper = $scope.editNewspaper.id
+                    new BlockinfoService(data).$save(
+                        (data)->
+                            $scope.editNewspaper.blockInfo.push data
+                    )
                     return
                 ###
                 add new Blockinfo
@@ -219,43 +222,39 @@ define [],()->
 
                 ###* confirm delete (used service) ###
                 $scope.onDeleteTplBlockinfo = (item)->
-                   delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить шаблон с именем <strong>#{item.name}</strong>?"
-                   delDlg.result.then(
-                       ##confirn delete entity
-                       (res)->
-                           $scope.isBusy = true
-                           item.$delete().then(
-                               (result)->
-                                   $scope.isBusy = false
-                                   _reloadList()
-                                   #$scope.tableParams.reload()
-                                   #$modalInstance.close(null)
-                               (error)->
-                                   $scope.isBusy = false
-                           )
-                   )
+                    delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить шаблон с именем <strong>#{item.name}</strong>?"
+                    delDlg.result.then(
+                        ##confirn delete entity
+                        (res)->
+                            $scope.isBusy = true
+                            item.$delete().then(
+                                (result)->
+                                    $scope.isBusy = false
+                                    #_reloadList()
+                            ).finally(
+                                ->
+                                    $scope.isBusy = false
+                                    _reloadList()
+                            )
+                    )
                 ###* confirm delete (used service) ###
                 $scope.onDeleteBlockinfo = (e,item)->
-                   delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить блок с именем <strong>#{item.name}</strong>?"
-                   delDlg.result.then(
-                       ##confirn delete entity
-                       (res)->
-                           $scope.isBusy = true
-                           item.$delete().then(
-                               (result)->
-                                   $scope.isBusy = false
-                                   _reloadList()
-                                   #$scope.tableParams.reload()
-                                   #$modalInstance.close(null)
-                               (error)->
-                                   $scope.isBusy = false
-                           )
-                   )
+                    delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить блок с именем <strong>#{item.name}</strong>?"
+                    delDlg.result.then(
+                        ##confirn delete entity
+                        (res)->
+                            $scope.isBusy = true
+                            new BlockinfoService(item).$delete().then(
+                                (result)->
+                                         $scope.editNewspaper.$get()
 
-
-
+                            ).finally(
+                                (data)->
+                                    $scope.isBusy = false
+                                    console.log 'delete ',data
+                                    _reloadList()
+                                )
+                    )
             ]
-
-
         ]
     }

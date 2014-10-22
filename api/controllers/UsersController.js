@@ -93,6 +93,7 @@ module.exports = {
     signup: function (req, res) {
         var email = req.param("email");
         var password = req.param("password");
+        var name = req.param("name");
 
         Users.findByEmail(email).exec(function (err, usr) {
             if (err) {
@@ -103,7 +104,7 @@ module.exports = {
                 var hasher = require("password-hash");
                 password = hasher.generate(password);
 
-                Users.create({email: email, password: password, role: null}).exec(function (error, user) {
+                Users.create({name:name,email: email, password: password, role: null}).exec(function (error, user) {
                     if (error) {
                         res.send(500, error);//{error: "DB Error"});
                     } else {

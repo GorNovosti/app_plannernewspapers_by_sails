@@ -9,9 +9,9 @@ module.exports = {
     attributes: {
         name: {
             type: "string"
-        }, 
-        owner: {
-            model: 'TypesBlockinfo'
+        } ,
+        newspaper:{
+            model:'releasenewspapers'
         }
 
     }

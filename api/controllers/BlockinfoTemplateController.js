@@ -12,7 +12,7 @@ module.exports = {
         {
             BlockinfoTemplate.count().exec(function (error, count) {
                 if (!error) {
-                    Blockinfo.find().paginate({page: page, limit: limit})
+                    BlockinfoTemplate.find().paginate({page: page, limit: limit})
                             .exec(function (_error, data) {
                                 console.log(count, data);
                                 res.setHeader('X-Prism-Total-Items-Count', count);//"Access-Control-Allow-Origin:*"); 
@@ -25,6 +25,15 @@ module.exports = {
             res.status(500);
             return res.json([]);
         }
+    },
+    find: function (req, res, next) {
+        BlockinfoTemplate.findOne()
+                .exec(function (error, data) {
+                    if (error)
+                        return next({raw: error});
+                    return res.json(data);
+                });
+
     },
     update: function (req, res) {
         console.log('Users update', req.params.all());
@@ -52,6 +61,24 @@ module.exports = {
             console.log('BlockinfoTemplate was created ', data);
             res.json(data);
 
+        });
+    }, /*** 
+     * Delete BlockinfoTemplate  
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    destroy: function (req, res, next) {
+        BlockinfoTemplate.findOne(req.param('id'), function (err, data) {
+            if (err)
+                return next(err);
+            return BlockinfoTemplate.destroy(req.param('id'), function (err) {
+                if (err)
+                    return next(err);
+                res.status(200);  
+                return res.json('ok');
+            });             
         });
     }
 };

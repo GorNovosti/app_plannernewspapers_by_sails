@@ -38,19 +38,19 @@ Drag selection rectangle.
         <!--        <ul class="btn-group">
                     <li> <button  type="button" ng-repeat="item in listBlockinfoTpl" draggable-blockinfo data-value="item" class="btn btn-primary">{{item.name}}</button> </li>
                 </ul>-->
-        <div class="col-sm-12 btn-group">
-            Шаблоны блоков   <button ng-click="onAddBlockinfo()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Добавить</button>
+        <div class="col-sm-12 btn-group"><input ng-model="step" type="number">
+                Шаблоны блоков   <button ng-click="onAddBlockinfoTemplates()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Добавить</button>
         </div>
         <ul class="col-sm-12 list-group ">
             <li class="col-sm-12 list-group-item" ng-repeat="item in listBlockinfoTpl track by item.id"> 
-                    <div class="btn-group  col-sm-3">
-                        <button  type="button"  class="btn btn-success col-sm-6" ng-click="onEditTplBlockinfo(item)">
-                            <i class="fa fa-pencil  pull-left"></i> 
-                        </button>  
-                        <button  type="button" class="btn btn-danger  col-sm-6 " ng-click="onDeleteTplBlockinfo(item)">
-                            <i class="fa fa-trash  pull-left"></i> 
-                        </button> 
-                    </div>    
+                <div class="btn-group  col-sm-3">
+                    <button  type="button"  class="btn btn-success col-sm-6" ng-click="onEditTplBlockinfo(item)">
+                        <i class="fa fa-pencil  pull-left"></i> 
+                    </button>  
+                    <button  type="button" class="btn btn-danger  col-sm-6 " ng-click="onDeleteTplBlockinfo(item)">
+                        <i class="fa fa-trash  pull-left"></i> 
+                    </button> 
+                </div>    
                 <div class="btn-group col-sm-9">
                     <button  type="button"  ng-style="{ backgroundColor: item.fillColor }"
                              draggable-blockinfo data-value="item" class="btn btn-primary draggable-blockinfo form-control ">
@@ -59,32 +59,30 @@ Drag selection rectangle.
                     </button>  
                 </div>
             </li>
+            <ul class="col-sm-12 list-group ">
+                <li class="col-sm-12 list-group-item" ng-repeat="item in blockinfotemplate track by item.id"> 
+                    {{item.name}}
+                </li>
+            </ul>
         </ul>
     </div>
 
-    <div class="row" mouse-capture>
-
-
-        <div class="col-sm-4" ng-init="step = 10"> 
-            <pagination boundary-links="true" 
-                        total-items="totalItems" 
-                        ng-model="currEditPage" 
-                        items-per-page="1"
-                        max-size="5"
-                        class="pagination-sm" 
-                        previous-text="&lsaquo;" 
-                        next-text="&rsaquo;"
-                        first-text="&laquo;" 
-                        last-text="&raquo;">
-
-            </pagination>
-            <!--            <viewer-page-newspaper mouse-capture ng-model="editNewspaper.blockInfo" style="border: 3px solid;"> 
-            
-                        </viewer-page-newspaper>-->
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-
-
+    <div class="row col-sm-8" mouse-capture>
+        <div class="col-sm-6" ng-init="step = 10"> 
+            <div class="row">
+                <pagination boundary-links="true" 
+                            total-items="totalItems" 
+                            ng-model="currEditPage" 
+                            items-per-page="1"
+                            max-size="5"
+                            class="pagination-sm" 
+                            previous-text="&lsaquo;" 
+                            next-text="&rsaquo;"
+                            first-text="&laquo;" 
+                            last-text="&raquo;"></pagination> 
+                <button type="button" class="btn btn-sm pull-right pagination">Сохранить </button>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" 
                  viewer-page-newspaper
                  ng-model="editNewspaper.blockInfo"
                  style="border: 3px solid;"
@@ -123,10 +121,11 @@ Drag selection rectangle.
                 </defs>
 
                 <rect width="100%" height="100%" fill="url(#grid)" drop-blockinfo  dop-param="currEditPage" drop="handleDropBlockInfo"/>
-                <g ng-repeat="node in editNewspaper.blockInfo"
+                <g ng-repeat="(key,node) in editNewspaper.blockInfo | filter: {page: currEditPage} :function(a,d){return a === currEditPage}"
                    ng-mousedown="blockinfoMouseDown($event, node)"
                    ng-attr-transform="translate({{node.x}}, {{node.y}})"
                    class="blockinfo"
+                   drop-blockinfo  dop-param="currEditPage" drop="handleDropBlockInfo"
                    > 
 
                     <rect   
@@ -153,8 +152,19 @@ Drag selection rectangle.
                     
                                         </rect>-->
                     <text class="panelActions" x="0" y="10" font-family="FontAwesome" font-weight="normal" font-size="10">
-                        <!--                        <tspan   x="10" y="10"> &#xf007;</tspan> -->
-                        <tspan  ng-click="onDeleteBlockinfo($event, node)" x="0" y="10">&#xf1f8;</tspan>
+                        <!--                        <tspan   x="10" y="10"> &#xf007;&#xf0de;</tspan> -->
+                        <tspan  ng-click="onDeleteBlockinfo($event, node)"
+                                x="0" 
+                                y="10"
+                                tooltip="Удалить блок"
+                                tooltip-append-to-body="true" 
+                                >&#xf1f8;</tspan>
+                        <tspan  ng-click="onUpBlockinfo($event, node, $index)" 
+                                x="10"
+                                y="10"
+                                tooltip="Поместить выше"
+                                tooltip-append-to-body="true" 
+                                >&#xf052;</tspan>
                     </text>
                     <!--                    <rect  
                                             ng-attr-x="{{node.width - 5}}"
@@ -236,25 +246,27 @@ Drag selection rectangle.
                                                 </g>-->
             </svg>   
         </div> 
-        <section class="col-sm-2 dropblok"  drop-blockinfo  dop-param="currEditPage" drop="handleDropBlockInfo">
-            <div>Содержание </div> 
-
-            <ul class="list-group">
-                <li class="list-group-item col-sm-12" ng-repeat="item in editNewspaper.blockInfo| filter: {page:page}"> 
-                    <div class="col-sm-4">  {{item.name}}</div> 
-                </li>
-
-
-            </ul> 
-        </section>
+        <!--        <section class="col-sm-2">
+                    <div>Содержание </div> 
+        
+                    <ul class="list-group">
+                        <li class="list-group-item col-sm-12" ng-repeat="item in editNewspaper.blockInfo| filter: {page:page}"> 
+                            <div class="col-sm-4">  {{item.name}}</div> 
+                        </li>
+        
+        
+                    </ul> 
+        
+        
+                </section>-->
     </div>
     <!--    <button draggable-position class="btn btn-success">Test</button>-->
     <!-- panel newspaper information-->
-    <div class="row"> 
-        <p class="col-sm-12">
-            {{editNewspaper| json}}
-        </p>
-    </div>
+    <!--    <div class="row"> 
+            <p class="col-sm-12">
+                {{editNewspaper| json}}
+            </p>
+        </div>-->
     <!-- panel newspaper information-->
 
 </section>

@@ -86,7 +86,7 @@ define ['cs!./directives'],(module)->
         # Threshold for dragging.
         # When the mouse moves by at least this amount dragging starts.
         #
-        threshold = 1
+        threshold = -1
 
         #
         # Called by users of the service to register a mousedown event and start dragging.

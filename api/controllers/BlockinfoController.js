@@ -54,6 +54,24 @@ module.exports = {
             res.json(data);
 
         });
+    }, /*** 
+     * Delete Block information
+     * @param {type} req
+     * @param {type} res
+     * @param {type} next
+     * @returns {undefined}
+     */
+    destroy: function (req, res, next) {
+        Blockinfo.findOne(req.param('id'), function (err, data) {
+            if (err)
+                return next(err);
+            return Blockinfo.destroy(req.param('id'), function (err) {
+                if (err)
+                    return next(err);
+                res.status(200);
+                return res.json('ok');
+            });
+        });
     }
-};
+}
 

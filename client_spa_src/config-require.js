@@ -24,8 +24,9 @@ define({
         'domReady': '../../vendors/domReady/domReady',
         //'socket.io': '../../socket.io', //'http://127.0.0.1:1337/socket.io.js' ,//'../../socket.io',
         //'sails.io': '../../js/dependencies/sails.io'// 'http://127.0.0.1:1337/js/dependencies/sails.io' //'../dependencies/sails.io'
-        'socket.io': 'http://127.0.0.1:1337/socket.io.js', //'../../socket.io',
+        'socket.io': 'http://127.0.0.1:1337/socket.io', //'../../socket.io',
         'sails.io': 'http://127.0.0.1:1337/js/dependencies/sails.io', //'../dependencies/sails.io'
+        'io_logger': 'http://127.0.0.1:1337/js/io_logger', //
         'ng-table': '../../vendors/ng-table/ng-table',
         'angularjs-toaster': '../../vendors/AngularJS-Toaster/toaster',
         'angular-dialog-service': '../../vendors/angular-dialog-service/dist/dialogs.min',
@@ -35,7 +36,9 @@ define({
         'lodash': '../../vendors/lodash/dist/lodash',
         'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage',
         'angular-bootstrap-colorpicker': '../../vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module',
-        'd3':'../../vendors/d3/d3.min'
+        'd3':'../../vendors/d3/d3.min',
+        'angular-sails-bind':'../../vendors/angular-sails-bind/dist/angular-sails-bind'
+        
     },
     shim: {
         'angular': {
@@ -75,9 +78,14 @@ define({
         'socket.io': {
             'exports': 'io'
         },
+       
         'sails.io': {
             'deps': ['socket.io'],
             'exports': 'io'
+        },
+        'io_logger': { 
+            'deps': ['sails.io'],
+           // 'exports': 'io' 
         },
         'angular-dialog-service': {
             deps: ['angular', 'angular-sanitize', 'dialogs-translation']
@@ -99,8 +107,11 @@ define({
         },
         'd3':{
             'exports': 'd3'
+        }, 
+        'angular-sails-bind': {
+            deps: ['angular','sails.io']
         }
     }
-   ,deps:['d3','bootstrap']//'sails.io']//http://www.startersquad.com/angularjs-requirejs/
+   ,deps:['d3','bootstrap']//http://www.startersquad.com/angularjs-requirejs/
 });
 

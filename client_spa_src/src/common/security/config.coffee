@@ -82,7 +82,7 @@ define [
                 if AuthService.isAuthenticated() and !SessionService.hasRoles(toState.data.accessForRoles,true)# or AuthService.isAuthorized(toState.data.accessForRoles)!=true)
                     NotificationService.warning("Authorization", "Access Denied! You should be assigned #{toState.data.accessForRoles} role!")
                     event.preventDefault();
-            if !AuthService.isAuthenticated() and toState.name !='security'
+            if !AuthService.isAuthenticated() and toState.name !='security' and toState.name !='home'
                 NotificationService.warning("Authorization", "Пожалуйства авторизуйтесь…")
                 event.preventDefault();
                 $location.path('/login')

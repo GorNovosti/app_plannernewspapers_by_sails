@@ -87,6 +87,8 @@ module.exports.routes = {
 
     , 'GET /api/v1/blockinfo?': 'BlockinfoController.index'
     , 'POST /api/v1/blockinfo': 'BlockinfoController.create'
+    , 'GET /api/v1/blockinfotemplate?': 'BlockinfoTemplateController.index'
+    , 'POST /api/v1/blockinfotemplate': 'BlockinfoTemplateController.create'  
     , 'GET /api/v1/releasenewspapers?': 'ReleasenewspapersController.index'
     , 'POST /api/v1/releasenewspapers': 'ReleasenewspapersController.create'
 };

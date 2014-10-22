@@ -17,8 +17,8 @@ module.exports = {
             defaultsTo: 1
         },
         blockInfo: {
-            type: "json",
-            defaultsTo: "[]"
+            collection: "blockinfo",
+            via:'newspaper'
         },
         fillColor: {
             type: "string",

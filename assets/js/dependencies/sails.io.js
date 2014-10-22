@@ -24,9 +24,9 @@ var io="undefined"==typeof module?{}:module.exports;(function(){(function(a,b){v
  *    `socket.post( url, [data], [cb] )`
  */
 
-
+ 
 (function() {
-
+    
   // Save the URL that this script was fetched from for use below.
   // (skip this if this SDK is being used outside of the DOM, i.e. in a Node process)
   var urlThisScriptWasFetchedFrom = (function() {
@@ -388,7 +388,7 @@ var io="undefined"==typeof module?{}:module.exports;(function(){(function(a,b){v
      */
 
     Socket.prototype.get = function(url, data, cb) {
-
+      console.log('call url',url);
       // `data` is optional
       if (typeof data === 'function') {
         cb = data;
@@ -702,7 +702,7 @@ var io="undefined"==typeof module?{}:module.exports;(function(){(function(a,b){v
       // has completed.
       // consolog('Auto-connecting `io.socket` to Sails... (requests will be queued in the mean-time)');
       function goAheadAndActuallyConnect() {
-
+          io.sails.url = "http://127.0.0.1:1337";
         // Initiate connection
         var actualSocket = io.connect(io.sails.url);
 

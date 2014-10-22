@@ -1,22 +1,44 @@
-<form class="form well-lg" name="loginForm" ng-controller="LoginController"
-      ng-submit="onSignIn(credentials)" novalidate>
-    <label for="email">Email:</label>
-    <input type="text" id="email"
-           ng-model="credentials.email">
-    <label for="password">Пароль:</label>
-    <input type="password" id="password"
-           ng-model="credentials.password">
-    <button type="submit" class="btn btn-success">Войти</button>  
-<!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
-</form>
-<form class="form well-lg" name="loginForm" ng-controller="LoginController"
-      ng-submit="onSignUp(credentials)" novalidate>
-    <label for="email">Email:</label>
-    <input type="text" id="email"
-           ng-model="credentials.email">
-    <label for="password">Пароль:</label>
-    <input type="password" id="password"
-           ng-model="credentials.password">
-    <button type="submit" class="btn btn-success">Зарегистрироваться</button>  
-<!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
-</form>
+<div class="container">
+    <tabset justified="true">
+        <tab heading="Вход">  
+            <form class="form well-lg"  role="form" name="loginForm" ng-controller="LoginController"
+                  ng-submit="onSignIn(credentials)" novalidate>
+                <div class="form-group"> 
+                    <label for="email">Email:</label>
+                    <input type="text" id="email"  class="form-control"
+                           ng-model="credentials.email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password"  class="form-control"
+                           ng-model="credentials.password">
+                </div>
+                <button type="submit" class="btn btn-success">Войти</button>  
+                <!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
+            </form> </tab>
+        <tab heading="Регистрация">
+
+            <form class="form well-lg" name="loginForm" ng-controller="LoginController"
+                  ng-submit="onSignUp(credentials)" novalidate>
+                <div class="form-group"> 
+                    <label for="email">Имя</label>
+                    <input type="text" id="name"  class="form-control"
+                           ng-model="credentials.name">
+                </div>
+
+                <div class="form-group"> 
+                    <label for="email">Email:</label>
+                    <input type="text" id="email"  class="form-control"
+                           ng-model="credentials.email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password"  class="form-control"
+                           ng-model="credentials.password">
+                </div>
+                <button type="submit" class="btn btn-success">Зарегистрироваться</button>  
+                <!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
+            </form>
+        </tab>
+    </tabset>
+</div>
