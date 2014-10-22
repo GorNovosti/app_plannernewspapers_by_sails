@@ -1,7 +1,7 @@
 define [
     'cs!./services'
     'cs!./BlockinfoService'
-    'cs!./TypesBlockinfoService'
+    'cs!./BlockinfoTemplatesService'
     'cs!./ReleasesService'
 ],(module)->
     return module["name"]

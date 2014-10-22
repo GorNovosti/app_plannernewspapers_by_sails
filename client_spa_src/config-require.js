@@ -35,6 +35,7 @@ define({
         'lodash': '../../vendors/lodash/dist/lodash',
         'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage',
         'angular-bootstrap-colorpicker': '../../vendors/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module',
+        'd3':'../../vendors/d3/d3.min'
     },
     shim: {
         'angular': {
@@ -95,8 +96,11 @@ define({
         },
         'angular-bootstrap-colorpicker':{
              deps: ['angular']
-         }
+        },
+        'd3':{
+            'exports': 'd3'
+        }
     }
-    //,deps:['sails.io']
+   ,deps:['d3','bootstrap']//'sails.io']//http://www.startersquad.com/angularjs-requirejs/
 });
 

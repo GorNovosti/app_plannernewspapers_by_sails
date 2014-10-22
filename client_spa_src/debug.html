@@ -30,13 +30,13 @@
             <ul class="nav navbar-nav ng-cloak" ng-show="isAuthenticated()">
                 <li ui-sref-active="active"><a ui-sref="home" href="#">Главная </a></li>
                 <li ui-sref-active="active"><a ui-sref="referencies.releases" href="#">Выпуски газет</a></li>
-                <li ui-sref-active="active"><a ui-sref="users" href="#">Пользователи</a></li>
+
                 <li ui-sref-active="active"><a ui-sref="pageedit" href="#">Редактор страницы</a></li>
                 <li class="dropdown"  ui-sref-active="active" >
-                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown">Справочники <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown">Администрирование <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li ><a ui-sref="referencies.typeblockinfo" href="#">Типы информационных блоков</a></li>
-                        <li ><a ui-sref="referencies.blockinfo" href="#/">Шаблоны информационных блоков</a></li>
+                        <li><a ui-sref="users" href="#">Пользователи</a></li>
+                        <li><a ui-sref="referencies.blockinfo" href="#/">Шаблоны информационных блоков</a></li>
 
                         <!--
                         <li><a href="#">Something else here</a></li>-->

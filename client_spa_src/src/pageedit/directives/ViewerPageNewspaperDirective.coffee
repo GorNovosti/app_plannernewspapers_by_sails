@@ -130,6 +130,83 @@ define [
                 #
                 # The node wasn't dragged... it was clicked.
                 #
+                clicked: (evt,node)->
+                    console.warn 'fix chart.handleNodeClicked node, evt.ctrlKey',evt,node
+                    #                    #chart.handleNodeClicked node, evt.ctrlKey
+                    #                    #node.$isSelect = true
+                    #                    console.log evt,node
+                    #                    #            startPoint = controller.translateCoordinates(x, y);
+                    #                    #            $scope.dragSelectionStartPoint = startPoint;
+                    #                    $scope.dragResizingRect =
+                    #                        x: node.x
+                    #                        y: node.y
+                    #                        width: node.width|| 30
+                    #                        height: node.height || 30
+                    #                        node: node
+                    #                    $scope.dragResizing = true
+                    return
+
+                dragEnded: ->
+                    step =$scope.step || 10 ## step for grid
+                    node.x = Math.floor(node.x/step)*step
+                    node.y = Math.floor(node.y/step)*step
+                    return
+            return
+        #
+        # Handle mousedown on a blockinfo.
+        #
+        $scope.blockResizeMouseDown = (evt, node)->
+            console.warn 'fix chart = $scope.chart'
+            #chart = $scope.chart
+            lastMouseCoords = undefined
+            dragging.startDrag evt,
+                # Node dragging has commenced.
+                dragStarted: (x, y) ->
+                    lastMouseCoords = controller.translateCoordinates(x, y)
+                    #
+                    # If nothing is selected when dragging starts, at least select the node we are dragging.
+
+                    #                    unless node.selected()
+                    #                        console.warn 'fix chart.deselectAll()'
+                    #                        #chart.deselectAll()
+                    #
+                    #                        node.select()
+                    #node.$isSelect = true
+
+                    return
+                #
+                # Dragging selected nodes... update their x,y coordinates.
+                #
+                dragging: (x, y) ->
+                    #console.info x,y
+                    curCoords = controller.translateCoordinates(x, y)
+                    ## grid points
+                    step = $scope.step || 10 ## step for grid
+                    curCoords.x = Math.round(curCoords.x/step)*step
+                    curCoords.y = Math.round(curCoords.y/step)*step
+
+                    lastMouseCoords.x = Math.round(lastMouseCoords.x/step)*step
+                    lastMouseCoords.y = Math.round(lastMouseCoords.y/step)*step
+                    ## -- grid points
+                    deltaX = curCoords.x - lastMouseCoords.x
+                    deltaY = curCoords.y - lastMouseCoords.y
+
+                    #TODO: console.warn 'fix  chart.updateSelectedNodesLocation deltaX, deltaY',deltaX,deltaY
+                    #chart.updateSelectedNodesLocation deltaX, deltaY
+
+                    # Don't allow a too small size.
+                    node.width += deltaX
+                    node.height += deltaY
+
+                    node.width = 10 if node.width<10
+                    node.height = 10 if node.height<10
+                    lastMouseCoords = curCoords
+                    return
+
+
+                #
+                # The node wasn't dragged... it was clicked.
+                #
                 clicked: (evt)->
                     console.warn 'fix chart.handleNodeClicked node, evt.ctrlKey',evt,node
                     #chart.handleNodeClicked node, evt.ctrlKey
@@ -150,13 +227,8 @@ define [
                     node.x = Math.floor(node.x/step)*step
                     node.y = Math.floor(node.y/step)*step
                     return
-
             return
-
-        #$scope.$isSelect = null
-        #                $scope.setSelect = (node)->
-        #
-        #                    $scope.$isSelect = node.id
+ 
         ]
 
 

@@ -33,7 +33,7 @@ define ['cs!./directives'],(module)->
             ## Привязка событий "захват мыши". После привязки к элементу событий mousemove и mouseup выполняется вызов вункций обратного вызова
             acquire: (evt,config)->
                 ## Release any prior mouse capture.
-                ## Испольнить все основные события связыанный с событием  
+                ## Испольнить все основные события связыанный с событием
                 @.release()
                 mouseCaptureConfig = config
                 ##fix no jQuery
@@ -86,7 +86,7 @@ define ['cs!./directives'],(module)->
         # Threshold for dragging.
         # When the mouse moves by at least this amount dragging starts.
         #
-        threshold = 5
+        threshold = 1
 
         #
         # Called by users of the service to register a mousedown event and start dragging.

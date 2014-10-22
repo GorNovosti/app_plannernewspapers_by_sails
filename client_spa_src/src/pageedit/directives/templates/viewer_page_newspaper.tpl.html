@@ -27,13 +27,14 @@
        ng-mousedown="nodeMouseDown($event, node)"
        ng-attr-transform="translate({{node.x}}, {{node.y}})"
        > 
-        <rect  ng-click="setSelect(node)"
+        <rect  ngclick="setSelect(node)"
                ng-attr-x="{{10 * $index}}"
                ng-attr-y="{{10 * $index}}" 
                ng-attr-width="{{node.width||(node.width = 25)}}" 
                ng-attr-height="{{node.height||(node.height=20)}}" 
                style="stroke-width:3;stroke:rgb(0,0,0)"
                fill="url(#nodeBackgroundGradient)"></rect>
+ 
 <!--        <text
             ng-attr-x="{{node.width / 2}}"
             y="25"

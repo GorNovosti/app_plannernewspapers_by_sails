@@ -19,19 +19,7 @@ define [],()->
                     tplForm: [ ->  "blockinfo"]# {tplForm: "templates/#{config.namespace.replace /\.+/g, "/"}/form.blockinfo.tpl.html"}
 
                 data:
-                   pageTitle: "Шаблоны информационных блоков"
-            ,
-                name: 'typeblockinfo'
-                url: '/typeblockinfo'
-                controller: "BlockinfoCRUDController"
-                resolve:
-                    APIService:[ "TypesBlockinfoService",(TypesBlockinfoService)->
-                        return TypesBlockinfoService
-                    ]
-                    tplForm: [ -> 'typeblockinfo']#{"tplForm": "templates/#{config.namespace.replace /\.+/g, "/"}/form.typeblockinfo.tpl.html"}]
-                templateUrl: "templates/#{_namespace.replace /\.+/g, "/"}/typeblockinfo_list.tpl.html"
-                data:
-                   pageTitle: "Типы информационных блоков"
+                   pageTitle: "Шаблоны информационных блоков" 
             ,
                 name: 'releases'
                 url: '^/releaseslist'
