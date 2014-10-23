@@ -1,7 +1,7 @@
 <div class="container">
-    <tabset justified="true">
-        <tab heading="Вход">  
-            <form class="form well-lg"  role="form" name="loginForm" ng-controller="LoginController"
+    <!--<tabset justified="true">-->
+        <!--<tab heading="Вход">-->  
+            <form class="form well well-lg"  role="form" name="loginForm" ng-controller="LoginController"
                   ng-submit="onSignIn(credentials)" novalidate>
                 <div class="form-group"> 
                     <label for="email">Email:</label>
@@ -15,8 +15,9 @@
                 </div>
                 <button type="submit" class="btn btn-success">Войти</button>  
                 <!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
-            </form> </tab>
-        <tab heading="Регистрация">
+            </form> 
+<!--</tab>-->
+<!--        <tab heading="Регистрация">
 
             <form class="form well-lg" name="loginForm" ng-controller="LoginController"
                   ng-submit="onSignUp(credentials)" novalidate>
@@ -37,8 +38,8 @@
                            ng-model="credentials.password">
                 </div>
                 <button type="submit" class="btn btn-success">Зарегистрироваться</button>  
-                <!--    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> -->
+                    <button type="button" class="btn btn-success" ng-click="onSignOut()" ng-show="isAuthenticated()">SignOut as {{currentUser.userName}}</button> 
             </form>
-        </tab>
-    </tabset>
+        </tab>-->
+    <!--</tabset>-->
 </div>
