@@ -6,11 +6,7 @@ define [],()->
             name: _namespace
             url: '/'
             controller: 'NewspapersListController'
-            templateUrl: "templates/#{_namespace.replace /\.+/g, "/"}/root.tpl.html"# _namespace+'/templates/defaultscreen.tpl.html'# '<section ui-view><a href="#test2">test2</a></section>'
-        #            resolve:
-        #                test: ->
-        #                    console.log 'test resolv'
-        #                    return true
+            templateUrl: "templates/#{_namespace.replace /\.+/g, "/"}/root.tpl.html" 
             children: [
                 name: 'release'
                 url: '^/release/:id'

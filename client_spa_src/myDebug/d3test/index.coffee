@@ -1,6 +1,8 @@
 define [
     'cs!./module'
+    'cs!./namespaces'
     'cs!./templates/templatesCache'
-],(module)->
-
+],(
+    module
+)->
     return module

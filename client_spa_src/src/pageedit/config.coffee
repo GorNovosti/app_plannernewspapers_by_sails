@@ -20,8 +20,10 @@ define [],()->
                     return BlockinfoTemplatesService
                 ]
             controller:['$scope','$modal','BlockinfoService','editNewspaper', 'BlockinfoTemplatesService','DialogService',($scope,$modal,BlockinfoService,editNewspaper,BlockinfoTemplatesService,DialogService)->
-                $scope.currEditPage = 1
-                $scope.totalItems = 20
+
+                $scope.currEditPage = 1 ## Pagination configuration
+                $scope.totalItems = 20  ## Pagination configuration
+                $scope.step = 10 ## Configuration grid step
                 $scope.pagesCountList = ->
                     if  $scope.editPage?.pagesCount?
                         return [1..$scope.editPage?.pagesCount]
@@ -134,14 +136,13 @@ define [],()->
                                 _.extend item , result
                             else
                                 _reloadList()
-
                         (result)->
                             console.log result
                     )
 
 
-                ###
-                add new Blockinfo
+                ###*
+                add and create new Blockinfo
                 ###
                 $scope.onAddBlockinfo = $scope.onEditBlockinfo  = (item = null)->
                     tplForm = 'blockinfo'
@@ -220,7 +221,9 @@ define [],()->
                             console.log result
                     )
 
-                ###* confirm delete (used service) ###
+                ###*
+                    confirm delete (used service)
+                ###
                 $scope.onDeleteTplBlockinfo = (item)->
                     delDlg = DialogService.deleteDialog "Удаление","Вы действительно желаете удалить шаблон с именем <strong>#{item.name}</strong>?"
                     delDlg.result.then(
@@ -246,15 +249,72 @@ define [],()->
                             $scope.isBusy = true
                             new BlockinfoService(item).$delete().then(
                                 (result)->
-                                         $scope.editNewspaper.$get()
+                                    ##TODO:
+                                    $scope.editNewspaper.$get()
 
                             ).finally(
                                 (data)->
                                     $scope.isBusy = false
-                                    console.log 'delete ',data
                                     _reloadList()
                                 )
                     )
+                ###
+                Function for filter
+                filter BlockInfo for current page
+                ###
+                $scope.isCurrentPage = (_blockinfo = page:null)->
+                    #console.log _blockinfo
+                    return ($scope.currEditPage == _blockinfo.page)
+                ###
+                ###
+                $scope.onSaveAsBlockinfoTemplate = (evt,node)->
+                    #console.log node, angular.copy node
+                    evt.preventDefault() if !!evt.preventDefault
+                    item = {}
+                    _.extend item ,node
+                    delete item.id
+                    delDlg = DialogService.deleteDialog "Сохранение в качестве шаблона","Вы действительно желаете сохранить блок с именем <strong>#{item.name}</strong> как шаблон?"
+
+                    delDlg.result.then(
+                        ##confirn delete entity
+                        (res)->
+                            $scope.isBusy = true
+                            new BlockinfoTemplatesService(item).$save().then(
+                                (result)->
+                                    ##TODO:
+                                    $scope.editNewspaper.$get()
+
+                            ).finally(
+                                (data)->
+                                    $scope.isBusy = false
+                                    _reloadList()
+                                )
+                    )
+                ###
+                ###
+                $scope.onUpToBlockinfo = ($event, node, $last)->
+                    console.log node.page,node.order,  $last
+                    #if $index != 0
+                    #node.order =
+                    console.log _max_level =_.max (_.filter $scope.editNewspaper.blockInfo, page:node.page), "order"
+                    node.order = _max_level.order+1 if $last != true
+                    node.$isChange = true if $last != true
+                #'editNewspaper.blockInfo'
+                ###
+                $watch
+                ###
+                $scope.$watch(
+                    -> _.filter $scope.editNewspaper.blockInfo, $isChange:true
+                    (newVal)->
+                            _.forEach newVal, (item)->
+                                new BlockinfoService(item).$update().then(
+                                   (data)->
+                                      _.extend item,data
+                                      item.$isChange = false
+                                )
+                            # console.log 'new ', newVal
+                    true
+                )
             ]
         ]
     }

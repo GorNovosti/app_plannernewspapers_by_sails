@@ -1,25 +1,24 @@
 define [
     'angular'
-    'cs!./resizing/index'
+    'cs!./d3test/index'
+    'angular-ui-router'
     'angular-bootstrap'
     'angular-resource'
     'angular-sanitize'
 ],(
     angular
-
-    moduleAbout
-
+    module
 )->
     return angular.module( 'newspapersApp', [
         'ui.bootstrap'
         'ui.router'
         'ngResource'
         'ngSanitize'
-        moduleAbout
+        module['name']
 
     ])
     .config(['$urlRouterProvider',($urlRouterProvider)->
-        $urlRouterProvider.otherwise("/resizing");
+        $urlRouterProvider.otherwise("/#{ module['name']}");
     ])
     .run(['$rootScope',($rootScope)->
         ## App stata

@@ -6,7 +6,7 @@
 (function (io) {
 
     // as soon as this file is loaded, connect automatically, 
-    var socket = io.connect();
+    var socket = io.connect("http://127.0.0.1:1337");
     if (typeof console !== 'undefined') {
         log('Connecting to Sails.js...');
     }
@@ -25,8 +25,8 @@
             //////////////////////////////////////////////////////
 
         });
-        socket.on('/user/subscribe');
-        socket.on('user', function messageReceived(message) {
+        socket.on('/blockinfotemplate');
+        socket.on('blockinfotemplate', function messageReceived(message) {
 
             ///////////////////////////////////////////////////////////
             // Replace the following with your own custom logic

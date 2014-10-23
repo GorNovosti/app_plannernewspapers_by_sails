@@ -9,27 +9,12 @@
         <link href="styles/ng-table.css" rel="stylesheet" type="text/css"/>
         <link href="http://bootswatch.com/journal/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body>
-        <h1>Resize SVG</h1>
+    <body> 
         <div ui-view style="padding: 0">
             <div class="container-fluid" style="padding: 15px" ui-view="main">
                 <div id="loading" class="col-lg-4 col-md-5 alert alert-warning"> Пожалуйства подождите. Идет загрузка... </div>
-            </div>
-
-        </div>
-
-        <!--        <script src="vendors/angularjs/angular.js" type="text/javascript"></script>
-                <script>
-                    var app = angular.module('mySVGresize', []);
-                    app.controller('MainController', function ($scope) {
-                        $scope.blockinfo = [
-                            {id: 1, name: 'test1', x},
-                            {},
-                            {}
-        
-                        ];
-                    });
-                </script>-->
+            </div> 
+        </div> 
         <script>
             // var page_name = '<%- page_name %>';
             var spi_cb = function (require, config) {
@@ -43,7 +28,7 @@
                 window.require.config({
                     locale: window.localStorage.getItem("locale") || (typeof (vhistory) !== "undefined" ? app.language : navigator.language)
                 });
-                require(['bootstrap']);// load app(spi)
+                // require(['bootstrap']);// load app(spi)
 
             };
         </script>

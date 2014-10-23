@@ -28,56 +28,23 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav ng-cloak" ng-show="isAuthenticated()">
-                <li ui-sref-active="active"><a ui-sref="home" href="#">Главная </a></li>
-                <li ui-sref-active="active"><a ui-sref="referencies.releases" href="#">Выпуски газет</a></li>
+                <li ui-sref-active="active"><a ui-sref="home" href="#"><i class="fa fa-home"></i> Главная </a></li>
+                <li ui-sref-active="active"><a ui-sref="referencies.releases" href="#"><i class="fa fa-newspaper-o"></i> Выпуски газет</a></li>
 
-                <li ui-sref-active="active"><a ui-sref="pageedit" href="#">Редактор страницы</a></li>
+                <!--<li ui-sref-active="active"><a ui-sref="pageedit" href="#"><i class="fa fa-edit"></i> Редактор страницы</a></li>-->
                 <li class="dropdown"  ui-sref-active="active" >
-                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown">Администрирование <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown"><i class="fa fa-smile-o"></i> Администрирование <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="users" href="#">Пользователи</a></li>
-                        <li><a ui-sref="referencies.blockinfo" href="#/">Шаблоны информационных блоков</a></li>
-
-                        <!--
-                        <li><a href="#">Something else here</a></li>-->
-                        <!--                        <li class="divider"></li>
-                                                <li><a href="#">Separated link</a></li>-->
+                        <li><a ui-sref="users" href="#"> <i class="fa fa-users"></i> Пользователи</a></li>
+                        <!--<li><a ui-sref="referencies.blockinfo" href="#/">Шаблоны информационных блоков</a></li>-->  
                     </ul>
                 </li>
-                <li ui-sref-active="active"><a ui-sref="about" href="#">О приложении</a></li>
-                <!--                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#/">Главная</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li class="divider"></li>
-                                            <li class="dropdown-header">Dropdown header</li>
-                                            <li><a href="#">Separated link</a></li>
-                                            <li><a href="#">One more separated link</a></li>
-                                        </ul>
-                                    </li>-->
-            </ul>
-
-            <!--                <form class="navbar-form navbar-left">
-                                <input type="text" class="form-control col-lg-8" placeholder="Search">
-                            </form>-->
-
+                <li ui-sref-active="active"><a ui-sref="about" href="#"> <i class="fa fa-info-circle"></i> О приложении</a></li> 
+            </ul> 
             <ul class="nav navbar-nav navbar-right ng-cloak">
-                <li ng-if="!isAuthenticated()" ui-sref-active="active"><a ui-sref="security" href="#">Вход</a></li>
-                <!--                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Профиль <b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#/">Основные данные </a></li>
-                                                                        <li><a href="#">Another action</a></li>
-                                                                        <li><a href="#">Something else here</a></li>
-                                                                        <li class="divider"></li>
-                                                                        <li><a href="#">Separated link</a></li>
-                                        </ul>
-                                    </li>-->
-                <li ng-if="isAuthenticated()">
-                    
-                    <button type="button" class="btn btn-default" ng-click="onSignOut()" ng-show="isAuthenticated()">Выход</button>
+                <li ng-if="!isAuthenticated()" ui-sref-active="active"><a ui-sref="security" href="#"><i class="fa fa-sign-in"></i> Вход</a></li>
+                <li ng-if="isAuthenticated()"> 
+                    <a ng-href="#/" ng-click="onSignOut()" ng-show="isAuthenticated()"> <i class="fa fa-sign-out"></i> Выход</a>
                 </li>
 
             </ul>

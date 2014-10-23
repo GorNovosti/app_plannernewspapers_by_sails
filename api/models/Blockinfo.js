@@ -9,11 +9,21 @@ module.exports = {
     attributes: {
         name: {
             type: "string"
-        } ,
-        newspaper:{
-            model:'releasenewspapers'
+        },
+        newspaper: {
+            model: 'releasenewspapers'
         }
 
+    }, beforeCreate: function (values, next) {
+        if (!!!values.order) {
+            Blockinfo.count().exec(function (error, count) {
+                    if (error) return next(error);
+                    values.order  =  count +1;
+                    next();
+            });
+        }
+        else
+            next();
     }
 };
 

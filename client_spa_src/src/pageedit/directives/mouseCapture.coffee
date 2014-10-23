@@ -79,6 +79,7 @@ define ['cs!./directives'],(module)->
     ###
     ========================
     Help for draggin
+    ##TODO: analize https://github.com/jacomyal/sigma.js/issues/297
     ========================
     ###
     module.factory "dragging",['$rootScope',"#{module.name.replace /\.+/g, "_"}Factory", ($rootScope, mouseCapture) ->
@@ -103,7 +104,9 @@ define ['cs!./directives'],(module)->
             mouseMove = (evt) ->
                 #console.log dragging
                 unless dragging
-                    if evt.pageX - x > threshold or evt.pageY - y > threshold
+                    #if Math.abs(evt.clientX - x) || Math.abs(evt.clientY - y) > 1) drag = true;
+                    if Math.abs(evt.pageX - x) or Math.abs(evt.pageY - y) > threshold
+                    #if evt.pageX - x > threshold or evt.pageY - y > threshold
                         dragging = true
                         config.dragStarted x, y, evt  if config.dragStarted
 

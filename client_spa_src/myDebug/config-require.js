@@ -33,7 +33,7 @@ define({
         'angular-sanitize': '../../vendors/angular-sanitize/angular-sanitize',
         'dialogs-translation': '../../vendors/angular-dialog-service/dist/dialogs-default-translations.min',
         'lodash': '../../vendors/lodash/dist/lodash',
-        'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage'
+        'angular-local-storage': '../../vendors/angular-local-storage/dist/angular-local-storage',
     },
     shim: {
         'angular': {

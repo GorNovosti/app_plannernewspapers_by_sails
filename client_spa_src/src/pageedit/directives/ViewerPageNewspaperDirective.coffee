@@ -29,8 +29,12 @@ define [
             svg_elem =  $element[0]
             matrix = svg_elem.getScreenCTM()
             point = svg_elem.createSVGPoint()
+
             point.x = x
             point.y = y
+            step = $scope.step || 10 ## step for grid
+            point.x = Math.round(point.x/step)*step
+            point.y = Math.round(point.y/step)*step
             return point.matrixTransform(matrix.inverse())
 
         #        $scope.onEditNode = (evt,node)->
@@ -145,6 +149,7 @@ define [
                     step =$scope.step || 10 ## step for grid
                     node.x = Math.floor(node.x/step)*step
                     node.y = Math.floor(node.y/step)*step
+                    node.$isChange = true ## start sync
                     return
             return
         #
@@ -192,7 +197,8 @@ define [
                     # Don't allow a too small size.
                     node.width += deltaX
                     node.height += deltaY
-
+                    node.width = Math.round(node.width/step)*step
+                    node.height =  Math.round(node.height/step)*step
                     node.width = 10 if node.width<10
                     node.height = 10 if node.height<10
                     lastMouseCoords = curCoords
@@ -202,7 +208,7 @@ define [
                 #
                 # The node wasn't dragged... it was clicked.
                 #
-                clicked: (evt)->
+                clicked2: (evt)->
                     console.warn 'fix chart.handleNodeClicked node, evt.ctrlKey',evt,node
                     #                    #chart.handleNodeClicked node, evt.ctrlKey
                     #                    node.$isSelect = true
@@ -221,7 +227,7 @@ define [
                     step =$scope.step || 10 ## step for grid
                     node.x = Math.floor(node.x/step)*step
                     node.y = Math.floor(node.y/step)*step
-                    console.lof
+                    node.$isChange = true ## start sync
                     return
             return
 
