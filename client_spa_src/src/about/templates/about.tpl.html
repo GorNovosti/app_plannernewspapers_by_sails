@@ -1,8 +1,52 @@
 <!-- template "about.tpl.html"-->
 <section class="container">
-    <h3>
-        Веб-приложение реализовано с использованием:
-    </h3>
+    <div class="row"> 
+        <div class="col-sm-4">
+            <img src="/images/icon300x480 (5).png" alt=""/> 
+        </div>
+        <div class="col-sm-8">
+            <h4 class="text text-center text-info">
+                Общее описание
+            </h4>
+            <p class="text">
+                Веб-приложение "Планировщик выпуска(номеров) газет"(demo версия) предназначено для планирования содержания выпусков(номеров) газет с использованием графического интерфейса и работы в многопользовательском режиме. 
+            </p>
+            <h4 class="text text-center text-info">
+                Функциональные возможности
+            </h4>
+            <ol>
+                <li> Централизованное хранение данных </li>
+                <li> Доступ к данным системы только авторизованными пользователям </li>
+                <li> Создание выпусков(номеров) газет </li>
+                <li> Создание шаблонов информационных блоков для ускорения процесса формирования содержания газетных страниц(полос)</li>
+                <li> Цветовое оформление шаблонов информационных блоков </li>
+            </ol>
+
+            <h4 class="text text-center  text-info">Системные требования для доступа к системе</h4>
+            <table class="browserref notranslate">
+                <tbody><tr>
+                        <!--<th style="width:20%;font-size:16px;text-align:left;">Method</th>-->
+                        <th style="width:16%;" class="bsChrome" title="Chrome"></th>
+                        <!--                <th style="width:16%;" class="bsIE" title="Internet Explorer"></th>
+                                        <th style="width:16%;" class="bsFirefox" title="Firefox"></th>
+                                        <th style="width:16%;" class="bsSafari" title="Safari"></th>
+                                        <th style="width:16%;" class="bsOpera" title="Opera"></th>                -->
+                    </tr>
+                    <tr>
+
+                        <td>>32.0</td>
+                        <!--                <td>10.0</td>
+                                        <td>1.0</td>
+                                        <td>1.0</td>
+                                        <td>7.0</td>-->
+                    </tr> 
+                </tbody></table>
+
+        </div>
+    </div> 
+    <h4 class="text text-center text-info">
+        Список задействованных программных продуктов и библиотек: 
+    </h4>
     <div class="list-group">
         <a href="http://sailsjs.org" target="_blank" class="list-group-item" >
             <h4 class="list-group-item-heading">Sails</h4>
@@ -12,39 +56,34 @@
             <h4 class="list-group-item-heading">AngularJS</h4>
             <p class="list-group-item-text">Client-side MVC framework </p>
         </a>
-    </div>
-    <p>https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.addEventListener</p>
-    <table class="browserref notranslate">
-        <tbody><tr>
-                <th style="width:20%;font-size:16px;text-align:left;">Method</th>
-                <th style="width:16%;" class="bsChrome" title="Chrome"></th>
-                <th style="width:16%;" class="bsIE" title="Internet Explorer"></th>
-                <th style="width:16%;" class="bsFirefox" title="Firefox"></th>
-                <th style="width:16%;" class="bsSafari" title="Safari"></th>
-                <th style="width:16%;" class="bsOpera" title="Opera"></th>                
-            </tr>
-            <tr>
-                <td style="text-align:left;">addEventListener()</td>
-                <td>1.0</td>
-                <td>9.0</td>
-                <td>1.0</td>
-                <td>1.0</td>
-                <td>7.0</td>
-            </tr>
-            <tr>
-                <td style="text-align:left;">removeEventListener()</td>
-                <td>1.0</td>
-                <td>9.0</td>
-                <td>1.0</td>
-                <td>1.0</td>
-                <td>7.0</td>
-            </tr>
-        </tbody></table>
-    <div class="row">
-        <h4 class="text text-center">Формат A3</h4>
-        
-        <a href="https://ru.wikipedia.org/wiki/A3">https://ru.wikipedia.org/wiki/A3</a> - A3 — формат бумаги, определённый стандартом ISO 216, размером —<strong> 297×420 мм</strong> (11,7×16,5 дюймов);
+        <a href="http://requirejs.org/" target="_blank" class="list-group-item">
+            <h4 class="list-group-item-heading">RequireJS</h4>
+            <p class="list-group-item-text">JavaScript file and module loader </p>
+        </a>
+        <a href="http://getbootstrap.com/" target="_blank" class="list-group-item">
+            <h4 class="list-group-item-heading">Bootstrap</h4>
+            <p class="list-group-item-text">The HTML, CSS, and JS framework </p>
+        </a>
+
+
+        <a href="http://bootswatch.com/" target="_blank" class="list-group-item">
+            <h4 class="list-group-item-heading">Bootswatch</h4>
+            <p class="list-group-item-text">Free themes for Bootstrap </p>
+        </a>
+
+        <a href="http://fortawesome.github.io/" target="_blank" class="list-group-item">
+            <h4 class="list-group-item-heading">Font Awesome</h4>
+            <p class="list-group-item-text">The iconic font and CSS toolkit</p>
+        </a>
+
     </div>
 
+    <!--    <div class="row">
+            <h4 class="text text-center">Формат A3</h4>
+    
+            <a href="https://ru.wikipedia.org/wiki/A3">https://ru.wikipedia.org/wiki/A3</a> - A3 — формат бумаги, определённый стандартом ISO 216, размером —<strong> 297×420 мм</strong> (11,7×16,5 дюймов);
+        </div>-->
+
 </section>
+<!--<p>https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.addEventListener</p>-->
 <!-- //template "about.tpl.html"-->
